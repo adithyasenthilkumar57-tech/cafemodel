@@ -39,9 +39,11 @@ export default function Footer() {
 
   return (
     <footer style={{
-      background: '#0A0603',
-      borderTop: '1px solid rgba(212,163,115,0.1)',
+      background: 'var(--bg-card)',
+      color: 'var(--text-main)',
+      borderTop: '1px solid var(--border-subtle)',
       padding: '4rem 0 0',
+      transition: 'background-color 0.3s',
     }}>
       <div className="container-wide">
         {/* Main footer grid */}
@@ -50,7 +52,7 @@ export default function Footer() {
           gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
           gap: '3rem',
           paddingBottom: '3rem',
-          borderBottom: '1px solid rgba(255,248,240,0.06)',
+          borderBottom: '1px solid var(--border-subtle)',
         }}>
           {/* Brand column */}
           <div style={{ gridColumn: 'span 1' }}>
@@ -70,11 +72,11 @@ export default function Footer() {
                 fontFamily: 'var(--font-display)',
                 fontSize: '1.6rem',
                 fontWeight: 600,
-                color: '#FFF8F0',
+                color: 'var(--text-main)',
               }}>Velvet Bean</span>
             </div>
             <p style={{
-              color: 'rgba(245,237,224,0.45)',
+              color: 'var(--text-sub)',
               fontSize: '0.88rem',
               lineHeight: 1.8,
               marginBottom: '1.5rem',
@@ -100,12 +102,12 @@ export default function Footer() {
                     width: 38,
                     height: 38,
                     borderRadius: '10px',
-                    background: 'rgba(255,248,240,0.06)',
-                    border: '1px solid rgba(255,248,240,0.08)',
+                    background: 'var(--bg-main)',
+                    border: '1px solid var(--border-subtle)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    color: 'rgba(245,237,224,0.6)',
+                    color: 'var(--text-sub)',
                     transition: 'all 0.3s',
                   }}
                 >
@@ -138,13 +140,13 @@ export default function Footer() {
                         cursor: 'pointer',
                         fontFamily: 'var(--font-sans)',
                         fontSize: '0.88rem',
-                        color: 'rgba(245,237,224,0.45)',
+                        color: 'var(--text-muted)',
                         transition: 'color 0.2s',
                         padding: 0,
                         textAlign: 'left',
                       }}
                       onMouseEnter={e => e.target.style.color = '#D4A373'}
-                      onMouseLeave={e => e.target.style.color = 'rgba(245,237,224,0.45)'}
+                      onMouseLeave={e => e.target.style.color = 'var(--text-muted)'}
                     >
                       {link}
                     </button>
@@ -165,7 +167,7 @@ export default function Footer() {
               color: 'var(--color-caramel)',
               marginBottom: '1.25rem',
             }}>Newsletter</h4>
-            <p style={{ color: 'rgba(245,237,224,0.45)', fontSize: '0.85rem', lineHeight: 1.6, marginBottom: '1rem' }}>
+            <p style={{ color: 'var(--text-sub)', fontSize: '0.85rem', lineHeight: 1.6, marginBottom: '1rem' }}>
               Weekly drops: new menu items, exclusive events, and first-access offers.
             </p>
             <form
@@ -176,7 +178,7 @@ export default function Footer() {
                 type="email"
                 placeholder="Your email address"
                 className="input-premium"
-                style={{ color: '#FFF8F0', fontSize: '0.85rem' }}
+                style={{ fontSize: '0.85rem' }}
               />
               <motion.button
                 type="submit"
@@ -197,7 +199,7 @@ export default function Footer() {
               ].map(({ icon: Icon, text }) => (
                 <div key={text} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                   <Icon size={14} color="#D4A373" />
-                  <span style={{ color: 'rgba(245,237,224,0.45)', fontSize: '0.82rem' }}>{text}</span>
+                  <span style={{ color: 'var(--text-sub)', fontSize: '0.82rem' }}>{text}</span>
                 </div>
               ))}
             </div>
@@ -214,7 +216,7 @@ export default function Footer() {
           gap: '1rem',
         }}>
           <p style={{
-            color: 'rgba(245,237,224,0.3)',
+            color: 'var(--text-muted)',
             fontSize: '0.8rem',
             display: 'flex',
             alignItems: 'center',
@@ -232,13 +234,13 @@ export default function Footer() {
                   background: 'none',
                   border: 'none',
                   cursor: 'pointer',
-                  color: 'rgba(245,237,224,0.3)',
+                  color: 'var(--text-muted)',
                   fontSize: '0.78rem',
                   fontFamily: 'var(--font-sans)',
                   transition: 'color 0.2s',
                 }}
                 onMouseEnter={e => e.target.style.color = '#D4A373'}
-                onMouseLeave={e => e.target.style.color = 'rgba(245,237,224,0.3)'}
+                onMouseLeave={e => e.target.style.color = 'var(--text-muted)'}
               >
                 {item}
               </button>

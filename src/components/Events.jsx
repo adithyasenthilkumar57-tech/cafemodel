@@ -34,16 +34,16 @@ function CalendarView({ month, year, onPrev, onNext, onDayClick, selectedDay }) 
   for (let d = 1; d <= daysInMonth; d++) cells.push(d);
 
   return (
-    <div style={{ background: '#fff', borderRadius: '1.5rem', padding: '1.5rem', boxShadow: '0 4px 20px rgba(44,24,16,0.06)', border: '1px solid rgba(44,24,16,0.06)' }}>
+    <div style={{ background: 'var(--bg-card)', borderRadius: '1.5rem', padding: '1.5rem', boxShadow: 'var(--shadow-soft)', border: '1px solid var(--border-subtle)' }}>
       {/* Month nav */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
-        <button onClick={onPrev} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#9ca3af', padding: '0.25rem' }}>
+        <button onClick={onPrev} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-muted)', padding: '0.25rem' }}>
           <ChevronLeft size={18} />
         </button>
-        <div style={{ fontFamily: 'var(--font-serif)', fontSize: '1.1rem', fontWeight: 700, color: '#1f2937' }}>
+        <div style={{ fontFamily: 'var(--font-serif)', fontSize: '1.1rem', fontWeight: 700, color: 'var(--text-main)' }}>
           {MONTHS[month]} {year}
         </div>
-        <button onClick={onNext} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#9ca3af', padding: '0.25rem' }}>
+        <button onClick={onNext} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-muted)', padding: '0.25rem' }}>
           <ChevronRight size={18} />
         </button>
       </div>
@@ -51,7 +51,7 @@ function CalendarView({ month, year, onPrev, onNext, onDayClick, selectedDay }) 
       {/* Day labels */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: '0.25rem', marginBottom: '0.5rem' }}>
         {DAYS.map(d => (
-          <div key={d} style={{ textAlign: 'center', fontSize: '0.65rem', fontWeight: 700, color: '#9ca3af', letterSpacing: '0.06em', textTransform: 'uppercase', padding: '0.25rem 0' }}>
+          <div key={d} style={{ textAlign: 'center', fontSize: '0.65rem', fontWeight: 700, color: 'var(--text-muted)', letterSpacing: '0.06em', textTransform: 'uppercase', padding: '0.25rem 0' }}>
             {d}
           </div>
         ))}
@@ -75,15 +75,15 @@ function CalendarView({ month, year, onPrev, onNext, onDayClick, selectedDay }) 
                 alignItems: 'center',
                 justifyContent: 'center',
                 cursor: day && dayEvents.length > 0 ? 'pointer' : 'default',
-                background: isSelected ? 'linear-gradient(135deg,#D4A373,#c17f40)' : isToday ? 'rgba(212,163,115,0.12)' : 'transparent',
-                border: isToday && !isSelected ? '1.5px solid rgba(212,163,115,0.4)' : '1.5px solid transparent',
+                background: isSelected ? 'linear-gradient(135deg,#D4A373,#c17f40)' : isToday ? 'rgba(212,163,115,0.15)' : 'transparent',
+                border: isToday && !isSelected ? '1.5px solid var(--color-caramel)' : '1.5px solid transparent',
                 transition: 'all 0.2s',
                 position: 'relative',
               }}
             >
               {day && (
                 <>
-                  <span style={{ fontSize: '0.8rem', fontWeight: isToday || isSelected ? 700 : 400, color: isSelected ? '#fff' : isToday ? '#D4A373' : '#374151' }}>
+                  <span style={{ fontSize: '0.8rem', fontWeight: isToday || isSelected ? 700 : 400, color: isSelected ? '#fff' : isToday ? 'var(--color-caramel)' : 'var(--text-main)' }}>
                     {day}
                   </span>
                   {dayEvents.length > 0 && (
@@ -101,11 +101,11 @@ function CalendarView({ month, year, onPrev, onNext, onDayClick, selectedDay }) 
       </div>
 
       {/* Legend */}
-      <div style={{ marginTop: '1.25rem', paddingTop: '1rem', borderTop: '1px solid #f3f4f6', display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+      <div style={{ marginTop: '1.25rem', paddingTop: '1rem', borderTop: '1px solid var(--border-subtle)', display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
         {events.map(ev => (
           <div key={ev.title} style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
             <div style={{ width: 8, height: 8, borderRadius: '50%', background: ev.color }} />
-            <span style={{ fontSize: '0.65rem', color: '#9ca3af' }}>{ev.tag}</span>
+            <span style={{ fontSize: '0.65rem', color: 'var(--text-muted)' }}>{ev.tag}</span>
           </div>
         ))}
       </div>
@@ -138,16 +138,16 @@ export default function Events() {
   };
 
   return (
-    <section id="events" style={{ background: 'var(--color-cream)', padding: 'var(--section-py) 0' }}>
+    <section id="events" style={{ background: 'var(--bg-main)', color: 'var(--text-main)', padding: 'var(--section-py) 0', transition: 'background-color 0.3s' }}>
       <div className="container-wide">
         {/* Header */}
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={viewportOptions}
           style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
           <div className="section-label" style={{ justifyContent: 'center' }}>Events & Experiences</div>
-          <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(2.2rem, 4vw, 3.2rem)', fontWeight: 700, color: 'var(--color-coffee)', marginBottom: '1rem' }}>
+          <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(2.2rem, 4vw, 3.2rem)', fontWeight: 700, color: 'var(--text-main)', marginBottom: '1rem' }}>
             Create Memories Here
           </h2>
-          <p style={{ color: '#6b7280', maxWidth: 520, margin: '0 auto', lineHeight: 1.7 }}>
+          <p style={{ color: 'var(--text-sub)', maxWidth: 520, margin: '0 auto', lineHeight: 1.7 }}>
             From live music to private dining — Velvet Bean is the backdrop for life's most cherished moments.
           </p>
 
@@ -158,9 +158,9 @@ export default function Events() {
                 style={{
                   padding: '0.45rem 1.25rem', borderRadius: '50px',
                   border: '1.5px solid',
-                  borderColor: view === v ? 'var(--color-caramel)' : 'rgba(44,24,16,0.12)',
-                  background: view === v ? 'rgba(212,163,115,0.12)' : 'transparent',
-                  color: view === v ? 'var(--color-caramel)' : '#6b7280',
+                  borderColor: view === v ? 'var(--color-caramel)' : 'var(--border-subtle)',
+                  background: view === v ? 'rgba(212,163,115,0.15)' : 'var(--bg-card)',
+                  color: view === v ? 'var(--color-caramel)' : 'var(--text-sub)',
                   fontWeight: 600, fontSize: '0.8rem', cursor: 'pointer',
                   textTransform: 'capitalize', display: 'flex', alignItems: 'center', gap: '0.35rem',
                   transition: 'all 0.2s',
@@ -181,7 +181,7 @@ export default function Events() {
               style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '1.75rem' }}>
               {events.map((event) => (
                 <motion.div key={event.title} variants={staggerItem}
-                  style={{ borderRadius: '1.5rem', overflow: 'hidden', background: '#fff', boxShadow: 'var(--shadow-soft)', cursor: 'pointer', position: 'relative' }}
+                  style={{ borderRadius: '1.5rem', overflow: 'hidden', background: 'var(--bg-card)', border: '1px solid var(--border-subtle)', boxShadow: 'var(--shadow-soft)', cursor: 'pointer', position: 'relative' }}
                   whileHover={{ y: -6, boxShadow: 'var(--shadow-card)' }}
                   transition={{ duration: 0.3 }}>
                   <div style={{ height: 220, overflow: 'hidden', position: 'relative' }}>
@@ -192,13 +192,13 @@ export default function Events() {
                     <div style={{ position: 'absolute', top: 14, right: 14, padding: '0.25rem 0.75rem', borderRadius: '50px', background: event.color + '33', border: `1px solid ${event.color}66`, color: event.color, fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.08em', backdropFilter: 'blur(8px)' }}>
                       {event.tag}
                     </div>
-                    <div style={{ position: 'absolute', bottom: 14, left: 14, fontSize: '0.75rem', color: 'rgba(255,255,255,0.8)', fontFamily: 'var(--font-sans)', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+                    <div style={{ position: 'absolute', bottom: 14, left: 14, fontSize: '0.75rem', color: 'rgba(255,255,255,0.85)', fontFamily: 'var(--font-sans)', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
                       <event.icon size={12} /> {event.date}
                     </div>
                   </div>
                   <div style={{ padding: '1.5rem' }}>
-                    <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.2rem', fontWeight: 700, color: 'var(--color-coffee)', marginBottom: '0.6rem' }}>{event.title}</h3>
-                    <p style={{ fontSize: '0.87rem', color: '#6b7280', lineHeight: 1.6, marginBottom: '1.25rem' }}>{event.desc}</p>
+                    <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.2rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '0.6rem' }}>{event.title}</h3>
+                    <p style={{ fontSize: '0.87rem', color: 'var(--text-sub)', lineHeight: 1.6, marginBottom: '1.25rem' }}>{event.desc}</p>
                     <button className="btn-primary"
                       onClick={() => document.querySelector('#reservation')?.scrollIntoView({ behavior: 'smooth' })}
                       style={{ fontSize: '0.8rem', padding: '0.6rem 1.5rem' }}>
@@ -219,21 +219,21 @@ export default function Events() {
               <div>
                 {selectedDay && dayEvents.length > 0 ? (
                   <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
-                    <h4 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.15rem', color: 'var(--color-coffee)', marginBottom: '1rem' }}>
+                    <h4 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.15rem', color: 'var(--text-main)', marginBottom: '1rem' }}>
                       {MONTHS[month]} {selectedDay} — {dayEvents.length} event{dayEvents.length > 1 ? 's' : ''}
                     </h4>
                     {dayEvents.map(ev => (
-                      <div key={ev.title} style={{ background: '#fff', borderRadius: '1.25rem', padding: '1.25rem', marginBottom: '1rem', boxShadow: '0 2px 12px rgba(44,24,16,0.06)', border: `1px solid ${ev.color}20` }}>
+                      <div key={ev.title} style={{ background: 'var(--bg-card)', borderRadius: '1.25rem', padding: '1.25rem', marginBottom: '1rem', boxShadow: 'var(--shadow-soft)', border: `1px solid ${ev.color}30` }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
                           <div style={{ width: 38, height: 38, borderRadius: '50%', background: `${ev.color}15`, border: `1.5px solid ${ev.color}30`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                             <ev.icon size={16} color={ev.color} />
                           </div>
                           <div>
-                            <div style={{ fontWeight: 700, fontSize: '0.92rem', color: '#1f2937' }}>{ev.title}</div>
+                            <div style={{ fontWeight: 700, fontSize: '0.92rem', color: 'var(--text-main)' }}>{ev.title}</div>
                             <div style={{ fontSize: '0.72rem', color: ev.color, fontWeight: 600 }}>{ev.date}</div>
                           </div>
                         </div>
-                        <p style={{ fontSize: '0.82rem', color: '#6b7280', lineHeight: 1.6, marginBottom: '1rem' }}>{ev.desc}</p>
+                        <p style={{ fontSize: '0.82rem', color: 'var(--text-sub)', lineHeight: 1.6, marginBottom: '1rem' }}>{ev.desc}</p>
                         <button className="btn-primary"
                           onClick={() => document.querySelector('#reservation')?.scrollIntoView({ behavior: 'smooth' })}
                           style={{ fontSize: '0.75rem', padding: '0.5rem 1.25rem' }}>
@@ -243,12 +243,12 @@ export default function Events() {
                     ))}
                   </motion.div>
                 ) : (
-                  <div style={{ background: '#fff', borderRadius: '1.5rem', padding: '2.5rem', textAlign: 'center', border: '1px solid rgba(44,24,16,0.06)', color: '#9ca3af' }}>
-                    <Calendar size={40} strokeWidth={1} style={{ margin: '0 auto 1rem', color: '#d1d5db' }} />
-                    <div style={{ fontWeight: 600, fontSize: '0.95rem', marginBottom: '0.5rem', color: '#6b7280' }}>
+                  <div style={{ background: 'var(--bg-card)', borderRadius: '1.5rem', padding: '2.5rem', textAlign: 'center', border: '1px solid var(--border-subtle)', color: 'var(--text-muted)' }}>
+                    <Calendar size={40} strokeWidth={1} style={{ margin: '0 auto 1rem', color: 'var(--color-caramel)' }} />
+                    <div style={{ fontWeight: 600, fontSize: '0.95rem', marginBottom: '0.5rem', color: 'var(--text-main)' }}>
                       Select a date
                     </div>
-                    <p style={{ fontSize: '0.82rem', lineHeight: 1.6 }}>
+                    <p style={{ fontSize: '0.82rem', lineHeight: 1.6, color: 'var(--text-sub)' }}>
                       Click on any highlighted date to see what events are happening.
                     </p>
                   </div>

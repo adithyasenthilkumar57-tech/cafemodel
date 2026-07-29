@@ -43,9 +43,11 @@ const timeline = [
 export default function About() {
   return (
     <section id="about" style={{
-      background: 'var(--color-dark)',
+      background: 'var(--bg-main)',
+      color: 'var(--text-main)',
       padding: 'var(--section-py) 0',
       overflow: 'hidden',
+      transition: 'background-color 0.3s, color 0.3s',
     }}>
       <div className="container-wide">
         {/* Top: image + story */}
@@ -140,7 +142,7 @@ export default function About() {
               fontFamily: 'var(--font-serif)',
               fontSize: 'clamp(2.2rem, 4vw, 3.2rem)',
               fontWeight: 700,
-              color: '#FFF8F0',
+              color: 'var(--text-main)',
               lineHeight: 1.15,
               marginBottom: '1.5rem',
             }}>
@@ -157,7 +159,7 @@ export default function About() {
               </span>
             </h2>
             <p style={{
-              color: 'rgba(245,237,224,0.7)',
+              color: 'var(--text-sub)',
               lineHeight: 1.8,
               marginBottom: '1.2rem',
               fontSize: '1rem',
@@ -165,7 +167,7 @@ export default function About() {
               Velvet Bean was born from a simple obsession: the perfect cup of coffee. Our founder, Maria Chen, traveled to coffee farms across Ethiopia, Colombia, and Guatemala to learn the craft from the source — the farmers who pour their lives into every harvest.
             </p>
             <p style={{
-              color: 'rgba(245,237,224,0.6)',
+              color: 'var(--text-muted)',
               lineHeight: 1.8,
               marginBottom: '2rem',
               fontSize: '0.95rem',
@@ -210,13 +212,13 @@ export default function About() {
                 textAlign: 'center',
                 padding: '2rem 1rem',
                 borderRadius: '1.25rem',
-                background: 'rgba(255,248,240,0.04)',
-                border: '1px solid rgba(212,163,115,0.1)',
+                background: 'var(--bg-card)',
+                border: '1px solid var(--border-subtle)',
+                boxShadow: 'var(--shadow-soft)',
                 transition: 'all 0.3s',
               }}
               whileHover={{
-                background: 'rgba(212,163,115,0.06)',
-                borderColor: 'rgba(212,163,115,0.25)',
+                borderColor: 'var(--color-caramel)',
                 y: -4,
               }}
             >
@@ -239,7 +241,7 @@ export default function About() {
               <div style={{
                 fontFamily: 'var(--font-sans)',
                 fontSize: '0.8rem',
-                color: 'rgba(245,237,224,0.5)',
+                color: 'var(--text-muted)',
                 letterSpacing: '0.06em',
                 textTransform: 'uppercase',
                 marginTop: '0.4rem',
@@ -264,7 +266,7 @@ export default function About() {
           <h2 style={{
             fontFamily: 'var(--font-serif)',
             fontSize: 'clamp(2rem, 3.5vw, 2.8rem)',
-            color: '#FFF8F0',
+            color: 'var(--text-main)',
             fontWeight: 700,
           }}>
             From Dream to Destination
@@ -292,17 +294,18 @@ export default function About() {
               viewport={viewportOptions}
               style={{
                 display: 'flex',
-                justifyContent: i % 2 === 0 ? 'flex-start' : 'flex-end',
+                justify: i % 2 === 0 ? 'flex-start' : 'flex-end',
                 marginBottom: '2.5rem',
                 position: 'relative',
               }}
             >
               <div style={{
                 width: '45%',
-                background: 'rgba(255,248,240,0.04)',
-                border: '1px solid rgba(212,163,115,0.12)',
+                background: 'var(--bg-card)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: '1.25rem',
                 padding: '1.75rem',
+                boxShadow: 'var(--shadow-soft)',
               }}
               className="timeline-card"
               >
@@ -318,10 +321,10 @@ export default function About() {
                 <h3 style={{
                   fontFamily: 'var(--font-serif)',
                   fontSize: '1.3rem',
-                  color: '#FFF8F0',
+                  color: 'var(--text-main)',
                   marginBottom: '0.75rem',
                 }}>{item.title}</h3>
-                <p style={{ color: 'rgba(245,237,224,0.6)', fontSize: '0.9rem', lineHeight: 1.7 }}>
+                <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: 1.7 }}>
                   {item.desc}
                 </p>
               </div>
@@ -336,7 +339,7 @@ export default function About() {
                 height: 14,
                 borderRadius: '50%',
                 background: '#D4A373',
-                border: '3px solid var(--color-dark)',
+                border: '3px solid var(--bg-main)',
                 boxShadow: '0 0 12px rgba(212,163,115,0.5)',
                 zIndex: 1,
               }} className="hidden-mobile" />

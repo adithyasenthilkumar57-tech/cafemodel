@@ -40,9 +40,11 @@ const steps = [
 export default function CoffeeJourney() {
   return (
     <section id="journey" style={{
-      background: 'var(--color-cream)',
+      background: 'var(--bg-main)',
+      color: 'var(--text-main)',
       padding: 'var(--section-py) 0',
       overflow: 'hidden',
+      transition: 'background-color 0.3s, color 0.3s',
     }}>
       <div className="container-wide">
         {/* Header */}
@@ -60,12 +62,12 @@ export default function CoffeeJourney() {
             fontFamily: 'var(--font-serif)',
             fontSize: 'clamp(2.2rem, 4vw, 3.2rem)',
             fontWeight: 700,
-            color: 'var(--color-coffee)',
+            color: 'var(--text-main)',
             marginBottom: '1rem',
           }}>
             From Farm to Your Cup
           </h2>
-          <p style={{ color: '#6b7280', maxWidth: 540, margin: '0 auto', lineHeight: 1.7 }}>
+          <p style={{ color: 'var(--text-sub)', maxWidth: 540, margin: '0 auto', lineHeight: 1.7 }}>
             Every sip of Velvet Bean coffee carries a story that spans continents, seasons, and the hands of dozens of dedicated people.
           </p>
         </motion.div>
@@ -163,14 +165,14 @@ export default function CoffeeJourney() {
                   fontFamily: 'var(--font-serif)',
                   fontSize: '1.3rem',
                   fontWeight: 700,
-                  color: 'var(--color-coffee)',
+                  color: 'var(--text-main)',
                   marginBottom: '0.75rem',
                 }}>
                   {step.title}
                 </h3>
                 <p style={{
                   fontSize: '0.85rem',
-                  color: '#6b7280',
+                  color: 'var(--text-muted)',
                   lineHeight: 1.7,
                   maxWidth: 220,
                   margin: '0 auto',
@@ -195,17 +197,18 @@ export default function CoffeeJourney() {
             alignItems: 'center',
             gap: '2rem',
             padding: '1.5rem 2.5rem',
-            background: 'linear-gradient(135deg,#2C1810,#4A2C2A)',
+            background: 'var(--bg-card)',
+            border: '1px solid var(--border-subtle)',
             borderRadius: '1.5rem',
-            boxShadow: 'var(--shadow-deep)',
+            boxShadow: 'var(--shadow-card)',
             flexWrap: 'wrap',
             justifyContent: 'center',
           }}>
             <div style={{ textAlign: 'left' }}>
-              <div style={{ fontFamily: 'var(--font-serif)', fontSize: '1.1rem', color: '#FFF8F0', fontWeight: 600, marginBottom: '0.25rem' }}>
+              <div style={{ fontFamily: 'var(--font-serif)', fontSize: '1.1rem', color: 'var(--text-main)', fontWeight: 600, marginBottom: '0.25rem' }}>
                 Join a Barista Workshop
               </div>
-              <div style={{ fontSize: '0.82rem', color: 'rgba(245,237,224,0.6)' }}>
+              <div style={{ fontSize: '0.82rem', color: 'var(--text-sub)' }}>
                 Every Sunday 10 AM · Limited to 12 seats
               </div>
             </div>

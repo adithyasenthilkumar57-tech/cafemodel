@@ -1,5 +1,6 @@
 import { Playfair_Display, Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
+import { ThemeProvider } from "@/components/ThemeContext";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -46,7 +47,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" data-theme="dark">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -54,7 +55,9 @@ export default function RootLayout({ children }) {
         <meta name="theme-color" content="#2C1810" />
       </head>
       <body className={`${playfair.variable} ${cormorant.variable} ${inter.variable}`} suppressHydrationWarning>
-        {children}
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

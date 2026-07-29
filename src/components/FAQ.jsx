@@ -28,8 +28,10 @@ export default function FAQ() {
 
   return (
     <section id="faq" style={{
-      background: 'var(--color-dark)',
+      background: 'var(--bg-main)',
+      color: 'var(--text-main)',
       padding: 'var(--section-py) 0',
+      transition: 'background-color 0.3s',
     }}>
       <div className="container-normal">
         {/* Header */}
@@ -47,7 +49,7 @@ export default function FAQ() {
             fontFamily: 'var(--font-serif)',
             fontSize: 'clamp(2.2rem, 4vw, 3.2rem)',
             fontWeight: 700,
-            color: '#FFF8F0',
+            color: 'var(--text-main)',
             marginBottom: '1rem',
           }}>
             Frequently Asked Questions
@@ -57,14 +59,14 @@ export default function FAQ() {
           <div style={{ position: 'relative', maxWidth: 440, margin: '1.5rem auto 0' }}>
             <Search size={16} style={{
               position: 'absolute', left: 14, top: '50%',
-              transform: 'translateY(-50%)', color: '#6b7280',
+              transform: 'translateY(-50%)', color: 'var(--text-muted)',
             }} />
             <input
               className="input-premium"
               placeholder="Search questions…"
               value={search}
               onChange={e => setSearch(e.target.value)}
-              style={{ paddingLeft: '2.5rem', color: '#FFF8F0' }}
+              style={{ paddingLeft: '2.5rem' }}
             />
           </div>
         </motion.div>
@@ -72,7 +74,7 @@ export default function FAQ() {
         {/* Accordion */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
           {filtered.length === 0 && (
-            <div style={{ textAlign: 'center', color: 'rgba(245,237,224,0.4)', padding: '2rem' }}>
+            <div style={{ textAlign: 'center', color: 'var(--text-muted)', padding: '2rem' }}>
               No results found for "{search}"
             </div>
           )}
@@ -85,8 +87,9 @@ export default function FAQ() {
               transition={{ delay: i * 0.05 }}
               style={{
                 borderRadius: '1rem',
-                background: open === i ? 'rgba(212,163,115,0.08)' : 'rgba(255,248,240,0.04)',
-                border: open === i ? '1px solid rgba(212,163,115,0.25)' : '1px solid rgba(255,248,240,0.06)',
+                background: open === i ? 'rgba(212,163,115,0.12)' : 'var(--bg-card)',
+                border: open === i ? '1px solid rgba(212,163,115,0.3)' : '1px solid var(--border-subtle)',
+                boxShadow: 'var(--shadow-soft)',
                 overflow: 'hidden',
                 transition: 'all 0.3s',
               }}
@@ -110,7 +113,7 @@ export default function FAQ() {
                   fontFamily: 'var(--font-serif)',
                   fontSize: '1rem',
                   fontWeight: 600,
-                  color: open === i ? '#D4A373' : '#FFF8F0',
+                  color: open === i ? '#D4A373' : 'var(--text-main)',
                   transition: 'color 0.3s',
                 }}>
                   {item.q}
@@ -123,11 +126,11 @@ export default function FAQ() {
                     width: 28,
                     height: 28,
                     borderRadius: '50%',
-                    background: open === i ? 'rgba(212,163,115,0.2)' : 'rgba(255,248,240,0.06)',
+                    background: open === i ? 'rgba(212,163,115,0.2)' : 'rgba(212,163,115,0.1)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    color: open === i ? '#D4A373' : 'rgba(245,237,224,0.4)',
+                    color: open === i ? '#D4A373' : 'var(--text-muted)',
                     transition: 'all 0.3s',
                   }}
                 >
@@ -147,7 +150,7 @@ export default function FAQ() {
                     <div style={{
                       padding: '0 1.5rem 1.25rem',
                       fontSize: '0.92rem',
-                      color: 'rgba(245,237,224,0.65)',
+                      color: 'var(--text-sub)',
                       lineHeight: 1.8,
                       whiteSpace: 'pre-line',
                     }}>

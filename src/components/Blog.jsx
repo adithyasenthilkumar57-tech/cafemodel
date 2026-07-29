@@ -172,16 +172,16 @@ export default function Blog() {
   const filtered = activeCategory === 'All' ? POSTS : POSTS.filter(p => p.category === activeCategory);
 
   return (
-    <section id="blog" style={{ background: 'var(--color-cream)', padding: 'var(--section-py) 0' }}>
+    <section id="blog" style={{ background: 'var(--bg-main)', color: 'var(--text-main)', padding: 'var(--section-py) 0', transition: 'background-color 0.3s' }}>
       <div className="container-wide">
         {/* Header */}
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={viewportOptions}
           style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
           <div className="section-label" style={{ justifyContent: 'center' }}>Journal</div>
-          <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(2.2rem, 4vw, 3.2rem)', fontWeight: 700, color: 'var(--color-coffee)', marginBottom: '1rem' }}>
+          <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(2.2rem, 4vw, 3.2rem)', fontWeight: 700, color: 'var(--text-main)', marginBottom: '1rem' }}>
             Coffee Stories & Guides
           </h2>
-          <p style={{ color: '#6b7280', maxWidth: 480, margin: '0 auto', lineHeight: 1.7 }}>
+          <p style={{ color: 'var(--text-sub)', maxWidth: 480, margin: '0 auto', lineHeight: 1.7 }}>
             Brewing tips, behind the scenes, recipes, and announcements from the Velvet Bean team.
           </p>
         </motion.div>
@@ -194,9 +194,9 @@ export default function Blog() {
               style={{
                 padding: '0.45rem 1.1rem', borderRadius: '50px',
                 border: '1.5px solid',
-                borderColor: activeCategory === cat ? 'var(--color-caramel)' : 'rgba(44,24,16,0.12)',
-                background: activeCategory === cat ? 'rgba(212,163,115,0.12)' : 'transparent',
-                color: activeCategory === cat ? 'var(--color-caramel)' : '#6b7280',
+                borderColor: activeCategory === cat ? 'var(--color-caramel)' : 'var(--border-subtle)',
+                background: activeCategory === cat ? 'rgba(212,163,115,0.15)' : 'var(--bg-card)',
+                color: activeCategory === cat ? 'var(--color-caramel)' : 'var(--text-sub)',
                 fontWeight: 600, fontSize: '0.8rem', cursor: 'pointer',
                 transition: 'all 0.2s', letterSpacing: '0.04em',
               }}>
@@ -217,13 +217,13 @@ export default function Blog() {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
-                whileHover={{ y: -6, boxShadow: '0 16px 48px rgba(44,24,16,0.14)' }}
+                whileHover={{ y: -6, boxShadow: 'var(--shadow-card)' }}
                 onClick={() => setSelectedPost(post)}
                 style={{
-                  background: '#fff', borderRadius: '1.5rem', overflow: 'hidden',
-                  boxShadow: '0 4px 20px rgba(44,24,16,0.06)',
-                  border: '1px solid rgba(44,24,16,0.06)',
-                  cursor: 'pointer', transition: 'box-shadow 0.3s',
+                  background: 'var(--bg-card)', borderRadius: '1.5rem', overflow: 'hidden',
+                  boxShadow: 'var(--shadow-soft)',
+                  border: '1px solid var(--border-subtle)',
+                  cursor: 'pointer', transition: 'all 0.3s',
                 }}>
                 <div style={{ height: 220, overflow: 'hidden', position: 'relative' }}>
                   <motion.img src={post.img} alt={post.title}
@@ -241,15 +241,15 @@ export default function Blog() {
                 </div>
                 <div style={{ padding: '1.5rem' }}>
                   <div style={{ display: 'flex', gap: '1rem', marginBottom: '0.75rem' }}>
-                    <span style={{ fontSize: '0.72rem', color: '#9ca3af', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+                    <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
                       <Clock size={11} /> {post.readTime}
                     </span>
-                    <span style={{ fontSize: '0.72rem', color: '#9ca3af' }}>{post.date}</span>
+                    <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>{post.date}</span>
                   </div>
-                  <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.15rem', color: '#1f2937', fontWeight: 700, marginBottom: '0.6rem', lineHeight: 1.4 }}>
+                  <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.15rem', color: 'var(--text-main)', fontWeight: 700, marginBottom: '0.6rem', lineHeight: 1.4 }}>
                     {post.title}
                   </h3>
-                  <p style={{ fontSize: '0.85rem', color: '#6b7280', lineHeight: 1.6, marginBottom: '1.25rem' }}>
+                  <p style={{ fontSize: '0.85rem', color: 'var(--text-sub)', lineHeight: 1.6, marginBottom: '1.25rem' }}>
                     {post.excerpt}
                   </p>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', color: 'var(--color-caramel)', fontWeight: 600, fontSize: '0.82rem' }}>
@@ -272,8 +272,10 @@ export default function Blog() {
               onClick={e => e.stopPropagation()}
               style={{
                 maxWidth: 740, margin: '0 auto',
-                background: '#fff', borderRadius: '2rem', overflow: 'hidden',
-                boxShadow: '0 40px 100px rgba(0,0,0,0.3)',
+                background: 'var(--bg-modal)', borderRadius: '2rem', overflow: 'hidden',
+                border: '1px solid var(--border-subtle)',
+                boxShadow: 'var(--shadow-deep)',
+                color: 'var(--text-main)',
               }}>
               {/* Hero image */}
               <div style={{ height: 280, position: 'relative', overflow: 'hidden' }}>
@@ -293,16 +295,16 @@ export default function Blog() {
               {/* Content */}
               <div style={{ padding: '2.5rem' }}>
                 <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem' }}>
-                  <span style={{ fontSize: '0.78rem', color: '#9ca3af', display: 'flex', alignItems: 'center', gap: '0.3rem' }}><Clock size={12} />{selectedPost.readTime}</span>
-                  <span style={{ fontSize: '0.78rem', color: '#9ca3af' }}>{selectedPost.date}</span>
+                  <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '0.3rem' }}><Clock size={12} />{selectedPost.readTime}</span>
+                  <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>{selectedPost.date}</span>
                 </div>
-                <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.75rem', color: '#1f2937', fontWeight: 700, lineHeight: 1.3, marginBottom: '1.5rem' }}>
+                <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.75rem', color: 'var(--text-main)', fontWeight: 700, lineHeight: 1.3, marginBottom: '1.5rem' }}>
                   {selectedPost.title}
                 </h2>
-                <div style={{ fontSize: '0.95rem', color: '#374151', lineHeight: 1.8 }}>
+                <div style={{ fontSize: '0.95rem', color: 'var(--text-sub)', lineHeight: 1.8 }}>
                   {selectedPost.body.split('\n\n').map((para, i) => {
                     if (para.startsWith('**') && para.endsWith('**')) {
-                      return <h4 key={i} style={{ fontFamily: 'var(--font-sans)', fontWeight: 700, color: '#1f2937', marginTop: '1.5rem', marginBottom: '0.5rem', fontSize: '1rem' }}>{para.replace(/\*\*/g, '')}</h4>;
+                      return <h4 key={i} style={{ fontFamily: 'var(--font-sans)', fontWeight: 700, color: 'var(--text-main)', marginTop: '1.5rem', marginBottom: '0.5rem', fontSize: '1rem' }}>{para.replace(/\*\*/g, '')}</h4>;
                     }
                     return <p key={i} style={{ marginBottom: '1rem' }}>{para.replace(/\*\*(.*?)\*\*/g, '$1')}</p>;
                   })}

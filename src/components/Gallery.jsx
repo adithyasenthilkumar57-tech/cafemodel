@@ -52,8 +52,10 @@ export default function Gallery() {
 
   return (
     <section id="gallery" style={{
-      background: 'var(--color-dark)',
+      background: 'var(--bg-main)',
+      color: 'var(--text-main)',
       padding: 'var(--section-py) 0',
+      transition: 'background-color 0.3s, color 0.3s',
     }}>
       <div className="container-wide">
         {/* Header */}
@@ -71,12 +73,12 @@ export default function Gallery() {
             fontFamily: 'var(--font-serif)',
             fontSize: 'clamp(2.2rem, 4vw, 3.2rem)',
             fontWeight: 700,
-            color: '#FFF8F0',
+            color: 'var(--text-main)',
             marginBottom: '1rem',
           }}>
             Moments That Matter
           </h2>
-          <p style={{ color: 'rgba(245,237,224,0.55)', maxWidth: 500, margin: '0 auto', lineHeight: 1.7 }}>
+          <p style={{ color: 'var(--text-sub)', maxWidth: 500, margin: '0 auto', lineHeight: 1.7 }}>
             Every corner of Velvet Bean is a frame worth capturing. Click any image to explore in full screen.
           </p>
         </motion.div>

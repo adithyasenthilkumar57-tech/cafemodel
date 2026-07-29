@@ -78,7 +78,7 @@ export default function Team() {
   const [hoveredId, setHoveredId] = useState(null);
 
   return (
-    <section id="team" style={{ background: 'var(--color-dark)', padding: 'var(--section-py) 0', position: 'relative', overflow: 'hidden' }}>
+    <section id="team" style={{ background: 'var(--bg-alt)', color: 'var(--text-main)', padding: 'var(--section-py) 0', position: 'relative', overflow: 'hidden', transition: 'background-color 0.3s' }}>
       <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 30% 70%, rgba(212,163,115,0.06) 0%, transparent 60%)', pointerEvents: 'none' }} />
 
       <div className="container-wide" style={{ position: 'relative', zIndex: 1 }}>
@@ -87,10 +87,10 @@ export default function Team() {
           <div className="section-label" style={{ justifyContent: 'center', color: 'var(--color-caramel)' }}>
             The People Behind the Cup
           </div>
-          <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(2.2rem, 4vw, 3.2rem)', fontWeight: 700, color: '#FFF8F0', marginBottom: '1rem' }}>
+          <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(2.2rem, 4vw, 3.2rem)', fontWeight: 700, color: 'var(--text-main)', marginBottom: '1rem' }}>
             Meet Our Team
           </h2>
-          <p style={{ color: 'rgba(245,237,224,0.55)', maxWidth: 480, margin: '0 auto', lineHeight: 1.7 }}>
+          <p style={{ color: 'var(--text-sub)', maxWidth: 480, margin: '0 auto', lineHeight: 1.7 }}>
             World-class baristas, pastry chefs, and hospitality experts united by a love for exceptional coffee.
           </p>
         </motion.div>
@@ -107,11 +107,12 @@ export default function Team() {
                 onMouseLeave={() => setHoveredId(null)}
                 onClick={() => setSelectedMember(member)}
                 style={{
-                  background: isHovered ? `rgba(${member.color === '#D4A373' ? '212,163,115' : member.color === '#ec4899' ? '236,72,153' : member.color === '#60a5fa' ? '96,165,250' : member.color === '#a78bfa' ? '167,139,250' : member.color === '#4ade80' ? '74,222,128' : '251,146,60'},0.06)` : 'rgba(255,248,240,0.04)',
-                  border: `1px solid ${isHovered ? member.color + '30' : 'rgba(212,163,115,0.1)'}`,
+                  background: 'var(--bg-card)',
+                  border: `1px solid ${isHovered ? member.color + '60' : 'var(--border-subtle)'}`,
                   borderRadius: '1.5rem',
                   padding: '1.75rem',
                   cursor: 'pointer',
+                  boxShadow: 'var(--shadow-soft)',
                   transition: 'all 0.3s',
                   position: 'relative',
                   overflow: 'hidden',
@@ -132,19 +133,19 @@ export default function Team() {
                   </div>
                 </div>
 
-                <div style={{ fontFamily: 'var(--font-serif)', fontSize: '1.15rem', fontWeight: 700, color: '#FFF8F0', marginBottom: '0.2rem' }}>
+                <div style={{ fontFamily: 'var(--font-serif)', fontSize: '1.15rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '0.2rem' }}>
                   {member.name}
                 </div>
                 <div style={{ fontSize: '0.78rem', color: member.color, fontWeight: 600, marginBottom: '0.15rem', letterSpacing: '0.04em' }}>
                   {member.role}
                 </div>
-                <div style={{ fontSize: '0.75rem', color: 'rgba(245,237,224,0.4)', marginBottom: '0.75rem' }}>
+                <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.75rem' }}>
                   {member.specialty}
                 </div>
 
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', marginBottom: '1rem' }}>
                   <Star size={12} fill="#D4A373" color="#D4A373" />
-                  <span style={{ fontSize: '0.78rem', color: 'rgba(245,237,224,0.6)', fontWeight: 600 }}>{member.rating}</span>
+                  <span style={{ fontSize: '0.78rem', color: 'var(--text-sub)', fontWeight: 600 }}>{member.rating}</span>
                 </div>
 
                 {/* Fun fact reveal on hover */}
@@ -157,8 +158,8 @@ export default function Team() {
                       style={{ overflow: 'hidden' }}>
                       <div style={{
                         padding: '0.75rem', borderRadius: '0.75rem',
-                        background: `${member.color}12`, border: `1px solid ${member.color}25`,
-                        fontSize: '0.8rem', color: 'rgba(245,237,224,0.7)', lineHeight: 1.6,
+                        background: `${member.color}15`, border: `1px solid ${member.color}30`,
+                        fontSize: '0.8rem', color: 'var(--text-sub)', lineHeight: 1.6,
                         marginTop: '0.25rem',
                       }}>
                         <span style={{ color: member.color, fontWeight: 700 }}>Fun fact: </span>
@@ -170,7 +171,7 @@ export default function Team() {
 
                 <div style={{
                   marginTop: '1rem', fontSize: '0.75rem', fontWeight: 600,
-                  color: isHovered ? member.color : 'rgba(245,237,224,0.3)',
+                  color: isHovered ? member.color : 'var(--text-muted)',
                   transition: 'color 0.3s', display: 'flex', alignItems: 'center', gap: '0.3rem',
                 }}>
                   View Full Bio →
@@ -191,32 +192,33 @@ export default function Team() {
               onClick={e => e.stopPropagation()}
               style={{
                 maxWidth: 520, width: '100%',
-                background: '#111',
-                border: `1px solid ${selectedMember.color}30`,
+                background: 'var(--bg-modal)',
+                border: `1px solid var(--border-subtle)`,
                 borderRadius: '2rem', padding: '2.5rem',
-                boxShadow: `0 40px 100px rgba(0,0,0,0.5), 0 0 40px ${selectedMember.color}15`,
+                boxShadow: `var(--shadow-deep)`,
+                color: 'var(--text-main)',
               }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '2rem' }}>
                 <div style={{ display: 'flex', gap: '1.25rem', alignItems: 'center' }}>
                   <img src={selectedMember.img} alt={selectedMember.name}
                     style={{ width: 72, height: 72, borderRadius: '50%', objectFit: 'cover', border: `2px solid ${selectedMember.color}` }} />
                   <div>
-                    <div style={{ fontFamily: 'var(--font-serif)', fontSize: '1.3rem', color: '#FFF8F0', fontWeight: 700 }}>{selectedMember.name}</div>
+                    <div style={{ fontFamily: 'var(--font-serif)', fontSize: '1.3rem', color: 'var(--text-main)', fontWeight: 700 }}>{selectedMember.name}</div>
                     <div style={{ color: selectedMember.color, fontSize: '0.82rem', fontWeight: 600 }}>{selectedMember.role}</div>
-                    <div style={{ color: 'rgba(245,237,224,0.4)', fontSize: '0.75rem', marginTop: '0.1rem' }}>{selectedMember.specialty}</div>
+                    <div style={{ color: 'var(--text-muted)', fontSize: '0.75rem', marginTop: '0.1rem' }}>{selectedMember.specialty}</div>
                   </div>
                 </div>
                 <button onClick={() => setSelectedMember(null)}
-                  style={{ background: 'rgba(255,255,255,0.06)', border: 'none', borderRadius: '50%', width: 32, height: 32, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: 'rgba(245,237,224,0.6)', flexShrink: 0 }}>
+                  style={{ background: 'var(--border-subtle)', border: 'none', borderRadius: '50%', width: 32, height: 32, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: 'var(--text-main)', flexShrink: 0 }}>
                   <X size={16} />
                 </button>
               </div>
-              <p style={{ color: 'rgba(245,237,224,0.65)', lineHeight: 1.8, fontSize: '0.9rem', marginBottom: '1.5rem' }}>
+              <p style={{ color: 'var(--text-sub)', lineHeight: 1.8, fontSize: '0.9rem', marginBottom: '1.5rem' }}>
                 {selectedMember.bio}
               </p>
-              <div style={{ padding: '1rem 1.25rem', background: `${selectedMember.color}10`, border: `1px solid ${selectedMember.color}25`, borderRadius: '0.75rem' }}>
+              <div style={{ padding: '1rem 1.25rem', background: `${selectedMember.color}15`, border: `1px solid ${selectedMember.color}30`, borderRadius: '0.75rem' }}>
                 <div style={{ fontSize: '0.7rem', letterSpacing: '0.1em', textTransform: 'uppercase', color: selectedMember.color, fontWeight: 700, marginBottom: '0.4rem' }}>Fun Fact</div>
-                <div style={{ fontSize: '0.85rem', color: 'rgba(245,237,224,0.6)', lineHeight: 1.6 }}>{selectedMember.funFact}</div>
+                <div style={{ fontSize: '0.85rem', color: 'var(--text-sub)', lineHeight: 1.6 }}>{selectedMember.funFact}</div>
               </div>
             </motion.div>
           </motion.div>

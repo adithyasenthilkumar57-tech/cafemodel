@@ -17,10 +17,12 @@ const features = [
 export default function WhyChooseUs() {
   return (
     <section id="why-us" style={{
-      background: 'var(--color-dark)',
+      background: 'var(--bg-main)',
+      color: 'var(--text-main)',
       padding: 'var(--section-py) 0',
       position: 'relative',
       overflow: 'hidden',
+      transition: 'background-color 0.3s, color 0.3s',
     }}>
       {/* Decorative gradient */}
       <div style={{
@@ -58,7 +60,7 @@ export default function WhyChooseUs() {
               fontFamily: 'var(--font-serif)',
               fontSize: 'clamp(2.5rem, 4vw, 3.5rem)',
               fontWeight: 700,
-              color: '#FFF8F0',
+              color: 'var(--text-main)',
               lineHeight: 1.15,
             }}>
               We Do Things<br />
@@ -75,7 +77,7 @@ export default function WhyChooseUs() {
             </h2>
           </div>
           <div>
-            <p style={{ color: 'rgba(245,237,224,0.6)', lineHeight: 1.8, fontSize: '1rem' }}>
+            <p style={{ color: 'var(--text-sub)', lineHeight: 1.8, fontSize: '1rem' }}>
               At Velvet Bean, every detail is considered — from the temperature of the espresso pull to the angle of the morning light. We believe a great café is more than just coffee. It's an experience worth returning to.
             </p>
             <div style={{ marginTop: '1.5rem' }}>
@@ -108,16 +110,16 @@ export default function WhyChooseUs() {
               style={{
                 padding: '1.75rem',
                 borderRadius: '1.25rem',
-                background: 'rgba(255,248,240,0.04)',
-                border: '1px solid rgba(212,163,115,0.08)',
+                background: 'var(--bg-card)',
+                border: '1px solid var(--border-subtle)',
+                boxShadow: 'var(--shadow-soft)',
                 cursor: 'default',
+                transition: 'all 0.3s',
               }}
               whileHover={{
-                background: 'rgba(255,248,240,0.06)',
-                borderColor: `${feature.color}40`,
+                borderColor: `${feature.color}60`,
                 y: -4,
               }}
-              transition={{ duration: 0.3 }}
             >
               <motion.div
                 style={{
@@ -140,12 +142,12 @@ export default function WhyChooseUs() {
                 fontFamily: 'var(--font-serif)',
                 fontSize: '1rem',
                 fontWeight: 600,
-                color: '#FFF8F0',
+                color: 'var(--text-main)',
                 marginBottom: '0.5rem',
               }}>{feature.title}</h3>
               <p style={{
                 fontSize: '0.85rem',
-                color: 'rgba(245,237,224,0.5)',
+                color: 'var(--text-muted)',
                 lineHeight: 1.6,
               }}>{feature.desc}</p>
             </motion.div>

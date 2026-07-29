@@ -47,8 +47,10 @@ const locations = [
 export default function Locations() {
   return (
     <section id="locations" style={{
-      background: 'var(--color-cream)',
+      background: 'var(--bg-main)',
+      color: 'var(--text-main)',
       padding: 'var(--section-py) 0',
+      transition: 'background-color 0.3s',
     }}>
       <div className="container-wide">
         {/* Header */}
@@ -66,12 +68,12 @@ export default function Locations() {
             fontFamily: 'var(--font-serif)',
             fontSize: 'clamp(2.2rem, 4vw, 3.2rem)',
             fontWeight: 700,
-            color: 'var(--color-coffee)',
+            color: 'var(--text-main)',
             marginBottom: '1rem',
           }}>
             Our Locations
           </h2>
-          <p style={{ color: '#6b7280', maxWidth: 500, margin: '0 auto', lineHeight: 1.7 }}>
+          <p style={{ color: 'var(--text-sub)', maxWidth: 500, margin: '0 auto', lineHeight: 1.7 }}>
             Two premium locations in the heart of New York. Each with its own character, both with the same exceptional coffee.
           </p>
         </motion.div>
@@ -94,11 +96,11 @@ export default function Locations() {
               key={loc.name}
               variants={staggerItem}
               style={{
-                background: '#fff',
+                background: 'var(--bg-card)',
                 borderRadius: '1.5rem',
                 overflow: 'hidden',
                 boxShadow: 'var(--shadow-soft)',
-                border: '1px solid rgba(44,24,16,0.06)',
+                border: '1px solid var(--border-subtle)',
               }}
               whileHover={{ y: -4, boxShadow: 'var(--shadow-card)' }}
               transition={{ duration: 0.3 }}
@@ -162,7 +164,7 @@ export default function Locations() {
                     marginBottom: '0.75rem',
                   }}>
                     <Icon size={16} color="#D4A373" style={{ flexShrink: 0, marginTop: 2 }} />
-                    <span style={{ fontSize: '0.87rem', color: '#4b5563', lineHeight: 1.5 }}>{text}</span>
+                    <span style={{ fontSize: '0.87rem', color: 'var(--text-sub)', lineHeight: 1.5 }}>{text}</span>
                   </div>
                 ))}
 
@@ -180,7 +182,7 @@ export default function Locations() {
                   <a
                     href={`tel:${loc.phone}`}
                     className="btn-outline"
-                    style={{ fontSize: '0.8rem', padding: '0.55rem 1.1rem', color: '#2C1810', borderColor: 'rgba(44,24,16,0.2)' }}
+                    style={{ fontSize: '0.8rem', padding: '0.55rem 1.1rem', color: 'var(--text-main)', borderColor: 'var(--border-subtle)' }}
                   >
                     <Phone size={14} /> Call
                   </a>
@@ -210,7 +212,7 @@ export default function Locations() {
             overflow: 'hidden',
             boxShadow: 'var(--shadow-card)',
             height: 400,
-            border: '1px solid rgba(44,24,16,0.08)',
+            border: '1px solid var(--border-subtle)',
           }}
         >
           <iframe
@@ -232,7 +234,7 @@ export default function Locations() {
           viewport={viewportOptions}
           style={{ textAlign: 'center', marginTop: '3rem' }}
         >
-          <p style={{ color: '#6b7280', marginBottom: '1rem', fontSize: '0.9rem' }}>Follow our journey</p>
+          <p style={{ color: 'var(--text-sub)', marginBottom: '1rem', fontSize: '0.9rem' }}>Follow our journey</p>
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
             {[
               { icon: InstagramIcon, label: 'Instagram', color: '#e1306c', href: '#' },

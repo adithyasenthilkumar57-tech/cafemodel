@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Coffee, Menu, X, Moon, Sun, Phone, ShoppingBag } from 'lucide-react';
 import { useCart } from './CartContext';
+import { useTheme } from './ThemeContext';
 
 const navLinks = [
   { label: 'Home', href: '#home' },
@@ -16,21 +17,15 @@ const navLinks = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [dark, setDark] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const { totalItems, setIsOpen: openCart } = useCart();
+  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
-
-  useEffect(() => {
-    document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
-    document.body.style.background = dark ? '#0F0A06' : '';
-    document.body.style.color = dark ? '#F5EDE0' : '';
-  }, [dark]);
 
   const scrollTo = (href) => {
     const el = document.querySelector(href);
@@ -52,14 +47,15 @@ export default function Navbar() {
           zIndex: 100,
           padding: scrolled ? '0.75rem 2rem' : '1.4rem 2rem',
           background: scrolled
-            ? 'rgba(18,12,8,0.92)'
+            ? 'var(--bg-navbar)'
             : 'transparent',
           backdropFilter: scrolled ? 'blur(24px)' : 'none',
-          borderBottom: scrolled ? '1px solid rgba(212,163,115,0.12)' : 'none',
+          borderBottom: scrolled ? '1px solid var(--border-subtle)' : 'none',
           transition: 'all 0.4s cubic-bezier(0.4,0,0.2,1)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
+          boxShadow: scrolled ? 'var(--shadow-soft)' : 'none',
         }}
       >
         {/* Logo */}
@@ -91,8 +87,9 @@ export default function Navbar() {
             fontFamily: 'var(--font-display)',
             fontSize: '1.5rem',
             fontWeight: 600,
-            color: scrolled ? '#FFF8F0' : '#FFF8F0',
+            color: scrolled ? 'var(--text-main)' : '#FFF8F0',
             letterSpacing: '0.02em',
+            transition: 'color 0.3s',
           }}>
             Velvet Bean
           </span>
@@ -115,7 +112,7 @@ export default function Navbar() {
                 fontWeight: 500,
                 letterSpacing: '0.06em',
                 textTransform: 'uppercase',
-                color: activeSection === link.href.slice(1) ? 'var(--color-caramel)' : 'rgba(255,248,240,0.85)',
+                color: activeSection === link.href.slice(1) ? 'var(--color-caramel)' : scrolled ? 'var(--text-main)' : 'rgba(255,248,240,0.9)',
                 transition: 'color 0.3s',
                 padding: '0.25rem 0',
               }}
@@ -128,22 +125,23 @@ export default function Navbar() {
         {/* Right Actions */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
           <button
-            onClick={() => setDark(!dark)}
+            onClick={toggleTheme}
+            aria-label="Toggle Theme"
             style={{
-              background: 'rgba(255,248,240,0.08)',
-              border: '1px solid rgba(212,163,115,0.2)',
+              background: scrolled ? 'var(--border-subtle)' : 'rgba(255,248,240,0.12)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: '50%',
-              width: 36,
-              height: 36,
+              width: 38,
+              height: 38,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               cursor: 'pointer',
-              color: '#D4A373',
+              color: 'var(--color-caramel)',
               transition: 'all 0.3s',
             }}
           >
-            {dark ? <Sun size={16} /> : <Moon size={16} />}
+            {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
           </button>
 
           {/* Cart button */}
@@ -153,19 +151,19 @@ export default function Navbar() {
             whileTap={{ scale: 0.95 }}
             style={{
               position: 'relative',
-              background: 'rgba(255,248,240,0.08)',
-              border: '1px solid rgba(212,163,115,0.2)',
+              background: scrolled ? 'var(--border-subtle)' : 'rgba(255,248,240,0.12)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: '50%',
-              width: 36,
-              height: 36,
+              width: 38,
+              height: 38,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               cursor: 'pointer',
-              color: '#D4A373',
+              color: 'var(--color-caramel)',
             }}
           >
-            <ShoppingBag size={16} />
+            <ShoppingBag size={18} />
             <AnimatePresence>
               {totalItems > 0 && (
                 <motion.div
@@ -182,7 +180,7 @@ export default function Navbar() {
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                     fontSize: '0.6rem', fontWeight: 800,
                     color: '#2C1810',
-                    border: '1.5px solid rgba(18,18,18,0.9)',
+                    border: '1.5px solid var(--bg-main)',
                   }}
                 >
                   {totalItems > 9 ? '9+' : totalItems}
@@ -204,8 +202,8 @@ export default function Navbar() {
             onClick={() => setMenuOpen(!menuOpen)}
             className="show-mobile"
             style={{
-              background: 'rgba(255,248,240,0.08)',
-              border: '1px solid rgba(212,163,115,0.2)',
+              background: scrolled ? 'var(--border-subtle)' : 'rgba(255,248,240,0.12)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: '0.5rem',
               width: 40,
               height: 40,
@@ -213,7 +211,7 @@ export default function Navbar() {
               alignItems: 'center',
               justifyContent: 'center',
               cursor: 'pointer',
-              color: '#D4A373',
+              color: 'var(--color-caramel)',
             }}
           >
             {menuOpen ? <X size={20} /> : <Menu size={20} />}
@@ -235,7 +233,7 @@ export default function Navbar() {
               left: 0,
               right: 0,
               bottom: 0,
-              background: 'rgba(12,6,3,0.97)',
+              background: 'var(--bg-main)',
               backdropFilter: 'blur(24px)',
               zIndex: 99,
               display: 'flex',
@@ -259,11 +257,11 @@ export default function Navbar() {
                   fontFamily: 'var(--font-display)',
                   fontSize: '2.5rem',
                   fontWeight: 500,
-                  color: '#FFF8F0',
+                  color: 'var(--text-main)',
                   letterSpacing: '0.04em',
                   transition: 'color 0.3s',
                 }}
-                whileHover={{ color: '#D4A373', scale: 1.05 }}
+                whileHover={{ color: 'var(--color-caramel)', scale: 1.05 }}
               >
                 {link.label}
               </motion.button>

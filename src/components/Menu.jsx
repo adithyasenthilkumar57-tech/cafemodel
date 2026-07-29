@@ -76,11 +76,12 @@ function MenuCard({ item }) {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={{
-        background: '#fff',
+        background: 'var(--bg-card)',
         borderRadius: '1.25rem',
         overflow: 'hidden',
+        border: '1px solid var(--border-subtle)',
         boxShadow: 'var(--shadow-soft)',
-        transition: 'transform 0.15s ease, box-shadow 0.3s ease',
+        transition: 'transform 0.15s ease, box-shadow 0.3s ease, background-color 0.3s',
         cursor: 'default',
       }}
       whileHover={{ boxShadow: 'var(--shadow-card)' }}
@@ -119,7 +120,8 @@ function MenuCard({ item }) {
             width: 34,
             height: 34,
             borderRadius: '50%',
-            background: 'rgba(255,255,255,0.9)',
+            background: 'var(--bg-glass)',
+            backdropFilter: 'blur(8px)',
             border: 'none',
             cursor: 'pointer',
             display: 'flex',
@@ -131,7 +133,7 @@ function MenuCard({ item }) {
           <Heart
             size={16}
             fill={liked ? '#ef4444' : 'none'}
-            color={liked ? '#ef4444' : '#9ca3af'}
+            color={liked ? '#ef4444' : 'var(--text-muted)'}
           />
         </button>
         {/* Calories */}
@@ -140,7 +142,7 @@ function MenuCard({ item }) {
           bottom: 10,
           right: 12,
           fontSize: '0.7rem',
-          color: 'rgba(255,255,255,0.8)',
+          color: 'rgba(255,255,255,0.85)',
           fontWeight: 500,
         }}>
           {item.cal} kcal
@@ -154,7 +156,7 @@ function MenuCard({ item }) {
             fontFamily: 'var(--font-serif)',
             fontSize: '1.05rem',
             fontWeight: 600,
-            color: 'var(--color-coffee)',
+            color: 'var(--text-main)',
             lineHeight: 1.3,
           }}>{item.name}</h3>
           <span style={{
@@ -169,7 +171,7 @@ function MenuCard({ item }) {
         <StarRating value={item.rating} />
         <p style={{
           fontSize: '0.82rem',
-          color: '#6b7280',
+          color: 'var(--text-sub)',
           marginTop: '0.5rem',
           marginBottom: '1rem',
           lineHeight: 1.5,
@@ -221,8 +223,9 @@ export default function Menu() {
 
   return (
     <section id="menu" style={{
-      background: 'var(--color-cream)',
+      background: 'var(--bg-alt)',
       padding: 'var(--section-py) 0',
+      transition: 'background-color 0.3s',
     }}>
       <div className="container-wide">
         {/* Header */}
@@ -240,12 +243,12 @@ export default function Menu() {
             fontFamily: 'var(--font-serif)',
             fontSize: 'clamp(2.2rem, 4vw, 3.2rem)',
             fontWeight: 700,
-            color: 'var(--color-coffee)',
+            color: 'var(--text-main)',
             marginBottom: '1rem',
           }}>
             Crafted for Every Craving
           </h2>
-          <p style={{ color: '#6b7280', maxWidth: 520, margin: '0 auto', lineHeight: 1.7 }}>
+          <p style={{ color: 'var(--text-sub)', maxWidth: 520, margin: '0 auto', lineHeight: 1.7 }}>
             From single-origin espresso to artisan desserts — every item is made fresh daily with the finest ingredients.
           </p>
         </motion.div>
@@ -266,13 +269,13 @@ export default function Menu() {
         >
           {/* Search */}
           <div style={{ position: 'relative', maxWidth: 400, width: '100%' }}>
-            <Search size={16} style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: '#9ca3af' }} />
+            <Search size={16} style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
             <input
               className="input-premium"
               placeholder="Search menu…"
               value={search}
               onChange={e => setSearch(e.target.value)}
-              style={{ paddingLeft: '2.5rem', background: '#fff' }}
+              style={{ paddingLeft: '2.5rem' }}
             />
           </div>
 
@@ -292,11 +295,11 @@ export default function Menu() {
                   padding: '0.55rem 1.25rem',
                   borderRadius: '50px',
                   border: '1.5px solid',
-                  borderColor: activeCategory === cat ? '#D4A373' : 'rgba(44,24,16,0.15)',
+                  borderColor: activeCategory === cat ? '#D4A373' : 'var(--border-subtle)',
                   background: activeCategory === cat
                     ? 'linear-gradient(135deg,#D4A373,#c17f40)'
-                    : 'transparent',
-                  color: activeCategory === cat ? '#2C1810' : '#6b7280',
+                    : 'var(--bg-card)',
+                  color: activeCategory === cat ? '#2C1810' : 'var(--text-sub)',
                   fontFamily: 'var(--font-sans)',
                   fontSize: '0.82rem',
                   fontWeight: 600,

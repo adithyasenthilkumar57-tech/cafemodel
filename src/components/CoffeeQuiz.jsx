@@ -150,10 +150,12 @@ export default function CoffeeQuiz() {
 
   return (
     <section id="coffee-quiz" style={{
-      background: 'var(--color-dark)',
+      background: 'var(--bg-main)',
+      color: 'var(--text-main)',
       padding: 'var(--section-py) 0',
       position: 'relative',
       overflow: 'hidden',
+      transition: 'background-color 0.3s',
     }}>
       {/* Decorative background */}
       <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 50% 0%, rgba(212,163,115,0.1) 0%, transparent 60%)', pointerEvents: 'none' }} />
@@ -164,17 +166,17 @@ export default function CoffeeQuiz() {
           <div className="section-label" style={{ justifyContent: 'center', color: 'var(--color-caramel)' }}>
             Personalised Recommendation
           </div>
-          <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(2.2rem, 4vw, 3.2rem)', fontWeight: 700, color: '#FFF8F0', marginBottom: '1rem' }}>
+          <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(2.2rem, 4vw, 3.2rem)', fontWeight: 700, color: 'var(--text-main)', marginBottom: '1rem' }}>
             Find Your Perfect Coffee
           </h2>
-          <p style={{ color: 'rgba(245,237,224,0.55)', maxWidth: 440, margin: '0 auto', lineHeight: 1.7 }}>
+          <p style={{ color: 'var(--text-sub)', maxWidth: 440, margin: '0 auto', lineHeight: 1.7 }}>
             Answer 5 quick questions and we'll match you with your ideal Velvet Bean drink.
           </p>
         </motion.div>
 
         {/* Progress bar */}
         {step >= 0 && step < QUESTIONS.length && (
-          <div style={{ maxWidth: 640, margin: '0 auto 2.5rem', height: 4, background: 'rgba(212,163,115,0.15)', borderRadius: 2, overflow: 'hidden' }}>
+          <div style={{ maxWidth: 640, margin: '0 auto 2.5rem', height: 4, background: 'var(--border-subtle)', borderRadius: 2, overflow: 'hidden' }}>
             <motion.div animate={{ width: `${progress}%` }} transition={{ duration: 0.5 }}
               style={{ height: '100%', background: 'linear-gradient(90deg,#D4A373,#c17f40)', borderRadius: 2 }} />
           </div>
@@ -188,10 +190,11 @@ export default function CoffeeQuiz() {
                 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -30 }}
                 style={{
                   textAlign: 'center',
-                  background: 'rgba(255,248,240,0.04)',
+                  background: 'var(--bg-card)',
                   backdropFilter: 'blur(24px)',
-                  border: '1px solid rgba(212,163,115,0.15)',
+                  border: '1px solid var(--border-subtle)',
                   borderRadius: '2rem', padding: '3.5rem 2.5rem',
+                  boxShadow: 'var(--shadow-card)',
                 }}>
                 <motion.div
                   animate={{ rotate: [0, 10, -10, 0] }}
@@ -199,15 +202,15 @@ export default function CoffeeQuiz() {
                   style={{ fontSize: '4rem', marginBottom: '1.5rem' }}>
                   ☕
                 </motion.div>
-                <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.6rem', color: '#FFF8F0', marginBottom: '0.75rem' }}>
+                <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.6rem', color: 'var(--text-main)', marginBottom: '0.75rem' }}>
                   Which Velvet Bean Drink Are You?
                 </h3>
-                <p style={{ color: 'rgba(245,237,224,0.55)', lineHeight: 1.7, marginBottom: '2rem' }}>
+                <p style={{ color: 'var(--text-sub)', lineHeight: 1.7, marginBottom: '2rem' }}>
                   5 questions. 30 seconds. 7 possible results. Let us find your perfect match from our menu.
                 </p>
                 <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '2rem' }}>
                   {['Nitro Cold Brew', 'Rose Cardamom Latte', 'Affogato', 'Cortado', '+ 3 more'].map(tag => (
-                    <span key={tag} style={{ padding: '0.25rem 0.75rem', borderRadius: '50px', background: 'rgba(212,163,115,0.1)', border: '1px solid rgba(212,163,115,0.2)', fontSize: '0.75rem', color: 'rgba(245,237,224,0.6)' }}>
+                    <span key={tag} style={{ padding: '0.25rem 0.75rem', borderRadius: '50px', background: 'rgba(212,163,115,0.12)', border: '1px solid var(--border-subtle)', fontSize: '0.75rem', color: 'var(--text-muted)' }}>
                       {tag}
                     </span>
                   ))}
@@ -226,16 +229,17 @@ export default function CoffeeQuiz() {
                 initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -40 }}
                 transition={{ duration: 0.35 }}>
                 <div style={{
-                  background: 'rgba(255,248,240,0.04)',
+                  background: 'var(--bg-card)',
                   backdropFilter: 'blur(24px)',
-                  border: '1px solid rgba(212,163,115,0.15)',
+                  border: '1px solid var(--border-subtle)',
                   borderRadius: '2rem',
                   padding: 'clamp(2rem, 5vw, 3rem)',
+                  boxShadow: 'var(--shadow-card)',
                 }}>
-                  <div style={{ fontSize: '0.72rem', color: 'rgba(245,237,224,0.4)', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '0.75rem' }}>
+                  <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '0.75rem' }}>
                     Question {step + 1} of {QUESTIONS.length}
                   </div>
-                  <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.5rem', color: '#FFF8F0', fontWeight: 700, marginBottom: '2rem', lineHeight: 1.3 }}>
+                  <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.5rem', color: 'var(--text-main)', fontWeight: 700, marginBottom: '2rem', lineHeight: 1.3 }}>
                     {QUESTIONS[step].q}
                   </h3>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
@@ -248,9 +252,9 @@ export default function CoffeeQuiz() {
                           padding: '1rem 1.25rem',
                           borderRadius: '1rem',
                           border: '1.5px solid',
-                          borderColor: selected === opt.label ? '#D4A373' : 'rgba(212,163,115,0.15)',
-                          background: selected === opt.label ? 'rgba(212,163,115,0.15)' : 'rgba(255,248,240,0.04)',
-                          color: selected === opt.label ? '#D4A373' : 'rgba(245,237,224,0.75)',
+                          borderColor: selected === opt.label ? '#D4A373' : 'var(--border-subtle)',
+                          background: selected === opt.label ? 'rgba(212,163,115,0.15)' : 'var(--bg-main)',
+                          color: selected === opt.label ? '#D4A373' : 'var(--text-main)',
                           fontFamily: 'var(--font-sans)',
                           fontSize: '0.92rem',
                           textAlign: 'left',
@@ -272,9 +276,9 @@ export default function CoffeeQuiz() {
                 initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
                 transition={{ type: 'spring', stiffness: 280, damping: 25 }}>
                 <div style={{
-                  background: 'rgba(255,248,240,0.04)',
+                  background: 'var(--bg-card)',
                   backdropFilter: 'blur(24px)',
-                  border: `1px solid ${result.accent}30`,
+                  border: `1px solid ${result.accent}40`,
                   borderRadius: '2rem',
                   overflow: 'hidden',
                   boxShadow: `0 0 60px ${result.accent}15`,
@@ -282,7 +286,7 @@ export default function CoffeeQuiz() {
                   <div style={{ position: 'relative', height: 260, overflow: 'hidden' }}>
                     <img src={result.img} alt={result.drink}
                       style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                    <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(18,18,18,0.9) 0%, transparent 60%)' }} />
+                    <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 60%)' }} />
                     <div style={{ position: 'absolute', top: 16, left: 16, padding: '0.25rem 0.75rem', borderRadius: '50px', background: `${result.accent}25`, border: `1px solid ${result.accent}50`, color: result.accent, fontSize: '0.72rem', fontWeight: 700 }}>
                       {result.badge}
                     </div>
@@ -300,9 +304,9 @@ export default function CoffeeQuiz() {
                   <div style={{ padding: '2rem' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '1rem' }}>
                       {[1,2,3,4,5].map(i => <Star key={i} size={14} fill={result.accent} color={result.accent} />)}
-                      <span style={{ fontSize: '0.8rem', color: 'rgba(245,237,224,0.45)', marginLeft: '0.25rem' }}>Staff favourite</span>
+                      <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginLeft: '0.25rem' }}>Staff favourite</span>
                     </div>
-                    <p style={{ color: 'rgba(245,237,224,0.65)', lineHeight: 1.8, fontSize: '0.95rem', marginBottom: '1.5rem' }}>
+                    <p style={{ color: 'var(--text-sub)', lineHeight: 1.8, fontSize: '0.95rem', marginBottom: '1.5rem' }}>
                       {result.desc}
                     </p>
                     <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
@@ -312,7 +316,7 @@ export default function CoffeeQuiz() {
                         <Coffee size={15} /> Order Now · {result.price}
                       </button>
                       <button onClick={handleReset} className="btn-outline"
-                        style={{ borderColor: 'rgba(255,248,240,0.15)', color: '#FFF8F0', padding: '0.7rem 1.2rem' }}>
+                        style={{ borderColor: 'var(--border-subtle)', color: 'var(--text-main)', padding: '0.7rem 1.2rem' }}>
                         <RotateCcw size={15} /> Retake
                       </button>
                     </div>

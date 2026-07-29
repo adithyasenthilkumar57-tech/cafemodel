@@ -160,8 +160,9 @@ function FeaturedCard({ item }) {
 export default function FeaturedProducts() {
   return (
     <section id="featured" style={{
-      background: 'var(--color-dark)',
+      background: 'var(--bg-main)',
       padding: 'var(--section-py) 0',
+      transition: 'background-color 0.3s',
     }}>
       <div className="container-wide">
         {/* Header */}
@@ -179,12 +180,12 @@ export default function FeaturedProducts() {
             fontFamily: 'var(--font-serif)',
             fontSize: 'clamp(2.2rem, 4vw, 3.2rem)',
             fontWeight: 700,
-            color: '#FFF8F0',
+            color: 'var(--text-main)',
             marginBottom: '1rem',
           }}>
             The Icons of Velvet Bean
           </h2>
-          <p style={{ color: 'rgba(245,237,224,0.55)', maxWidth: 500, margin: '0 auto', lineHeight: 1.7 }}>
+          <p style={{ color: 'var(--text-sub)', maxWidth: 500, margin: '0 auto', lineHeight: 1.7 }}>
             Three creations that define who we are — tried, trusted, and talked about.
           </p>
         </motion.div>

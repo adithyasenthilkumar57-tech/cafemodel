@@ -79,9 +79,11 @@ function Stars({ count = 5 }) {
 export default function Testimonials() {
   return (
     <section id="testimonials" style={{
-      background: 'var(--color-cream)',
+      background: 'var(--bg-alt)',
+      color: 'var(--text-main)',
       padding: 'var(--section-py) 0',
       overflow: 'hidden',
+      transition: 'background-color 0.3s',
     }}>
       <div className="container-wide">
         {/* Header */}
@@ -99,12 +101,12 @@ export default function Testimonials() {
             fontFamily: 'var(--font-serif)',
             fontSize: 'clamp(2.2rem, 4vw, 3.2rem)',
             fontWeight: 700,
-            color: 'var(--color-coffee)',
+            color: 'var(--text-main)',
             marginBottom: '1rem',
           }}>
             What Our Guests Say
           </h2>
-          <p style={{ color: '#6b7280', maxWidth: 520, margin: '0 auto', lineHeight: 1.7 }}>
+          <p style={{ color: 'var(--text-sub)', maxWidth: 520, margin: '0 auto', lineHeight: 1.7 }}>
             Real stories from the people who love Velvet Bean as much as we love coffee.
           </p>
 
@@ -115,10 +117,10 @@ export default function Testimonials() {
             gap: '0.75rem',
             marginTop: '1.5rem',
             padding: '0.6rem 1.5rem',
-            background: '#fff',
+            background: 'var(--bg-card)',
             borderRadius: '50px',
             boxShadow: 'var(--shadow-soft)',
-            border: '1px solid rgba(44,24,16,0.08)',
+            border: '1px solid var(--border-subtle)',
           }}>
             <svg width="20" height="20" viewBox="0 0 48 48" fill="none">
               <path fill="#FFC107" d="M43.6 20.1H42V20H24v8h11.3C33.7 33.1 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3l5.7-5.7C34.5 6.1 29.5 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.6-.4-3.9z"/>
@@ -126,13 +128,13 @@ export default function Testimonials() {
               <path fill="#4CAF50" d="M24 44c5.2 0 10-1.9 13.7-5.1l-6.3-5.3C29.5 35.5 26.9 36 24 36c-5.3 0-9.7-3-11.3-7.4l-6.6 5.1C9.5 40.1 16.3 44 24 44z"/>
               <path fill="#1976D2" d="M43.6 20.1H42V20H24v8h11.3c-.8 2.2-2.2 4.1-4 5.5l6.3 5.3C41.4 35.9 44 30.4 44 24c0-1.3-.1-2.6-.4-3.9z"/>
             </svg>
-            <span style={{ fontFamily: 'var(--font-sans)', fontSize: '0.9rem', color: '#374151', fontWeight: 600 }}>
+            <span style={{ fontFamily: 'var(--font-sans)', fontSize: '0.9rem', color: 'var(--text-main)', fontWeight: 600 }}>
               4.9 / 5.0
             </span>
             <div style={{ display: 'flex', gap: 1 }}>
               {[1,2,3,4,5].map(i => <span key={i} style={{ color: '#F59E0B', fontSize: '0.85rem' }}>★</span>)}
             </div>
-            <span style={{ color: '#9ca3af', fontSize: '0.82rem' }}>Based on 2,400+ reviews</span>
+            <span style={{ color: 'var(--text-muted)', fontSize: '0.82rem' }}>Based on 2,400+ reviews</span>
           </div>
         </motion.div>
 
@@ -160,11 +162,11 @@ export default function Testimonials() {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
                 style={{
-                  background: '#fff',
+                  background: 'var(--bg-card)',
                   borderRadius: '1.5rem',
                   padding: '2rem',
                   boxShadow: 'var(--shadow-soft)',
-                  border: '1px solid rgba(44,24,16,0.06)',
+                  border: '1px solid var(--border-subtle)',
                   height: '100%',
                   position: 'relative',
                   overflow: 'hidden',
@@ -177,14 +179,14 @@ export default function Testimonials() {
                   right: '1.5rem',
                   opacity: 0.06,
                 }}>
-                  <Quote size={64} color="#2C1810" />
+                  <Quote size={64} color="var(--color-caramel)" />
                 </div>
 
                 <Stars count={t.rating} />
                 <p style={{
                   fontFamily: 'var(--font-serif)',
                   fontSize: '0.95rem',
-                  color: '#374151',
+                  color: 'var(--text-sub)',
                   lineHeight: 1.8,
                   marginBottom: '1.5rem',
                   fontStyle: 'italic',
@@ -208,12 +210,12 @@ export default function Testimonials() {
                     <div style={{
                       fontFamily: 'var(--font-sans)',
                       fontWeight: 600,
-                      color: '#1f2937',
+                      color: 'var(--text-main)',
                       fontSize: '0.9rem',
                     }}>{t.name}</div>
                     <div style={{
                       fontSize: '0.78rem',
-                      color: '#9ca3af',
+                      color: 'var(--text-muted)',
                     }}>{t.role} · {t.location}</div>
                   </div>
                   <div style={{ marginLeft: 'auto' }}>

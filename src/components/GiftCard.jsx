@@ -130,7 +130,7 @@ export default function GiftCard() {
   };
 
   return (
-    <section id="gift-cards" style={{ background: 'var(--color-dark)', padding: 'var(--section-py) 0', position: 'relative', overflow: 'hidden' }}>
+    <section id="gift-cards" style={{ background: 'var(--bg-main)', color: 'var(--text-main)', padding: 'var(--section-py) 0', position: 'relative', overflow: 'hidden', transition: 'background-color 0.3s' }}>
       <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 70% 50%, rgba(212,163,115,0.07) 0%, transparent 60%)', pointerEvents: 'none' }} />
 
       <div className="container-wide" style={{ position: 'relative', zIndex: 1 }}>
@@ -139,10 +139,10 @@ export default function GiftCard() {
           <div className="section-label" style={{ justifyContent: 'center', color: 'var(--color-caramel)' }}>
             Give the Gift of Coffee
           </div>
-          <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(2.2rem, 4vw, 3.2rem)', fontWeight: 700, color: '#FFF8F0', marginBottom: '1rem' }}>
+          <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(2.2rem, 4vw, 3.2rem)', fontWeight: 700, color: 'var(--text-main)', marginBottom: '1rem' }}>
             Velvet Bean Gift Cards
           </h2>
-          <p style={{ color: 'rgba(245,237,224,0.55)', maxWidth: 480, margin: '0 auto', lineHeight: 1.7 }}>
+          <p style={{ color: 'var(--text-sub)', maxWidth: 480, margin: '0 auto', lineHeight: 1.7 }}>
             The perfect gift for every occasion. Share the love, one cup at a time.
           </p>
         </motion.div>
@@ -159,14 +159,14 @@ export default function GiftCard() {
                 style={{ width: 100, height: 100, borderRadius: '50%', background: 'linear-gradient(135deg,#D4A373,#c17f40)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem', boxShadow: '0 0 40px rgba(212,163,115,0.4)' }}>
                 <Check size={48} color="#2C1810" />
               </motion.div>
-              <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '2rem', color: '#FFF8F0', marginBottom: '0.75rem' }}>Gift Card Sent! 🎉</h3>
-              <p style={{ color: 'rgba(245,237,224,0.55)', maxWidth: 400, margin: '0 auto 2rem', lineHeight: 1.7 }}>
+              <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '2rem', color: 'var(--text-main)', marginBottom: '0.75rem' }}>Gift Card Sent! 🎉</h3>
+              <p style={{ color: 'var(--text-sub)', maxWidth: 400, margin: '0 auto 2rem', lineHeight: 1.7 }}>
                 Your ${finalAmount} gift card has been sent to {recipientEmail || 'the recipient'}. They'll love it!
               </p>
               <div style={{ maxWidth: 480, margin: '0 auto 2rem' }}>
                 <GiftCardPreview design={selectedDesign} amount={finalAmount} recipientName={recipientName} message={message} senderName={senderName} />
               </div>
-              <button onClick={() => setPurchased(false)} className="btn-outline" style={{ color: '#FFF8F0', borderColor: 'rgba(255,248,240,0.2)' }}>
+              <button onClick={() => setPurchased(false)} className="btn-outline" style={{ color: 'var(--text-main)', borderColor: 'var(--border-subtle)' }}>
                 Send Another Gift
               </button>
             </motion.div>
@@ -180,7 +180,7 @@ export default function GiftCard() {
                 <form onSubmit={handlePurchase}>
                   {/* Design selection */}
                   <div style={{ marginBottom: '2rem' }}>
-                    <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(245,237,224,0.5)', marginBottom: '0.75rem' }}>
+                    <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '0.75rem' }}>
                       Card Design
                     </label>
                     <div style={{ display: 'flex', gap: '0.75rem' }}>
@@ -209,7 +209,7 @@ export default function GiftCard() {
 
                   {/* Amount */}
                   <div style={{ marginBottom: '2rem' }}>
-                    <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(245,237,224,0.5)', marginBottom: '0.75rem' }}>
+                    <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '0.75rem' }}>
                       Amount
                     </label>
                     <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '0.75rem' }}>
@@ -217,9 +217,9 @@ export default function GiftCard() {
                         <button key={amt} type="button" onClick={() => { setSelectedAmount(amt); setCustomAmount(''); }}
                           style={{
                             padding: '0.5rem 1.1rem', borderRadius: '0.6rem', border: '1.5px solid',
-                            borderColor: selectedAmount === amt && !customAmount ? '#D4A373' : 'rgba(212,163,115,0.2)',
-                            background: selectedAmount === amt && !customAmount ? 'rgba(212,163,115,0.15)' : 'transparent',
-                            color: selectedAmount === amt && !customAmount ? '#D4A373' : 'rgba(245,237,224,0.55)',
+                            borderColor: selectedAmount === amt && !customAmount ? '#D4A373' : 'var(--border-subtle)',
+                            background: selectedAmount === amt && !customAmount ? 'rgba(212,163,115,0.15)' : 'var(--bg-card)',
+                            color: selectedAmount === amt && !customAmount ? '#D4A373' : 'var(--text-sub)',
                             fontWeight: 700, cursor: 'pointer', fontSize: '0.9rem',
                             transition: 'all 0.2s',
                           }}>
@@ -231,54 +231,44 @@ export default function GiftCard() {
                       type="number" placeholder="Custom amount (e.g. 75)"
                       value={customAmount}
                       onChange={e => { setCustomAmount(e.target.value); setSelectedAmount(null); }}
-                      style={{
-                        width: '100%', padding: '0.75rem 1rem',
-                        background: 'rgba(255,248,240,0.06)',
-                        border: '1.5px solid rgba(212,163,115,0.2)',
-                        borderRadius: '0.75rem', color: '#FFF8F0',
-                        fontFamily: 'var(--font-sans)', fontSize: '0.9rem', outline: 'none',
-                      }}
+                      className="input-premium"
                     />
                   </div>
 
                   {/* Recipient */}
                   <div style={{ marginBottom: '1rem' }}>
-                    <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(245,237,224,0.5)', marginBottom: '0.4rem' }}>
+                    <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '0.4rem' }}>
                       Recipient's Name *
                     </label>
                     <input required value={recipientName} onChange={e => setRecipientName(e.target.value)}
-                      placeholder="Jane Smith"
-                      style={{ width: '100%', padding: '0.75rem 1rem', background: 'rgba(255,248,240,0.06)', border: '1.5px solid rgba(212,163,115,0.2)', borderRadius: '0.75rem', color: '#FFF8F0', fontFamily: 'var(--font-sans)', fontSize: '0.9rem', outline: 'none' }} />
+                      placeholder="Jane Smith" className="input-premium" />
                   </div>
                   <div style={{ marginBottom: '1rem' }}>
-                    <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(245,237,224,0.5)', marginBottom: '0.4rem' }}>
+                    <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '0.4rem' }}>
                       Recipient's Email *
                     </label>
                     <input required type="email" value={recipientEmail} onChange={e => setRecipientEmail(e.target.value)}
-                      placeholder="jane@example.com"
-                      style={{ width: '100%', padding: '0.75rem 1rem', background: 'rgba(255,248,240,0.06)', border: '1.5px solid rgba(212,163,115,0.2)', borderRadius: '0.75rem', color: '#FFF8F0', fontFamily: 'var(--font-sans)', fontSize: '0.9rem', outline: 'none' }} />
+                      placeholder="jane@example.com" className="input-premium" />
                   </div>
                   <div style={{ marginBottom: '1rem' }}>
-                    <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(245,237,224,0.5)', marginBottom: '0.4rem' }}>
+                    <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '0.4rem' }}>
                       Your Name
                     </label>
                     <input value={senderName} onChange={e => setSenderName(e.target.value)}
-                      placeholder="Your name"
-                      style={{ width: '100%', padding: '0.75rem 1rem', background: 'rgba(255,248,240,0.06)', border: '1.5px solid rgba(212,163,115,0.2)', borderRadius: '0.75rem', color: '#FFF8F0', fontFamily: 'var(--font-sans)', fontSize: '0.9rem', outline: 'none' }} />
+                      placeholder="Your name" className="input-premium" />
                   </div>
                   <div style={{ marginBottom: '2rem' }}>
-                    <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(245,237,224,0.5)', marginBottom: '0.4rem' }}>
+                    <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '0.4rem' }}>
                       Personal Message
                     </label>
                     <textarea value={message} onChange={e => setMessage(e.target.value)} rows={2}
-                      placeholder="Enjoy a special treat on me! ☕"
-                      style={{ width: '100%', padding: '0.75rem 1rem', background: 'rgba(255,248,240,0.06)', border: '1.5px solid rgba(212,163,115,0.2)', borderRadius: '0.75rem', color: '#FFF8F0', fontFamily: 'var(--font-sans)', fontSize: '0.9rem', outline: 'none', resize: 'vertical' }} />
+                      placeholder="Enjoy a special treat on me! ☕" className="input-premium" style={{ resize: 'vertical' }} />
                   </div>
 
                   <div style={{ display: 'flex', gap: '0.75rem' }}>
                     <button type="button" onClick={() => setShowPreview(true)}
                       className="btn-outline"
-                      style={{ flex: 1, justifyContent: 'center', color: '#FFF8F0', borderColor: 'rgba(255,248,240,0.2)' }}>
+                      style={{ flex: 1, justifyContent: 'center', color: 'var(--text-main)', borderColor: 'var(--border-subtle)' }}>
                       Preview Card
                     </button>
                     <button type="submit" className="btn-primary ripple"
@@ -292,15 +282,15 @@ export default function GiftCard() {
               {/* Right: Live preview */}
               <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={viewportOptions}
                 style={{ position: 'sticky', top: '6rem' }}>
-                <div style={{ marginBottom: '1rem', fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(245,237,224,0.4)' }}>
+                <div style={{ marginBottom: '1rem', fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--text-muted)' }}>
                   Live Preview
                 </div>
                 <GiftCardPreview design={selectedDesign} amount={finalAmount} recipientName={recipientName} message={message} senderName={senderName} />
-                <div style={{ marginTop: '1.5rem', padding: '1.25rem', background: 'rgba(255,248,240,0.04)', border: '1px solid rgba(212,163,115,0.12)', borderRadius: '1rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                <div style={{ marginTop: '1.5rem', padding: '1.25rem', background: 'var(--bg-card)', border: '1px solid var(--border-subtle)', borderRadius: '1rem', display: 'flex', flexDirection: 'column', gap: '0.5rem', boxShadow: 'var(--shadow-soft)' }}>
                   {[['Value', `$${finalAmount || '—'}`], ['Design', selectedDesign.name], ['Delivery', 'Instant email'], ['Expiry', 'Never expires'], ['Redeemable at', 'All Velvet Bean locations']].map(([k, v]) => (
                     <div key={k} style={{ display: 'flex', justifyContent: 'space-between' }}>
-                      <span style={{ fontSize: '0.8rem', color: 'rgba(245,237,224,0.4)' }}>{k}</span>
-                      <span style={{ fontSize: '0.8rem', color: 'rgba(245,237,224,0.75)', fontWeight: 500 }}>{v}</span>
+                      <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{k}</span>
+                      <span style={{ fontSize: '0.8rem', color: 'var(--text-main)', fontWeight: 500 }}>{v}</span>
                     </div>
                   ))}
                 </div>

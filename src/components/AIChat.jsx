@@ -125,13 +125,13 @@ export default function AIChat() {
               maxWidth: 'calc(100vw - 2rem)',
               height: 520,
               borderRadius: '1.5rem',
-              background: '#fff',
-              boxShadow: '0 24px 80px rgba(44,24,16,0.25)',
+              background: 'var(--bg-card)',
+              boxShadow: 'var(--shadow-card)',
               display: 'flex',
               flexDirection: 'column',
               overflow: 'hidden',
               zIndex: 199,
-              border: '1px solid rgba(212,163,115,0.2)',
+              border: '1px solid var(--border-subtle)',
             }}
           >
             {/* Header */}
@@ -174,7 +174,7 @@ export default function AIChat() {
               display: 'flex',
               flexDirection: 'column',
               gap: '0.75rem',
-              background: '#f9fafb',
+              background: 'var(--bg-main)',
             }}>
               {messages.map((msg, i) => (
                 <motion.div
@@ -183,7 +183,7 @@ export default function AIChat() {
                   animate={{ opacity: 1, y: 0 }}
                   style={{
                     display: 'flex',
-                    justifyContent: msg.from === 'user' ? 'flex-end' : 'flex-start',
+                    justify: msg.from === 'user' ? 'flex-end' : 'flex-start',
                   }}
                 >
                   <div style={{
@@ -192,11 +192,12 @@ export default function AIChat() {
                     borderRadius: msg.from === 'user' ? '1rem 1rem 0.25rem 1rem' : '1rem 1rem 1rem 0.25rem',
                     background: msg.from === 'user'
                       ? 'linear-gradient(135deg,#D4A373,#c17f40)'
-                      : '#fff',
-                    color: msg.from === 'user' ? '#2C1810' : '#1f2937',
+                      : 'var(--bg-card)',
+                    border: msg.from === 'user' ? 'none' : '1px solid var(--border-subtle)',
+                    color: msg.from === 'user' ? '#2C1810' : 'var(--text-main)',
                     fontSize: '0.85rem',
                     lineHeight: 1.6,
-                    boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+                    boxShadow: 'var(--shadow-soft)',
                     fontWeight: msg.from === 'user' ? 500 : 400,
                     whiteSpace: 'pre-line',
                   }}>
@@ -205,7 +206,7 @@ export default function AIChat() {
                 </motion.div>
               ))}
               {typing && (
-                <div style={{ display: 'flex', gap: 4, padding: '0.65rem 1rem', background: '#fff', borderRadius: '1rem 1rem 1rem 0.25rem', width: 70, boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }}>
+                <div style={{ display: 'flex', gap: 4, padding: '0.65rem 1rem', background: 'var(--bg-card)', borderRadius: '1rem 1rem 1rem 0.25rem', width: 70, boxShadow: 'var(--shadow-soft)', border: '1px solid var(--border-subtle)' }}>
                   {[0,1,2].map(i => (
                     <motion.div
                       key={i}
@@ -223,11 +224,11 @@ export default function AIChat() {
             {messages.length < 3 && (
               <div style={{
                 padding: '0.5rem 1rem',
-                background: '#f9fafb',
+                background: 'var(--bg-main)',
                 display: 'flex',
                 gap: '0.4rem',
                 overflowX: 'auto',
-                borderTop: '1px solid #f3f4f6',
+                borderTop: '1px solid var(--border-subtle)',
               }}>
                 {SUGGESTIONS.map(s => (
                   <button
@@ -238,7 +239,7 @@ export default function AIChat() {
                       borderRadius: '20px',
                       background: 'rgba(212,163,115,0.12)',
                       border: '1px solid rgba(212,163,115,0.25)',
-                      color: '#7c4f2d',
+                      color: 'var(--color-caramel)',
                       fontSize: '0.75rem',
                       cursor: 'pointer',
                       whiteSpace: 'nowrap',
@@ -258,8 +259,8 @@ export default function AIChat() {
                 display: 'flex',
                 gap: '0.5rem',
                 padding: '0.75rem 1rem',
-                borderTop: '1px solid #f3f4f6',
-                background: '#fff',
+                borderTop: '1px solid var(--border-subtle)',
+                background: 'var(--bg-card)',
               }}
             >
               <input
@@ -270,15 +271,16 @@ export default function AIChat() {
                   flex: 1,
                   padding: '0.65rem 1rem',
                   borderRadius: '0.75rem',
-                  border: '1.5px solid #e5e7eb',
+                  border: '1.5px solid var(--border-subtle)',
+                  background: 'var(--bg-main)',
+                  color: 'var(--text-main)',
                   fontFamily: 'var(--font-sans)',
                   fontSize: '0.87rem',
                   outline: 'none',
                   transition: 'border-color 0.2s',
-                  color: '#1f2937',
                 }}
                 onFocus={e => e.target.style.borderColor = '#D4A373'}
-                onBlur={e => e.target.style.borderColor = '#e5e7eb'}
+                onBlur={e => e.target.style.borderColor = 'var(--border-subtle)'}
               />
               <motion.button
                 type="submit"
@@ -289,13 +291,13 @@ export default function AIChat() {
                   width: 40,
                   height: 40,
                   borderRadius: '0.75rem',
-                  background: input.trim() ? 'linear-gradient(135deg,#D4A373,#c17f40)' : '#e5e7eb',
+                  background: input.trim() ? 'linear-gradient(135deg,#D4A373,#c17f40)' : 'var(--border-subtle)',
                   border: 'none',
                   cursor: input.trim() ? 'pointer' : 'default',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  color: input.trim() ? '#2C1810' : '#9ca3af',
+                  color: input.trim() ? '#2C1810' : 'var(--text-muted)',
                   transition: 'all 0.2s',
                   flexShrink: 0,
                 }}

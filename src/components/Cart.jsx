@@ -53,11 +53,12 @@ export default function Cart() {
               top: 0, right: 0, bottom: 0,
               width: 420,
               maxWidth: '100vw',
-              background: '#fff',
+              background: 'var(--bg-card)',
+              color: 'var(--text-main)',
               zIndex: 301,
               display: 'flex',
               flexDirection: 'column',
-              boxShadow: '-24px 0 80px rgba(44,24,16,0.2)',
+              boxShadow: '-24px 0 80px rgba(0,0,0,0.3)',
             }}
           >
             {/* Header */}
@@ -95,7 +96,7 @@ export default function Cart() {
             </div>
 
             {/* Items */}
-            <div style={{ flex: 1, overflowY: 'auto', padding: '1rem' }}>
+            <div style={{ flex: 1, overflowY: 'auto', padding: '1rem', background: 'var(--bg-main)' }}>
               <AnimatePresence mode="popLayout">
                 {items.length === 0 ? (
                   <motion.div
@@ -106,14 +107,14 @@ export default function Cart() {
                       display: 'flex', flexDirection: 'column',
                       alignItems: 'center', justifyContent: 'center',
                       height: '100%', paddingTop: '4rem', gap: '1rem',
-                      color: '#9ca3af',
+                      color: 'var(--text-muted)',
                     }}
                   >
                     <Coffee size={52} strokeWidth={1} />
-                    <div style={{ fontFamily: 'var(--font-serif)', fontSize: '1.2rem', color: '#6b7280' }}>
+                    <div style={{ fontFamily: 'var(--font-serif)', fontSize: '1.2rem', color: 'var(--text-sub)' }}>
                       Your cart is empty
                     </div>
-                    <p style={{ fontSize: '0.85rem', textAlign: 'center', maxWidth: 220, lineHeight: 1.6 }}>
+                    <p style={{ fontSize: '0.85rem', textAlign: 'center', maxWidth: 220, lineHeight: 1.6, color: 'var(--text-muted)' }}>
                       Browse our menu and add your favourite items!
                     </p>
                     <button
@@ -137,9 +138,9 @@ export default function Cart() {
                         display: 'flex', gap: '0.75rem',
                         padding: '0.85rem',
                         marginBottom: '0.75rem',
-                        background: '#f9fafb',
+                        background: 'var(--bg-card)',
                         borderRadius: '1rem',
-                        border: '1px solid #f3f4f6',
+                        border: '1px solid var(--border-subtle)',
                         alignItems: 'center',
                       }}
                     >
@@ -148,7 +149,7 @@ export default function Cart() {
                         borderRadius: '0.75rem', flexShrink: 0,
                       }} />
                       <div style={{ flex: 1, minWidth: 0 }}>
-                        <div style={{ fontFamily: 'var(--font-sans)', fontWeight: 600, fontSize: '0.9rem', color: '#1f2937', marginBottom: '0.2rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                        <div style={{ fontFamily: 'var(--font-sans)', fontWeight: 600, fontSize: '0.9rem', color: 'var(--text-main)', marginBottom: '0.2rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                           {item.name}
                         </div>
                         <div style={{ color: '#D4A373', fontWeight: 700, fontSize: '0.95rem', fontFamily: 'var(--font-display)' }}>
@@ -159,14 +160,14 @@ export default function Cart() {
                         <button onClick={() => item.qty === 1 ? handleRemove(item.id) : updateQty(item.id, item.qty - 1)}
                           style={{
                             width: 28, height: 28, borderRadius: '50%',
-                            background: item.qty === 1 ? '#fef2f2' : '#f3f4f6',
+                            background: item.qty === 1 ? 'rgba(239,68,68,0.15)' : 'var(--bg-main)',
                             border: 'none', cursor: 'pointer',
                             display: 'flex', alignItems: 'center', justifyContent: 'center',
-                            color: item.qty === 1 ? '#ef4444' : '#4b5563',
+                            color: item.qty === 1 ? '#ef4444' : 'var(--text-main)',
                           }}>
                           {item.qty === 1 ? <Trash2 size={12} /> : <Minus size={12} />}
                         </button>
-                        <span style={{ fontWeight: 700, fontSize: '0.9rem', minWidth: 20, textAlign: 'center', color: '#1f2937' }}>
+                        <span style={{ fontWeight: 700, fontSize: '0.9rem', minWidth: 20, textAlign: 'center', color: 'var(--text-main)' }}>
                           {item.qty}
                         </span>
                         <button onClick={() => updateQty(item.id, item.qty + 1)}
@@ -175,7 +176,7 @@ export default function Cart() {
                             background: 'rgba(212,163,115,0.15)',
                             border: 'none', cursor: 'pointer',
                             display: 'flex', alignItems: 'center', justifyContent: 'center',
-                            color: '#c17f40',
+                            color: '#D4A373',
                           }}>
                           <Plus size={12} />
                         </button>
@@ -190,8 +191,8 @@ export default function Cart() {
             {items.length > 0 && (
               <div style={{
                 padding: '1.25rem 1.5rem',
-                borderTop: '1px solid #f3f4f6',
-                background: '#fff',
+                borderTop: '1px solid var(--border-subtle)',
+                background: 'var(--bg-card)',
               }}>
                 {[
                   ['Subtotal', `$${subtotal.toFixed(2)}`],
@@ -199,16 +200,16 @@ export default function Cart() {
                   ['Tax (8.75%)', `$${tax.toFixed(2)}`],
                 ].map(([label, val]) => (
                   <div key={label} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-                    <span style={{ fontSize: '0.85rem', color: '#6b7280' }}>{label}</span>
-                    <span style={{ fontSize: '0.85rem', color: '#374151', fontWeight: 500 }}>{val}</span>
+                    <span style={{ fontSize: '0.85rem', color: 'var(--text-sub)' }}>{label}</span>
+                    <span style={{ fontSize: '0.85rem', color: 'var(--text-main)', fontWeight: 500 }}>{val}</span>
                   </div>
                 ))}
                 <div style={{
                   display: 'flex', justifyContent: 'space-between',
                   marginTop: '0.75rem', paddingTop: '0.75rem',
-                  borderTop: '2px solid #f3f4f6',
+                  borderTop: '2px solid var(--border-subtle)',
                 }}>
-                  <span style={{ fontWeight: 700, color: '#1f2937', fontFamily: 'var(--font-sans)' }}>Total</span>
+                  <span style={{ fontWeight: 700, color: 'var(--text-main)', fontFamily: 'var(--font-sans)' }}>Total</span>
                   <span style={{ fontWeight: 800, color: '#D4A373', fontFamily: 'var(--font-display)', fontSize: '1.2rem' }}>
                     ${total.toFixed(2)}
                   </span>

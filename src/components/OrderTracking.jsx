@@ -35,10 +35,12 @@ export default function OrderTracking({ orderNumber }) {
 
   return (
     <section id="order-tracking" style={{
-      background: 'var(--color-dark)',
+      background: 'var(--bg-main)',
+      color: 'var(--text-main)',
       padding: 'var(--section-py) 0',
       position: 'relative',
       overflow: 'hidden',
+      transition: 'background-color 0.3s',
     }}>
       {/* Ambient blobs */}
       <div style={{ position: 'absolute', top: '-10%', left: '-5%', width: 400, height: 400, borderRadius: '50%', background: 'radial-gradient(circle, rgba(212,163,115,0.07) 0%, transparent 70%)', pointerEvents: 'none' }} />
@@ -49,11 +51,11 @@ export default function OrderTracking({ orderNumber }) {
           <div className="section-label" style={{ justifyContent: 'center', color: 'var(--color-caramel)' }}>
             Live Status
           </div>
-          <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(2rem, 3.5vw, 2.8rem)', fontWeight: 700, color: '#FFF8F0', marginBottom: '0.5rem' }}>
+          <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(2rem, 3.5vw, 2.8rem)', fontWeight: 700, color: 'var(--text-main)', marginBottom: '0.5rem' }}>
             Track Your Order
           </h2>
           {orderNumber && (
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.4rem 1.2rem', background: 'rgba(212,163,115,0.12)', border: '1px solid rgba(212,163,115,0.25)', borderRadius: '50px', color: '#D4A373', fontSize: '0.85rem', fontWeight: 600 }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.4rem 1.2rem', background: 'rgba(212,163,115,0.12)', border: '1px solid var(--border-subtle)', borderRadius: '50px', color: '#D4A373', fontSize: '0.85rem', fontWeight: 600 }}>
               <Coffee size={14} /> Order #{orderNumber}
             </div>
           )}
@@ -63,11 +65,12 @@ export default function OrderTracking({ orderNumber }) {
           {/* Status timeline */}
           <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={viewportOptions}
             style={{
-              background: 'rgba(255,248,240,0.04)',
+              background: 'var(--bg-card)',
               backdropFilter: 'blur(24px)',
-              border: '1px solid rgba(212,163,115,0.15)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: '2rem',
               padding: '2.5rem',
+              boxShadow: 'var(--shadow-card)',
             }}>
             {STATUSES.map((status, i) => {
               const Icon = status.icon;
@@ -84,7 +87,7 @@ export default function OrderTracking({ orderNumber }) {
                       top: 52,
                       width: 2,
                       height: 'calc(100% - 12px)',
-                      background: isDone ? status.color : 'rgba(212,163,115,0.1)',
+                      background: isDone ? status.color : 'var(--border-subtle)',
                       transition: 'background 0.6s',
                       borderRadius: 1,
                     }} />
@@ -93,7 +96,7 @@ export default function OrderTracking({ orderNumber }) {
                   {/* Icon */}
                   <motion.div
                     animate={{
-                      background: isActive || isDone ? status.color : 'rgba(255,248,240,0.06)',
+                      background: isActive || isDone ? status.color : 'var(--bg-main)',
                       scale: isActive ? [1, 1.1, 1] : 1,
                       boxShadow: isActive ? `0 0 20px ${status.color}50` : 'none',
                     }}
@@ -101,10 +104,10 @@ export default function OrderTracking({ orderNumber }) {
                     style={{
                       width: 50, height: 50, borderRadius: '50%', flexShrink: 0,
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      border: `2px solid ${isActive || isDone ? status.color : 'rgba(212,163,115,0.2)'}`,
+                      border: `2px solid ${isActive || isDone ? status.color : 'var(--border-subtle)'}`,
                     }}
                   >
-                    <Icon size={22} color={isActive || isDone ? '#fff' : '#6b7280'} />
+                    <Icon size={22} color={isActive || isDone ? '#fff' : 'var(--text-muted)'} />
                   </motion.div>
 
                   {/* Text */}
@@ -112,7 +115,7 @@ export default function OrderTracking({ orderNumber }) {
                     <div style={{
                       fontWeight: 700,
                       fontSize: '1rem',
-                      color: isActive ? '#FFF8F0' : isDone ? 'rgba(245,237,224,0.7)' : 'rgba(245,237,224,0.3)',
+                      color: isActive ? 'var(--text-main)' : isDone ? 'var(--text-sub)' : 'var(--text-muted)',
                       marginBottom: '0.25rem',
                       fontFamily: 'var(--font-sans)',
                       transition: 'color 0.4s',
@@ -132,7 +135,7 @@ export default function OrderTracking({ orderNumber }) {
                         </span>
                       )}
                     </div>
-                    <div style={{ fontSize: '0.85rem', color: 'rgba(245,237,224,0.4)', lineHeight: 1.5 }}>
+                    <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>
                       {status.desc}
                     </div>
                   </div>
@@ -147,16 +150,17 @@ export default function OrderTracking({ orderNumber }) {
             <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={viewportOptions}
               style={{
                 background: 'linear-gradient(135deg,rgba(212,163,115,0.12),rgba(193,127,64,0.06))',
-                border: '1px solid rgba(212,163,115,0.2)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: '1.5rem', padding: '2rem', textAlign: 'center',
+                boxShadow: 'var(--shadow-soft)',
               }}>
-              <div style={{ fontSize: '0.7rem', fontWeight: 600, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(245,237,224,0.5)', marginBottom: '0.75rem' }}>
+              <div style={{ fontSize: '0.7rem', fontWeight: 600, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '0.75rem' }}>
                 Estimated Arrival
               </div>
               <div style={{ fontFamily: 'var(--font-display)', fontSize: '3.5rem', fontWeight: 700, lineHeight: 1, color: '#D4A373' }}>
                 {String(mins).padStart(2, '0')}:{String(secs).padStart(2, '0')}
               </div>
-              <div style={{ fontSize: '0.8rem', color: 'rgba(245,237,224,0.4)', marginTop: '0.5rem' }}>
+              <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '0.5rem' }}>
                 minutes remaining
               </div>
             </motion.div>
@@ -164,12 +168,13 @@ export default function OrderTracking({ orderNumber }) {
             {/* Current status */}
             <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={viewportOptions}
               style={{
-                background: 'rgba(255,248,240,0.04)',
-                border: '1px solid rgba(212,163,115,0.15)',
+                background: 'var(--bg-card)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: '1.5rem',
                 padding: '1.5rem',
+                boxShadow: 'var(--shadow-soft)',
               }}>
-              <div style={{ fontSize: '0.7rem', fontWeight: 600, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(245,237,224,0.45)', marginBottom: '1rem' }}>
+              <div style={{ fontSize: '0.7rem', fontWeight: 600, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '1rem' }}>
                 Current Status
               </div>
               <motion.div
@@ -184,7 +189,7 @@ export default function OrderTracking({ orderNumber }) {
                   {STATUSES[currentStep].label}
                 </span>
               </motion.div>
-              <p style={{ fontSize: '0.83rem', color: 'rgba(245,237,224,0.5)', marginTop: '0.5rem', lineHeight: 1.6 }}>
+              <p style={{ fontSize: '0.83rem', color: 'var(--text-sub)', marginTop: '0.5rem', lineHeight: 1.6 }}>
                 {STATUSES[currentStep].desc}
               </p>
             </motion.div>
@@ -192,18 +197,19 @@ export default function OrderTracking({ orderNumber }) {
             {/* Progress bar */}
             <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={viewportOptions}
               style={{
-                background: 'rgba(255,248,240,0.04)',
-                border: '1px solid rgba(212,163,115,0.15)',
+                background: 'var(--bg-card)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: '1.5rem',
                 padding: '1.5rem',
+                boxShadow: 'var(--shadow-soft)',
               }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
-                <span style={{ fontSize: '0.8rem', color: 'rgba(245,237,224,0.5)' }}>Progress</span>
+                <span style={{ fontSize: '0.8rem', color: 'var(--text-sub)' }}>Progress</span>
                 <span style={{ fontSize: '0.8rem', color: '#D4A373', fontWeight: 600 }}>
                   {Math.round((currentStep / (STATUSES.length - 1)) * 100)}%
                 </span>
               </div>
-              <div style={{ height: 8, background: 'rgba(212,163,115,0.12)', borderRadius: 4, overflow: 'hidden' }}>
+              <div style={{ height: 8, background: 'var(--border-subtle)', borderRadius: 4, overflow: 'hidden' }}>
                 <motion.div
                   animate={{ width: `${(currentStep / (STATUSES.length - 1)) * 100}%` }}
                   transition={{ duration: 0.8, ease: 'easeOut' }}
@@ -215,7 +221,7 @@ export default function OrderTracking({ orderNumber }) {
             <button
               className="btn-outline"
               onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
-              style={{ color: '#FFF8F0', borderColor: 'rgba(255,248,240,0.2)', fontSize: '0.85rem', justifyContent: 'center' }}
+              style={{ color: 'var(--text-main)', borderColor: 'var(--border-subtle)', fontSize: '0.85rem', justifyContent: 'center' }}
             >
               <Clock size={14} /> Contact Support
             </button>

@@ -51,16 +51,16 @@ function StepIndicator({ step }) {
 
 const inputStyle = {
   width: '100%', padding: '0.8rem 1.1rem',
-  background: 'rgba(255,248,240,0.06)',
-  border: '1.5px solid rgba(212,163,115,0.2)',
-  borderRadius: '0.75rem', color: '#FFF8F0',
+  background: 'var(--bg-main)',
+  border: '1.5px solid var(--border-subtle)',
+  borderRadius: '0.75rem', color: 'var(--text-main)',
   fontFamily: 'var(--font-sans)', fontSize: '0.9rem',
   outline: 'none', transition: 'border-color 0.2s',
 };
 const labelStyle = {
   display: 'block', fontSize: '0.75rem', fontWeight: 600,
   letterSpacing: '0.1em', textTransform: 'uppercase',
-  color: 'rgba(245,237,224,0.55)', marginBottom: '0.4rem',
+  color: 'var(--text-muted)', marginBottom: '0.4rem',
 };
 
 export default function Checkout({ onDone }) {
@@ -85,10 +85,12 @@ export default function Checkout({ onDone }) {
 
   return (
     <section id="checkout" style={{
-      background: 'var(--color-dark)',
+      background: 'var(--bg-main)',
+      color: 'var(--text-main)',
       padding: 'var(--section-py) 0',
       minHeight: '80vh',
       position: 'relative',
+      transition: 'background-color 0.3s',
     }}>
       <div className="container-normal" style={{ position: 'relative', zIndex: 1 }}>
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={viewportOptions}
@@ -96,7 +98,7 @@ export default function Checkout({ onDone }) {
           <div className="section-label" style={{ justifyContent: 'center', color: 'var(--color-caramel)' }}>
             Secure Checkout
           </div>
-          <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(2rem, 3.5vw, 2.8rem)', fontWeight: 700, color: '#FFF8F0' }}>
+          <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(2rem, 3.5vw, 2.8rem)', fontWeight: 700, color: 'var(--text-main)' }}>
             Complete Your Order
           </h2>
         </motion.div>
@@ -104,11 +106,12 @@ export default function Checkout({ onDone }) {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 380px', gap: '2rem', alignItems: 'start' }}>
           {/* Main form */}
           <div style={{
-            background: 'rgba(255,248,240,0.04)',
+            background: 'var(--bg-card)',
             backdropFilter: 'blur(24px)',
-            border: '1px solid rgba(212,163,115,0.15)',
+            border: '1px solid var(--border-subtle)',
             borderRadius: '2rem',
             padding: 'clamp(1.5rem, 4vw, 2.5rem)',
+            boxShadow: 'var(--shadow-card)',
           }}>
             <StepIndicator step={step} />
 
@@ -117,42 +120,42 @@ export default function Checkout({ onDone }) {
               {step === 0 && (
                 <motion.form key="details" variants={itemVariants} initial="hidden" animate="visible" exit="exit"
                   onSubmit={handleSubmit(onDetailsNext)}>
-                  <h3 style={{ fontFamily: 'var(--font-serif)', color: '#FFF8F0', fontSize: '1.3rem', marginBottom: '1.5rem' }}>
+                  <h3 style={{ fontFamily: 'var(--font-serif)', color: 'var(--text-main)', fontSize: '1.3rem', marginBottom: '1.5rem' }}>
                     Delivery Details
                   </h3>
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1rem' }}>
                     <div>
                       <label style={labelStyle}>First Name *</label>
                       <input {...register('firstName', { required: true })}
-                        style={{ ...inputStyle, borderColor: errors.firstName ? '#ef4444' : 'rgba(212,163,115,0.2)' }}
+                        style={{ ...inputStyle, borderColor: errors.firstName ? '#ef4444' : 'var(--border-subtle)' }}
                         placeholder="Jane" />
                     </div>
                     <div>
                       <label style={labelStyle}>Last Name *</label>
                       <input {...register('lastName', { required: true })}
-                        style={{ ...inputStyle, borderColor: errors.lastName ? '#ef4444' : 'rgba(212,163,115,0.2)' }}
+                        style={{ ...inputStyle, borderColor: errors.lastName ? '#ef4444' : 'var(--border-subtle)' }}
                         placeholder="Smith" />
                     </div>
                   </div>
                   <div style={{ marginBottom: '1rem' }}>
                     <label style={labelStyle}>Email *</label>
                     <input {...register('email', { required: true, pattern: /\S+@\S+\.\S+/ })}
-                      type="email" style={{ ...inputStyle, borderColor: errors.email ? '#ef4444' : 'rgba(212,163,115,0.2)' }}
+                      type="email" style={{ ...inputStyle, borderColor: errors.email ? '#ef4444' : 'var(--border-subtle)' }}
                       placeholder="jane@example.com" />
                   </div>
                   <div style={{ marginBottom: '1rem' }}>
                     <label style={labelStyle}><MapPin size={11} style={{ display: 'inline', marginRight: 4 }} />Delivery Address *</label>
                     <input {...register('address', { required: true })}
-                      style={{ ...inputStyle, borderColor: errors.address ? '#ef4444' : 'rgba(212,163,115,0.2)' }}
+                      style={{ ...inputStyle, borderColor: errors.address ? '#ef4444' : 'var(--border-subtle)' }}
                       placeholder="123 Main Street, Apt 4B" />
                   </div>
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1.5rem' }}>
                     <div>
                       <label style={labelStyle}><Clock size={11} style={{ display: 'inline', marginRight: 4 }} />Delivery Time</label>
                       <select {...register('deliveryTime')}
-                        style={{ ...inputStyle, background: 'rgba(255,248,240,0.08)' }}>
+                        style={{ ...inputStyle, background: 'var(--bg-main)' }}>
                         {['ASAP (~30 min)', '12:00 PM', '12:30 PM', '1:00 PM', '1:30 PM', '2:00 PM', '6:00 PM', '6:30 PM', '7:00 PM'].map(t => (
-                          <option key={t} value={t} style={{ background: '#2C1810' }}>{t}</option>
+                          <option key={t} value={t} style={{ background: 'var(--bg-card)', color: 'var(--text-main)' }}>{t}</option>
                         ))}
                       </select>
                     </div>
@@ -179,7 +182,7 @@ export default function Checkout({ onDone }) {
               {step === 1 && (
                 <motion.form key="payment" variants={itemVariants} initial="hidden" animate="visible" exit="exit"
                   onSubmit={handleSubmit(onPaymentNext)}>
-                  <h3 style={{ fontFamily: 'var(--font-serif)', color: '#FFF8F0', fontSize: '1.3rem', marginBottom: '1.5rem' }}>
+                  <h3 style={{ fontFamily: 'var(--font-serif)', color: 'var(--text-main)', fontSize: '1.3rem', marginBottom: '1.5rem' }}>
                     Payment Information
                   </h3>
                   <div style={{
@@ -191,7 +194,7 @@ export default function Checkout({ onDone }) {
                     marginBottom: '1.5rem',
                   }}>
                     <AlertCircle size={18} color="#4ade80" />
-                    <span style={{ fontSize: '0.82rem', color: 'rgba(245,237,224,0.7)' }}>
+                    <span style={{ fontSize: '0.82rem', color: 'var(--text-sub)' }}>
                       Demo mode — no real payment is processed. Use any card number.
                     </span>
                   </div>
@@ -219,7 +222,7 @@ export default function Checkout({ onDone }) {
                   </div>
                   <div style={{ display: 'flex', gap: '0.75rem' }}>
                     <button type="button" onClick={() => setStep(0)}
-                      className="btn-outline" style={{ flex: 1, justifyContent: 'center', color: '#FFF8F0', borderColor: 'rgba(255,248,240,0.2)', padding: '0.9rem' }}>
+                      className="btn-outline" style={{ flex: 1, justifyContent: 'center', color: 'var(--text-main)', borderColor: 'var(--border-subtle)', padding: '0.9rem' }}>
                       Back
                     </button>
                     <button type="submit" className="btn-primary ripple"
@@ -233,7 +236,7 @@ export default function Checkout({ onDone }) {
               {/* Step 2: Confirm */}
               {step === 2 && (
                 <motion.div key="confirm" variants={itemVariants} initial="hidden" animate="visible" exit="exit">
-                  <h3 style={{ fontFamily: 'var(--font-serif)', color: '#FFF8F0', fontSize: '1.3rem', marginBottom: '1.5rem' }}>
+                  <h3 style={{ fontFamily: 'var(--font-serif)', color: 'var(--text-main)', fontSize: '1.3rem', marginBottom: '1.5rem' }}>
                     Confirm Order
                   </h3>
                   <div style={{ marginBottom: '1.5rem' }}>
@@ -241,12 +244,12 @@ export default function Checkout({ onDone }) {
                       <div key={item.id} style={{
                         display: 'flex', gap: '0.75rem', alignItems: 'center',
                         padding: '0.75rem 0',
-                        borderBottom: '1px solid rgba(212,163,115,0.1)',
+                        borderBottom: '1px solid var(--border-subtle)',
                       }}>
                         <img src={item.img} alt={item.name} style={{ width: 48, height: 48, objectFit: 'cover', borderRadius: '0.5rem' }} />
                         <div style={{ flex: 1 }}>
-                          <div style={{ color: '#FFF8F0', fontWeight: 600, fontSize: '0.9rem' }}>{item.name}</div>
-                          <div style={{ color: 'rgba(245,237,224,0.5)', fontSize: '0.78rem' }}>×{item.qty}</div>
+                          <div style={{ color: 'var(--text-main)', fontWeight: 600, fontSize: '0.9rem' }}>{item.name}</div>
+                          <div style={{ color: 'var(--text-muted)', fontSize: '0.78rem' }}>×{item.qty}</div>
                         </div>
                         <div style={{ color: '#D4A373', fontWeight: 700, fontFamily: 'var(--font-display)' }}>
                           ${(item.price * item.qty).toFixed(2)}
@@ -256,7 +259,7 @@ export default function Checkout({ onDone }) {
                   </div>
                   <div style={{ display: 'flex', gap: '0.75rem' }}>
                     <button type="button" onClick={() => setStep(1)}
-                      className="btn-outline" style={{ flex: 1, justifyContent: 'center', color: '#FFF8F0', borderColor: 'rgba(255,248,240,0.2)', padding: '0.9rem' }}>
+                      className="btn-outline" style={{ flex: 1, justifyContent: 'center', color: 'var(--text-main)', borderColor: 'var(--border-subtle)', padding: '0.9rem' }}>
                       Back
                     </button>
                     <motion.button
@@ -274,40 +277,41 @@ export default function Checkout({ onDone }) {
 
           {/* Order summary sidebar */}
           <div style={{
-            background: 'rgba(255,248,240,0.04)',
+            background: 'var(--bg-card)',
             backdropFilter: 'blur(20px)',
-            border: '1px solid rgba(212,163,115,0.15)',
+            border: '1px solid var(--border-subtle)',
             borderRadius: '1.5rem',
             padding: '1.5rem',
             position: 'sticky',
             top: '6rem',
+            boxShadow: 'var(--shadow-soft)',
           }}>
-            <h4 style={{ fontFamily: 'var(--font-serif)', color: '#FFF8F0', fontSize: '1.05rem', marginBottom: '1.25rem' }}>
+            <h4 style={{ fontFamily: 'var(--font-serif)', color: 'var(--text-main)', fontSize: '1.05rem', marginBottom: '1.25rem' }}>
               Order Summary
             </h4>
             {items.map(item => (
               <div key={item.id} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.6rem' }}>
-                <span style={{ fontSize: '0.85rem', color: 'rgba(245,237,224,0.65)' }}>{item.name} ×{item.qty}</span>
+                <span style={{ fontSize: '0.85rem', color: 'var(--text-sub)' }}>{item.name} ×{item.qty}</span>
                 <span style={{ fontSize: '0.85rem', color: '#D4A373', fontWeight: 600 }}>${(item.price * item.qty).toFixed(2)}</span>
               </div>
             ))}
-            <div style={{ borderTop: '1px solid rgba(212,163,115,0.15)', marginTop: '1rem', paddingTop: '1rem' }}>
+            <div style={{ borderTop: '1px solid var(--border-subtle)', marginTop: '1rem', paddingTop: '1rem' }}>
               {[
                 ['Subtotal', `$${subtotal.toFixed(2)}`],
                 ['Delivery', `$${deliveryFee.toFixed(2)}`],
                 ['Tax', `$${tax.toFixed(2)}`],
               ].map(([l, v]) => (
                 <div key={l} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-                  <span style={{ fontSize: '0.82rem', color: 'rgba(245,237,224,0.45)' }}>{l}</span>
-                  <span style={{ fontSize: '0.82rem', color: 'rgba(245,237,224,0.7)' }}>{v}</span>
+                  <span style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>{l}</span>
+                  <span style={{ fontSize: '0.82rem', color: 'var(--text-sub)' }}>{v}</span>
                 </div>
               ))}
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '0.75rem', paddingTop: '0.75rem', borderTop: '1px solid rgba(212,163,115,0.15)' }}>
-                <span style={{ fontWeight: 700, color: '#FFF8F0' }}>Total</span>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '0.75rem', paddingTop: '0.75rem', borderTop: '1px solid var(--border-subtle)' }}>
+                <span style={{ fontWeight: 700, color: 'var(--text-main)' }}>Total</span>
                 <span style={{ fontWeight: 800, color: '#D4A373', fontFamily: 'var(--font-display)', fontSize: '1.15rem' }}>${total.toFixed(2)}</span>
               </div>
             </div>
-            <div style={{ marginTop: '1.5rem', padding: '1rem', background: 'rgba(212,163,115,0.08)', borderRadius: '0.75rem', border: '1px solid rgba(212,163,115,0.15)' }}>
+            <div style={{ marginTop: '1.5rem', padding: '1rem', background: 'rgba(212,163,115,0.08)', borderRadius: '0.75rem', border: '1px solid var(--border-subtle)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#D4A373', fontSize: '0.8rem', fontWeight: 600 }}>
                 <Coffee size={14} /> Est. delivery: 25–40 min
               </div>

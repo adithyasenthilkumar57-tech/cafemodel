@@ -23,24 +23,21 @@ export default function Reservation() {
 
   return (
     <section id="reservation" style={{
-      background: 'var(--color-dark)',
+      background: 'var(--bg-main)',
+      color: 'var(--text-main)',
       padding: 'var(--section-py) 0',
       position: 'relative',
       overflow: 'hidden',
+      transition: 'background-color 0.3s',
     }}>
-      {/* Background image */}
+      {/* Background image overlay */}
       <div style={{
         position: 'absolute',
         inset: 0,
         backgroundImage: 'url(https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=1200&q=60)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        opacity: 0.08,
-      }} />
-      <div style={{
-        position: 'absolute',
-        inset: 0,
-        background: 'radial-gradient(ellipse at center, rgba(44,24,16,0.4) 0%, rgba(18,18,18,0.9) 70%)',
+        opacity: 0.04,
       }} />
 
       <div className="container-normal" style={{ position: 'relative', zIndex: 1 }}>
@@ -59,12 +56,12 @@ export default function Reservation() {
             fontFamily: 'var(--font-serif)',
             fontSize: 'clamp(2.2rem, 4vw, 3.2rem)',
             fontWeight: 700,
-            color: '#FFF8F0',
+            color: 'var(--text-main)',
             marginBottom: '1rem',
           }}>
             Reserve Your Table
           </h2>
-          <p style={{ color: 'rgba(245,237,224,0.6)', maxWidth: 480, margin: '0 auto', lineHeight: 1.7 }}>
+          <p style={{ color: 'var(--text-sub)', maxWidth: 480, margin: '0 auto', lineHeight: 1.7 }}>
             Book your spot for an unforgettable dining experience. We'll have everything ready for your arrival.
           </p>
         </motion.div>
@@ -76,13 +73,14 @@ export default function Reservation() {
           whileInView="visible"
           viewport={viewportOptions}
           style={{
-            background: 'rgba(255,248,240,0.05)',
+            background: 'var(--bg-card)',
             backdropFilter: 'blur(24px)',
-            border: '1px solid rgba(212,163,115,0.15)',
+            border: '1px solid var(--border-subtle)',
             borderRadius: '2rem',
             padding: 'clamp(2rem, 5vw, 3.5rem)',
             maxWidth: 780,
             margin: '0 auto',
+            boxShadow: 'var(--shadow-card)',
           }}
         >
           <AnimatePresence mode="wait">
@@ -119,10 +117,10 @@ export default function Reservation() {
                 <h3 style={{
                   fontFamily: 'var(--font-serif)',
                   fontSize: '2rem',
-                  color: '#FFF8F0',
+                  color: 'var(--text-main)',
                   marginBottom: '0.75rem',
                 }}>Reservation Confirmed!</h3>
-                <p style={{ color: 'rgba(245,237,224,0.6)', lineHeight: 1.7 }}>
+                <p style={{ color: 'var(--text-sub)', lineHeight: 1.7 }}>
                   Thank you for choosing Velvet Bean. You'll receive a confirmation email shortly. We look forward to welcoming you!
                 </p>
                 <div style={{
@@ -148,26 +146,24 @@ export default function Reservation() {
                 {/* Name + Phone */}
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
                   <div>
-                    <label style={{ display: 'block', fontFamily: 'var(--font-sans)', fontSize: '0.8rem', color: 'rgba(245,237,224,0.6)', marginBottom: '0.4rem', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+                    <label style={{ display: 'block', fontFamily: 'var(--font-sans)', fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.4rem', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
                       Full Name *
                     </label>
                     <input
                       {...register('name', { required: 'Name is required' })}
                       className="input-premium"
                       placeholder="Your full name"
-                      style={{ color: '#FFF8F0' }}
                     />
                     {errors.name && <span style={{ color: '#f87171', fontSize: '0.75rem', marginTop: '0.25rem', display: 'block' }}>{errors.name.message}</span>}
                   </div>
                   <div>
-                    <label style={{ display: 'block', fontFamily: 'var(--font-sans)', fontSize: '0.8rem', color: 'rgba(245,237,224,0.6)', marginBottom: '0.4rem', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+                    <label style={{ display: 'block', fontFamily: 'var(--font-sans)', fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.4rem', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
                       Phone *
                     </label>
                     <input
                       {...register('phone', { required: 'Phone is required' })}
                       className="input-premium"
                       placeholder="+1 (555) 000-0000"
-                      style={{ color: '#FFF8F0' }}
                     />
                     {errors.phone && <span style={{ color: '#f87171', fontSize: '0.75rem', marginTop: '0.25rem', display: 'block' }}>{errors.phone.message}</span>}
                   </div>
@@ -175,7 +171,7 @@ export default function Reservation() {
 
                 {/* Email */}
                 <div>
-                  <label style={{ display: 'block', fontFamily: 'var(--font-sans)', fontSize: '0.8rem', color: 'rgba(245,237,224,0.6)', marginBottom: '0.4rem', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+                  <label style={{ display: 'block', fontFamily: 'var(--font-sans)', fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.4rem', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
                     Email *
                   </label>
                   <input
@@ -183,7 +179,6 @@ export default function Reservation() {
                     className="input-premium"
                     type="email"
                     placeholder="your@email.com"
-                    style={{ color: '#FFF8F0' }}
                   />
                   {errors.email && <span style={{ color: '#f87171', fontSize: '0.75rem', marginTop: '0.25rem', display: 'block' }}>{errors.email.message}</span>}
                 </div>
@@ -191,45 +186,42 @@ export default function Reservation() {
                 {/* Date + Time + Guests */}
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '1rem' }}>
                   <div>
-                    <label style={{ display: 'block', fontFamily: 'var(--font-sans)', fontSize: '0.8rem', color: 'rgba(245,237,224,0.6)', marginBottom: '0.4rem', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+                    <label style={{ display: 'block', fontFamily: 'var(--font-sans)', fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.4rem', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
                       <Calendar size={12} style={{ display: 'inline', marginRight: 4 }} /> Date *
                     </label>
                     <input
                       {...register('date', { required: 'Date is required' })}
                       type="date"
                       className="input-premium"
-                      style={{ color: '#FFF8F0', colorScheme: 'dark' }}
                     />
                     {errors.date && <span style={{ color: '#f87171', fontSize: '0.75rem', marginTop: '0.25rem', display: 'block' }}>{errors.date.message}</span>}
                   </div>
                   <div>
-                    <label style={{ display: 'block', fontFamily: 'var(--font-sans)', fontSize: '0.8rem', color: 'rgba(245,237,224,0.6)', marginBottom: '0.4rem', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+                    <label style={{ display: 'block', fontFamily: 'var(--font-sans)', fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.4rem', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
                       <Clock size={12} style={{ display: 'inline', marginRight: 4 }} /> Time *
                     </label>
                     <select
                       {...register('time', { required: 'Time is required' })}
                       className="input-premium"
-                      style={{ color: '#FFF8F0', background: 'rgba(255,248,240,0.08)' }}
                     >
-                      <option value="" style={{ background: '#2C1810' }}>Select time</option>
+                      <option value="" style={{ background: 'var(--bg-card)', color: 'var(--text-main)' }}>Select time</option>
                       {timeSlots.map(t => (
-                        <option key={t} value={t} style={{ background: '#2C1810' }}>{t}</option>
+                        <option key={t} value={t} style={{ background: 'var(--bg-card)', color: 'var(--text-main)' }}>{t}</option>
                       ))}
                     </select>
                     {errors.time && <span style={{ color: '#f87171', fontSize: '0.75rem', marginTop: '0.25rem', display: 'block' }}>{errors.time.message}</span>}
                   </div>
                   <div>
-                    <label style={{ display: 'block', fontFamily: 'var(--font-sans)', fontSize: '0.8rem', color: 'rgba(245,237,224,0.6)', marginBottom: '0.4rem', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+                    <label style={{ display: 'block', fontFamily: 'var(--font-sans)', fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.4rem', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
                       <Users size={12} style={{ display: 'inline', marginRight: 4 }} /> Guests *
                     </label>
                     <select
                       {...register('guests', { required: true })}
                       className="input-premium"
-                      style={{ color: '#FFF8F0', background: 'rgba(255,248,240,0.08)' }}
                     >
-                      <option value="" style={{ background: '#2C1810' }}>Select</option>
+                      <option value="" style={{ background: 'var(--bg-card)', color: 'var(--text-main)' }}>Select</option>
                       {[1,2,3,4,5,6,7,8,10,12,15,20].map(n => (
-                        <option key={n} value={n} style={{ background: '#2C1810' }}>{n} {n === 1 ? 'Guest' : 'Guests'}</option>
+                        <option key={n} value={n} style={{ background: 'var(--bg-card)', color: 'var(--text-main)' }}>{n} {n === 1 ? 'Guest' : 'Guests'}</option>
                       ))}
                     </select>
                   </div>
@@ -237,14 +229,14 @@ export default function Reservation() {
 
                 {/* Occasion */}
                 <div>
-                  <label style={{ display: 'block', fontFamily: 'var(--font-sans)', fontSize: '0.8rem', color: 'rgba(245,237,224,0.6)', marginBottom: '0.4rem', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+                  <label style={{ display: 'block', fontFamily: 'var(--font-sans)', fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.4rem', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
                     Occasion
                   </label>
                   <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
                     {['Birthday', 'Anniversary', 'Business', 'Date Night', 'Family', 'Other'].map((occ) => (
                       <label key={occ} style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', cursor: 'pointer' }}>
                         <input type="radio" value={occ} {...register('occasion')} style={{ accentColor: '#D4A373' }} />
-                        <span style={{ fontFamily: 'var(--font-sans)', fontSize: '0.85rem', color: 'rgba(245,237,224,0.7)' }}>{occ}</span>
+                        <span style={{ fontFamily: 'var(--font-sans)', fontSize: '0.85rem', color: 'var(--text-sub)' }}>{occ}</span>
                       </label>
                     ))}
                   </div>
@@ -252,7 +244,7 @@ export default function Reservation() {
 
                 {/* Special Requests */}
                 <div>
-                  <label style={{ display: 'block', fontFamily: 'var(--font-sans)', fontSize: '0.8rem', color: 'rgba(245,237,224,0.6)', marginBottom: '0.4rem', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+                  <label style={{ display: 'block', fontFamily: 'var(--font-sans)', fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.4rem', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
                     <MessageSquare size={12} style={{ display: 'inline', marginRight: 4 }} /> Special Requests
                   </label>
                   <textarea
@@ -260,7 +252,7 @@ export default function Reservation() {
                     className="input-premium"
                     rows={3}
                     placeholder="Dietary requirements, allergies, seating preferences, decorations…"
-                    style={{ resize: 'vertical', color: '#FFF8F0' }}
+                    style={{ resize: 'vertical' }}
                   />
                 </div>
 

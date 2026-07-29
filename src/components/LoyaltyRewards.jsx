@@ -48,7 +48,7 @@ export default function LoyaltyRewards() {
   };
 
   return (
-    <section id="loyalty" style={{ background: 'var(--color-cream)', padding: 'var(--section-py) 0' }}>
+    <section id="loyalty" style={{ background: 'var(--bg-main)', color: 'var(--text-main)', padding: 'var(--section-py) 0', transition: 'background-color 0.3s' }}>
       <div className="container-wide">
         {/* Header */}
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={viewportOptions}
@@ -56,10 +56,10 @@ export default function LoyaltyRewards() {
           <div className="section-label" style={{ justifyContent: 'center' }}>
             Rewards Program
           </div>
-          <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(2.2rem, 4vw, 3.2rem)', fontWeight: 700, color: 'var(--color-coffee)', marginBottom: '1rem' }}>
+          <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(2.2rem, 4vw, 3.2rem)', fontWeight: 700, color: 'var(--text-main)', marginBottom: '1rem' }}>
             Velvet Bean Loyalty
           </h2>
-          <p style={{ color: '#6b7280', maxWidth: 500, margin: '0 auto', lineHeight: 1.7 }}>
+          <p style={{ color: 'var(--text-sub)', maxWidth: 500, margin: '0 auto', lineHeight: 1.7 }}>
             Every sip earns you points. Every point brings you closer to incredible rewards.
           </p>
         </motion.div>
@@ -82,14 +82,14 @@ export default function LoyaltyRewards() {
 
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem' }}>
                 <div>
-                  <div style={{ fontSize: '0.75rem', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#6b7280', marginBottom: '0.5rem' }}>
+                  <div style={{ fontSize: '0.75rem', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '0.5rem' }}>
                     Your Balance
                   </div>
                   <motion.div key={points} initial={{ scale: 1.1 }} animate={{ scale: 1 }}
                     style={{ fontFamily: 'var(--font-display)', fontSize: '4rem', fontWeight: 800, color: currentTier.color, lineHeight: 1 }}>
                     {points.toLocaleString()}
                   </motion.div>
-                  <div style={{ color: '#9ca3af', fontSize: '0.9rem', marginTop: '0.25rem' }}>points available</div>
+                  <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginTop: '0.25rem' }}>points available</div>
                 </div>
                 <div style={{ textAlign: 'right' }}>
                   <div style={{
@@ -100,7 +100,7 @@ export default function LoyaltyRewards() {
                   }}>
                     <Award size={14} /> {currentTier.name}
                   </div>
-                  <div style={{ color: '#9ca3af', fontSize: '0.78rem', marginTop: '0.5rem' }}>
+                  <div style={{ color: 'var(--text-muted)', fontSize: '0.78rem', marginTop: '0.5rem' }}>
                     {nextTier ? `${nextTier.min - points} pts to ${nextTier.name}` : 'Top tier achieved! 🎉'}
                   </div>
                 </div>
@@ -110,10 +110,10 @@ export default function LoyaltyRewards() {
               {nextTier && (
                 <div style={{ marginTop: '1.75rem' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-                    <span style={{ fontSize: '0.78rem', color: '#9ca3af' }}>{currentTier.name}</span>
-                    <span style={{ fontSize: '0.78rem', color: '#9ca3af' }}>{nextTier.name}</span>
+                    <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>{currentTier.name}</span>
+                    <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>{nextTier.name}</span>
                   </div>
-                  <div style={{ height: 8, background: 'rgba(0,0,0,0.08)', borderRadius: 4, overflow: 'hidden' }}>
+                  <div style={{ height: 8, background: 'var(--border-subtle)', borderRadius: 4, overflow: 'hidden' }}>
                     <motion.div
                       initial={{ width: 0 }}
                       whileInView={{ width: `${progress}%` }}
@@ -128,7 +128,7 @@ export default function LoyaltyRewards() {
 
             {/* Rewards grid */}
             <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={viewportOptions}>
-              <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.4rem', color: 'var(--color-coffee)', marginBottom: '1.25rem' }}>
+              <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.4rem', color: 'var(--text-main)', marginBottom: '1.25rem' }}>
                 Available Rewards
               </h3>
               <motion.div
@@ -139,11 +139,11 @@ export default function LoyaltyRewards() {
                   const isRedeemed = redeemed.includes(reward.id);
                   return (
                     <motion.div key={reward.id} variants={staggerItem}
-                      whileHover={canRedeem ? { y: -4, boxShadow: '0 12px 32px rgba(44,24,16,0.15)' } : {}}
+                      whileHover={canRedeem ? { y: -4, boxShadow: 'var(--shadow-card)' } : {}}
                       style={{
-                        background: '#fff', borderRadius: '1.25rem', overflow: 'hidden',
-                        border: isRedeemed ? '1.5px solid #4ade80' : '1px solid rgba(44,24,16,0.07)',
-                        boxShadow: '0 2px 12px rgba(44,24,16,0.06)',
+                        background: 'var(--bg-card)', borderRadius: '1.25rem', overflow: 'hidden',
+                        border: isRedeemed ? '1.5px solid #4ade80' : '1px solid var(--border-subtle)',
+                        boxShadow: 'var(--shadow-soft)',
                         opacity: !canRedeem && !isRedeemed ? 0.6 : 1,
                         transition: 'opacity 0.3s',
                       }}>
@@ -161,14 +161,14 @@ export default function LoyaltyRewards() {
                         )}
                       </div>
                       <div style={{ padding: '1rem' }}>
-                        <div style={{ fontWeight: 600, fontSize: '0.88rem', color: '#1f2937', marginBottom: '0.3rem' }}>{reward.name}</div>
+                        <div style={{ fontWeight: 600, fontSize: '0.88rem', color: 'var(--text-main)', marginBottom: '0.3rem' }}>{reward.name}</div>
                         <div style={{ fontSize: '0.78rem', color: '#D4A373', fontWeight: 700, marginBottom: '0.75rem' }}>{reward.points} pts</div>
                         <button onClick={() => redeem(reward)} disabled={!canRedeem}
                           style={{
                             width: '100%', padding: '0.5rem', borderRadius: '0.5rem',
                             border: 'none', cursor: canRedeem ? 'pointer' : 'default',
-                            background: isRedeemed ? '#f0fdf4' : canRedeem ? 'linear-gradient(135deg,#D4A373,#c17f40)' : '#f3f4f6',
-                            color: isRedeemed ? '#16a34a' : canRedeem ? '#2C1810' : '#9ca3af',
+                            background: isRedeemed ? 'rgba(74,222,128,0.15)' : canRedeem ? 'linear-gradient(135deg,#D4A373,#c17f40)' : 'var(--border-subtle)',
+                            color: isRedeemed ? '#16a34a' : canRedeem ? '#2C1810' : 'var(--text-muted)',
                             fontWeight: 600, fontSize: '0.78rem', transition: 'all 0.2s',
                           }}>
                           {isRedeemed ? '✓ Redeemed' : canRedeem ? 'Redeem Now' : `Need ${reward.points - points} more`}
@@ -195,8 +195,8 @@ export default function LoyaltyRewards() {
                   <motion.div key={tier.name}
                     style={{
                       padding: '1.25rem',
-                      background: isActive ? `${tier.color}12` : '#fff',
-                      border: `1.5px solid ${isActive ? tier.color + '50' : 'rgba(44,24,16,0.07)'}`,
+                      background: isActive ? `${tier.color}15` : 'var(--bg-card)',
+                      border: `1.5px solid ${isActive ? tier.color + '60' : 'var(--border-subtle)'}`,
                       borderRadius: '1rem',
                       marginBottom: '0.75rem',
                       transition: 'all 0.3s',
@@ -206,8 +206,8 @@ export default function LoyaltyRewards() {
                         <Icon size={16} color={tier.color} />
                       </div>
                       <div>
-                        <div style={{ fontWeight: 700, fontSize: '0.9rem', color: '#1f2937' }}>{tier.name}</div>
-                        <div style={{ fontSize: '0.72rem', color: '#9ca3af' }}>
+                        <div style={{ fontWeight: 700, fontSize: '0.9rem', color: 'var(--text-main)' }}>{tier.name}</div>
+                        <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>
                           {tier.max === Infinity ? `${tier.min}+ points` : `${tier.min}–${tier.max} points`}
                         </div>
                       </div>
@@ -215,7 +215,7 @@ export default function LoyaltyRewards() {
                     </div>
                     <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
                       {tier.perks.map(perk => (
-                        <li key={perk} style={{ fontSize: '0.78rem', color: '#6b7280', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                        <li key={perk} style={{ fontSize: '0.78rem', color: 'var(--text-sub)', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                           <span style={{ color: tier.color }}>✓</span> {perk}
                         </li>
                       ))}
@@ -227,15 +227,15 @@ export default function LoyaltyRewards() {
 
             {/* Points history */}
             <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={viewportOptions}
-              style={{ background: '#fff', borderRadius: '1.5rem', padding: '1.5rem', border: '1px solid rgba(44,24,16,0.07)', boxShadow: '0 2px 12px rgba(44,24,16,0.04)' }}>
+              style={{ background: 'var(--bg-card)', borderRadius: '1.5rem', padding: '1.5rem', border: '1px solid var(--border-subtle)', boxShadow: 'var(--shadow-soft)' }}>
               <h4 style={{ fontFamily: 'var(--font-sans)', fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--color-caramel)', marginBottom: '1rem' }}>
                 Points History
               </h4>
               {HISTORY.map((h, i) => (
-                <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.6rem 0', borderBottom: i < HISTORY.length - 1 ? '1px solid #f3f4f6' : 'none' }}>
+                <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.6rem 0', borderBottom: i < HISTORY.length - 1 ? '1px solid var(--border-subtle)' : 'none' }}>
                   <div>
-                    <div style={{ fontSize: '0.82rem', fontWeight: 600, color: '#374151' }}>{h.desc}</div>
-                    <div style={{ fontSize: '0.72rem', color: '#9ca3af' }}>{h.date}</div>
+                    <div style={{ fontSize: '0.82rem', fontWeight: 600, color: 'var(--text-main)' }}>{h.desc}</div>
+                    <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>{h.date}</div>
                   </div>
                   <div style={{ fontWeight: 700, fontSize: '0.9rem', color: h.pts > 0 ? '#16a34a' : '#ef4444' }}>
                     {h.pts > 0 ? `+${h.pts}` : h.pts}
