@@ -70,10 +70,10 @@ export default function AIChat() {
         whileTap={{ scale: 0.95 }}
         style={{
           position: 'fixed',
-          bottom: '2rem',
-          right: '2rem',
-          width: 60,
-          height: 60,
+          bottom: 'clamp(1rem, 3vw, 2rem)',
+          right: 'clamp(1rem, 3vw, 2rem)',
+          width: 56,
+          height: 56,
           borderRadius: '50%',
           background: 'linear-gradient(135deg,#D4A373,#c17f40)',
           border: 'none',
@@ -98,8 +98,8 @@ export default function AIChat() {
       {!open && (
         <div style={{
           position: 'fixed',
-          bottom: '4.5rem',
-          right: '2rem',
+          bottom: 'calc(clamp(1rem, 3vw, 2rem) + 2.5rem)',
+          right: 'clamp(1rem, 3vw, 2rem)',
           width: 12,
           height: 12,
           borderRadius: '50%',
@@ -119,11 +119,10 @@ export default function AIChat() {
             transition={{ type: 'spring', stiffness: 400, damping: 30 }}
             style={{
               position: 'fixed',
-              bottom: '6.5rem',
-              right: '2rem',
-              width: 360,
-              maxWidth: 'calc(100vw - 2rem)',
-              height: 520,
+              bottom: 'calc(clamp(1rem, 3vw, 2rem) + 4.2rem)',
+              right: 'clamp(1rem, 3vw, 2rem)',
+              width: 'clamp(280px, calc(100vw - 2rem), 380px)',
+              height: 'clamp(380px, 72vh, 520px)',
               borderRadius: '1.5rem',
               background: 'var(--bg-card)',
               boxShadow: 'var(--shadow-card)',

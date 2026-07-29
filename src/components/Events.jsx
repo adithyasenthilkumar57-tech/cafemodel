@@ -178,7 +178,7 @@ export default function Events() {
             <motion.div key="grid"
               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }}
               variants={staggerContainer}
-              style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '1.75rem' }}>
+              style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1.5rem' }}>
               {events.map((event) => (
                 <motion.div key={event.title} variants={staggerItem}
                   style={{ borderRadius: '1.5rem', overflow: 'hidden', background: 'var(--bg-card)', border: '1px solid var(--border-subtle)', boxShadow: 'var(--shadow-soft)', cursor: 'pointer', position: 'relative' }}
@@ -212,7 +212,7 @@ export default function Events() {
             /* Calendar view */
             <motion.div key="calendar"
               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }}
-              style={{ display: 'grid', gridTemplateColumns: '1fr 380px', gap: '2rem', alignItems: 'start' }}>
+              style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem', alignItems: 'start' }}>
               <CalendarView month={month} year={year} onPrev={prevMonth} onNext={nextMonth}
                 onDayClick={handleDayClick} selectedDay={selectedDay} />
 

@@ -53,8 +53,8 @@ export default function About() {
         {/* Top: image + story */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-          gap: '4rem',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+          gap: 'clamp(2rem, 4vw, 4rem)',
           alignItems: 'center',
           marginBottom: '5rem',
         }}>
@@ -64,7 +64,7 @@ export default function About() {
             initial="hidden"
             whileInView="visible"
             viewport={viewportOptions}
-            style={{ position: 'relative', height: 520 }}
+            style={{ position: 'relative', height: 'clamp(320px, 50vh, 520px)', minHeight: 300 }}
           >
             <div style={{
               position: 'absolute',

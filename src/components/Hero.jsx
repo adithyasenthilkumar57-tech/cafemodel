@@ -157,7 +157,7 @@ export default function Hero() {
           transition={{ duration: 0.9, ease: [0.4, 0, 0.2, 1] }}
           style={{
             fontFamily: 'var(--font-serif)',
-            fontSize: 'clamp(3rem, 8vw, 7rem)',
+            fontSize: 'clamp(2.2rem, 7.5vw, 6.5rem)',
             fontWeight: 800,
             color: '#FFF8F0',
             lineHeight: 1.05,
@@ -187,14 +187,14 @@ export default function Hero() {
           transition={{ delay: 0.5, duration: 0.6 }}
           style={{
             fontFamily: 'var(--font-display)',
-            fontSize: 'clamp(2rem, 5vw, 4.5rem)',
+            fontSize: 'clamp(1.6rem, 4.5vw, 4rem)',
             fontWeight: 300,
             fontStyle: 'italic',
             background: 'linear-gradient(135deg,#D4A373,#e8c99a,#D4A373)',
             backgroundClip: 'text',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
-            marginBottom: '1.5rem',
+            marginBottom: '1.25rem',
           }}
         >
           {slides[current].sub}
@@ -207,9 +207,9 @@ export default function Hero() {
           transition={{ delay: 0.8, duration: 0.6 }}
           style={{
             fontFamily: 'var(--font-sans)',
-            fontSize: 'clamp(1rem, 2vw, 1.2rem)',
+            fontSize: 'clamp(0.9rem, 1.8vw, 1.15rem)',
             color: 'rgba(255,248,240,0.7)',
-            marginBottom: '2.5rem',
+            marginBottom: '2rem',
             maxWidth: 560,
             marginLeft: 'auto',
             marginRight: 'auto',
@@ -224,7 +224,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1, duration: 0.6 }}
-          style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}
+          style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center', flexWrap: 'wrap' }}
         >
           <button
             className="btn-primary ripple"

@@ -45,7 +45,7 @@ export default function Navbar() {
           left: 0,
           right: 0,
           zIndex: 100,
-          padding: scrolled ? '0.75rem 2rem' : '1.4rem 2rem',
+          padding: scrolled ? '0.75rem clamp(1rem, 4vw, 2.5rem)' : '1.2rem clamp(1rem, 4vw, 2.5rem)',
           background: scrolled
             ? 'var(--bg-navbar)'
             : 'transparent',
@@ -80,16 +80,18 @@ export default function Navbar() {
             alignItems: 'center',
             justifyContent: 'center',
             boxShadow: '0 0 20px rgba(212,163,115,0.4)',
+            flexShrink: 0,
           }}>
             <Coffee size={18} color="#2C1810" strokeWidth={2.5} />
           </div>
           <span style={{
             fontFamily: 'var(--font-display)',
-            fontSize: '1.5rem',
+            fontSize: 'clamp(1.25rem, 4vw, 1.5rem)',
             fontWeight: 600,
             color: scrolled ? 'var(--text-main)' : '#FFF8F0',
             letterSpacing: '0.02em',
             transition: 'color 0.3s',
+            whiteSpace: 'nowrap',
           }}>
             Velvet Bean
           </span>
@@ -139,6 +141,7 @@ export default function Navbar() {
               cursor: 'pointer',
               color: 'var(--color-caramel)',
               transition: 'all 0.3s',
+              flexShrink: 0,
             }}
           >
             {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
@@ -161,6 +164,7 @@ export default function Navbar() {
               justifyContent: 'center',
               cursor: 'pointer',
               color: 'var(--color-caramel)',
+              flexShrink: 0,
             }}
           >
             <ShoppingBag size={18} />
@@ -205,13 +209,14 @@ export default function Navbar() {
               background: scrolled ? 'var(--border-subtle)' : 'rgba(255,248,240,0.12)',
               border: '1px solid var(--border-subtle)',
               borderRadius: '0.5rem',
-              width: 40,
-              height: 40,
+              width: 38,
+              height: 38,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               cursor: 'pointer',
               color: 'var(--color-caramel)',
+              flexShrink: 0,
             }}
           >
             {menuOpen ? <X size={20} /> : <Menu size={20} />}
@@ -240,7 +245,9 @@ export default function Navbar() {
               flexDirection: 'column',
               alignItems: 'center',
               justifyContent: 'center',
-              gap: '2rem',
+              gap: '1.25rem',
+              padding: '2rem 1.5rem',
+              overflowY: 'auto',
             }}
           >
             {navLinks.map((link, i) => (
@@ -248,14 +255,14 @@ export default function Navbar() {
                 key={link.label}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.07 }}
+                transition={{ delay: i * 0.05 }}
                 onClick={() => scrollTo(link.href)}
                 style={{
                   background: 'none',
                   border: 'none',
                   cursor: 'pointer',
                   fontFamily: 'var(--font-display)',
-                  fontSize: '2.5rem',
+                  fontSize: 'clamp(1.8rem, 6vw, 2.5rem)',
                   fontWeight: 500,
                   color: 'var(--text-main)',
                   letterSpacing: '0.04em',
@@ -269,8 +276,8 @@ export default function Navbar() {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
-              style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}
+              transition={{ delay: 0.4 }}
+              style={{ display: 'flex', gap: '0.75rem', marginTop: '1rem', flexWrap: 'wrap', justifyContent: 'center' }}
             >
               <a href="tel:+1234567890" className="btn-primary" style={{ fontSize: '0.85rem' }}>
                 <Phone size={16} /> Call Now

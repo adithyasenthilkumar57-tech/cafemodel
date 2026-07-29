@@ -54,8 +54,8 @@
   --font-display:        'Cormorant Garamond', 'Playfair Display', serif;
 
   /* Spacing */
-  --section-py:          7rem;
-  --section-px:          max(1.5rem, calc((100vw - 1280px) / 2 + 1.5rem));
+  --section-py:          clamp(3.5rem, 6vw, 7rem);
+  --section-px:          clamp(1rem, 4vw, calc((100vw - 1280px) / 2 + 1.5rem));
 
   /* Shadows */
   --shadow-glow:         0 0 60px rgba(212,163,115,0.25);
@@ -511,13 +511,44 @@ body {
 }
 
 /* ─── RESPONSIVE HELPERS ─── */
+.hide-scrollbar::-webkit-scrollbar { display: none; }
+.hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+.mobile-scroll-x {
+  display: flex;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 0.5rem;
+}
+.mobile-scroll-x > * {
+  scroll-snap-align: start;
+  flex-shrink: 0;
+}
+
 @media (max-width: 768px) {
   :root {
-    --section-py: 4rem;
+    --section-py: 3.5rem;
+  }
+  .container-wide, .container-normal {
+    padding: 0 1.25rem;
   }
   .section-label::before,
-  .section-label::after { width: 1.5rem; }
+  .section-label::after { width: 1.25rem; }
 }
+
+@media (max-width: 480px) {
+  :root {
+    --section-py: 2.75rem;
+  }
+  html {
+    font-size: 15px;
+  }
+  .container-wide, .container-normal {
+    padding: 0 1rem;
+  }
+}
+
 
 /* ─── ANIMATED UNDERLINE ─── */
 .nav-link {

@@ -103,7 +103,7 @@ export default function Checkout({ onDone }) {
           </h2>
         </motion.div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 380px', gap: '2rem', alignItems: 'start' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem', alignItems: 'start' }}>
           {/* Main form */}
           <div style={{
             background: 'var(--bg-card)',

@@ -280,11 +280,13 @@ export default function Menu() {
           </div>
 
           {/* Category tabs */}
-          <div style={{
+          <div className="mobile-scroll-x hide-scrollbar" style={{
             display: 'flex',
             gap: '0.5rem',
-            flexWrap: 'wrap',
+            maxWidth: '100%',
+            padding: '0.25rem 0.5rem',
             justifyContent: 'center',
+            alignItems: 'center',
           }}>
             {categories.map((cat) => (
               <motion.button
@@ -306,6 +308,8 @@ export default function Menu() {
                   cursor: 'pointer',
                   transition: 'all 0.3s',
                   letterSpacing: '0.04em',
+                  whiteSpace: 'nowrap',
+                  flexShrink: 0,
                 }}
               >
                 {cat}
@@ -323,8 +327,8 @@ export default function Menu() {
             animate="visible"
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
-              gap: '1.75rem',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
+              gap: '1.5rem',
             }}
           >
             {filtered.length > 0 ? filtered.map(item => (
