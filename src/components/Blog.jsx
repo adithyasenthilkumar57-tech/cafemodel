@@ -310,7 +310,7 @@ export default function Blog() {
                   })}
                 </div>
                 <button onClick={() => setSelectedPost(null)}
-                  className="btn-primary ripple" style={{ marginTop: '2rem', fontSize: '0.85rem' }}>
+                  className="btn-primary ripple" style={{ marginTop: '2rem', fontSize: '0.85rem', color: '#000000', fontWeight: 800 }}>
                   <ChevronLeft size={16} /> Back to Journal
                 </button>
               </div>

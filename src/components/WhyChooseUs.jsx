@@ -84,6 +84,7 @@ export default function WhyChooseUs() {
               <button
                 className="btn-primary"
                 onClick={() => document.querySelector('#about')?.scrollIntoView({ behavior: 'smooth' })}
+                style={{ color: '#000000', fontWeight: 800 }}
               >
                 Our Story
               </button>

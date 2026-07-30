@@ -201,7 +201,7 @@ export default function Events() {
                     <p style={{ fontSize: '0.87rem', color: 'var(--text-sub)', lineHeight: 1.6, marginBottom: '1.25rem' }}>{event.desc}</p>
                     <button className="btn-primary"
                       onClick={() => document.querySelector('#reservation')?.scrollIntoView({ behavior: 'smooth' })}
-                      style={{ fontSize: '0.8rem', padding: '0.6rem 1.5rem' }}>
+                      style={{ fontSize: '0.8rem', padding: '0.6rem 1.5rem', color: '#000000', fontWeight: 800 }}>
                       Book This Event
                     </button>
                   </div>
@@ -236,7 +236,7 @@ export default function Events() {
                         <p style={{ fontSize: '0.82rem', color: 'var(--text-sub)', lineHeight: 1.6, marginBottom: '1rem' }}>{ev.desc}</p>
                         <button className="btn-primary"
                           onClick={() => document.querySelector('#reservation')?.scrollIntoView({ behavior: 'smooth' })}
-                          style={{ fontSize: '0.75rem', padding: '0.5rem 1.25rem' }}>
+                          style={{ fontSize: '0.75rem', padding: '0.5rem 1.25rem', color: '#000000', fontWeight: 800 }}>
                           Book Now
                         </button>
                       </div>

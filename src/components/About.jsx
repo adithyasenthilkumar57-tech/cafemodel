@@ -107,8 +107,8 @@ export default function About() {
                 top: '50%',
                 left: '50%',
                 transform: 'translate(-50%, -50%)',
-                background: 'linear-gradient(135deg,#D4A373,#c17f40)',
-                color: '#2C1810',
+                background: 'linear-gradient(135deg, #C49A6C, #E5B879)',
+                color: '#000000',
                 borderRadius: '50%',
                 width: 100,
                 height: 100,
@@ -117,12 +117,12 @@ export default function About() {
                 alignItems: 'center',
                 justifyContent: 'center',
                 fontFamily: 'var(--font-display)',
-                fontWeight: 700,
-                boxShadow: '0 0 40px rgba(212,163,115,0.5)',
+                fontWeight: 800,
+                boxShadow: '0 0 40px rgba(196, 154, 108, 0.5)',
                 zIndex: 2,
               }}
             >
-              <span style={{ fontSize: '1.5rem', lineHeight: 1 }}>8+</span>
+              <span style={{ fontSize: '1.5rem', lineHeight: 1, fontWeight: 800 }}>8+</span>
               <span style={{ fontSize: '0.6rem', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Years of</span>
               <span style={{ fontSize: '0.6rem', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Excellence</span>
             </motion.div>
@@ -294,9 +294,10 @@ export default function About() {
               viewport={viewportOptions}
               style={{
                 display: 'flex',
-                justify: i % 2 === 0 ? 'flex-start' : 'flex-end',
+                justifyContent: i % 2 === 0 ? 'flex-start' : 'flex-end',
                 marginBottom: '2.5rem',
                 position: 'relative',
+                width: '100%',
               }}
             >
               <div style={{

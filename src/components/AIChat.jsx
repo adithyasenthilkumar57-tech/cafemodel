@@ -1,38 +1,32 @@
 'use client';
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageCircle, X, Send, Coffee, Bot } from 'lucide-react';
+import { MessageSquare, X, Send, Sparkles, Coffee, Bot, User, ChevronRight } from 'lucide-react';
 
 const SUGGESTIONS = [
-  'What coffee do you recommend?',
-  'What are your opening hours?',
-  'Do you offer vegan options?',
-  'How do I reserve a table?',
+  'Recommend a single-origin coffee',
+  'What are your dietary & vegan options?',
+  'How do I book a private table?',
+  'Tell me about Chef Antoine Vance',
 ];
 
 const BOT_RESPONSES = {
-  default: "I'm Velvet Bean's AI assistant! I can help with menu recommendations, reservations, opening hours, or anything about our café. What can I help you with? ☕",
-  recommend: "Our most-loved drinks are the **Nitro Cold Brew** (rich, velvety, nitrogen-infused), the **Signature Latte** (smooth caramel drizzle), and the **Rose Cardamom Latte** (floral & fragrant). For desserts, the **Burnt Basque Cheesecake** is an absolute must! 🍰",
-  hours: "We're open:\n• **Downtown**: Mon–Fri 7AM–10PM, Sat–Sun 8AM–11PM\n• **Midtown**: Mon–Fri 6AM–9PM, Sat 8AM–8PM\n\nWe're busiest on weekend mornings — arrive early for the best seats! ⏰",
-  vegan: "Yes! All our espresso drinks can be made with **oat milk, almond milk, soy, or coconut milk** at no extra charge. Our kitchen labels all vegan items on the menu. The Avocado Toast, Matcha Latte, and most dessert-free items are great choices! 🌱",
-  reserve: "Reserving is easy! Scroll up to our **Reservation** section and fill in your preferred date, time, guest count, and any special requests. We'll confirm within 2 hours. For same-day bookings, call us at +1 (212) 555-0101. 📅",
-  wifi: "Yes — we have blazing-fast **1Gbps WiFi** available at all seating areas. Ask your barista for the daily password. We also have power outlets at our co-working tables. Great for remote work! 💻",
-  parking: "Our Downtown location has a dedicated parking lot behind the building (free for 2 hours with café receipt). The Midtown location is metro-accessible — the subway is 2 minutes away! 🚗",
-  menu: "Our menu features **Coffee, Espresso, Cold Brew, Tea, Matcha, Desserts, Breakfast, and Seasonal Specials**. Highlights include the Nitro Cold Brew, Tiramisu Cake, and Chef's Seasonal Latte. Explore the full menu above! 🍽️",
-  price: "Our drinks start at **$4.75** for an Espresso and go up to **$9** for specialty seasonal drinks. Food items range from **$5.50** (Croissant) to **$15** (full breakfast plates). We also offer loyalty rewards — earn 1 point per dollar! 💳",
+  default: "Welcome to Velvet Bean Grand Reserve! I am your AI Sommelier Assistant. How may I guide your culinary or coffee journey today? ☕",
+  coffee: "I highly recommend our **Velvet Gold Latte** (24K gold dust leaf over Madagascar vanilla) or our **Kyoto Drip Nitro Cold Brew** (18-hour slow cold extraction). For purists, our **Yirgacheffe Single-Origin Cortado** offers delicate peach and jasmine floral notes. 🌟",
+  vegan: "All espresso and tea beverages can be prepared with artisanal **Oat Milk, Almond Milk, or Coconut Milk**. For dining, our **Truffle Avocats Sourdough** and **Ceremonial Matcha** are 100% plant-based favorites. 🌱",
+  booking: "You can book an intimate table directly through our online reservation form above, or contact our VIP Concierge for private dining suites at **+1 (212) 555-0198**. 📅",
+  chef: "Executive Chef Antoine Vance trained in Paris and Kyoto. He combines classical French pastry methods with direct-trade micro-lot coffee roasting to deliver award-winning taste profiles. 👨‍🍳",
+  hours: "We are open daily:\n• **Monday – Friday**: 7:00 AM – 10:00 PM\n• **Saturday – Sunday**: 8:00 AM – 11:00 PM\nLocated at 742 Fifth Avenue, New York. 📍",
 };
 
 function getResponse(input) {
   const lower = input.toLowerCase();
-  if (lower.includes('recommend') || lower.includes('best') || lower.includes('popular') || lower.includes('try')) return BOT_RESPONSES.recommend;
-  if (lower.includes('hour') || lower.includes('open') || lower.includes('close') || lower.includes('time')) return BOT_RESPONSES.hours;
-  if (lower.includes('vegan') || lower.includes('dairy') || lower.includes('plant') || lower.includes('oat')) return BOT_RESPONSES.vegan;
-  if (lower.includes('reserv') || lower.includes('book') || lower.includes('table') || lower.includes('seat')) return BOT_RESPONSES.reserve;
-  if (lower.includes('wifi') || lower.includes('internet') || lower.includes('work')) return BOT_RESPONSES.wifi;
-  if (lower.includes('park')) return BOT_RESPONSES.parking;
-  if (lower.includes('menu') || lower.includes('food') || lower.includes('drink') || lower.includes('eat')) return BOT_RESPONSES.menu;
-  if (lower.includes('price') || lower.includes('cost') || lower.includes('expensive') || lower.includes('cheap') || lower.includes('how much')) return BOT_RESPONSES.price;
-  return "That's a great question! For detailed assistance, feel free to call us at **+1 (212) 555-0101** or send us a message via the Contact form below. Our team is happy to help! 😊";
+  if (lower.includes('coffee') || lower.includes('recommend') || lower.includes('drink') || lower.includes('taste')) return BOT_RESPONSES.coffee;
+  if (lower.includes('vegan') || lower.includes('diet') || lower.includes('dairy') || lower.includes('oat')) return BOT_RESPONSES.vegan;
+  if (lower.includes('book') || lower.includes('table') || lower.includes('reserv') || lower.includes('vip')) return BOT_RESPONSES.booking;
+  if (lower.includes('chef') || lower.includes('antoine') || lower.includes('history') || lower.includes('story')) return BOT_RESPONSES.chef;
+  if (lower.includes('hour') || lower.includes('time') || lower.includes('open') || lower.includes('location')) return BOT_RESPONSES.hours;
+  return "That is a wonderful question! Our team of baristas and sommeliers are also available at +1 (212) 555-0198 to tailor your experience. Is there anything else I can assist with? ✨";
 }
 
 export default function AIChat() {
@@ -54,259 +48,209 @@ export default function AIChat() {
     setMessages(prev => [...prev, userMsg]);
     setInput('');
     setTyping(true);
+
     setTimeout(() => {
       setTyping(false);
       setMessages(prev => [...prev, { from: 'bot', text: getResponse(text), time: new Date() }]);
-    }, 900 + Math.random() * 600);
+    }, 700);
   };
 
   return (
-    <>
-      {/* Floating button */}
+    <div id="ai-chat">
+      {/* Trigger Button */}
       <motion.button
         onClick={() => setOpen(!open)}
-        animate={{ scale: open ? 0.9 : 1 }}
-        whileHover={{ scale: 1.08 }}
+        whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         style={{
           position: 'fixed',
-          bottom: 'clamp(1rem, 3vw, 2rem)',
-          right: 'clamp(1rem, 3vw, 2rem)',
-          width: 56,
-          height: 56,
+          bottom: '2rem',
+          right: '2rem',
+          width: 58,
+          height: 58,
           borderRadius: '50%',
-          background: 'linear-gradient(135deg,#D4A373,#c17f40)',
+          background: 'linear-gradient(135deg, #C49A6C 0%, #E5B879 100%)',
           border: 'none',
           cursor: 'pointer',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          boxShadow: '0 4px 24px rgba(212,163,115,0.5)',
-          zIndex: 200,
-          color: '#2C1810',
+          boxShadow: '0 8px 30px rgba(196, 154, 108, 0.45)',
+          zIndex: 180,
+          color: '#0F0F10',
         }}
       >
-        <AnimatePresence mode="wait">
-          {open
-            ? <motion.span key="x" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }}><X size={24} /></motion.span>
-            : <motion.span key="c" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }}><MessageCircle size={24} /></motion.span>
-          }
-        </AnimatePresence>
+        {open ? <X size={24} /> : <Sparkles size={24} />}
       </motion.button>
 
-      {/* Unread dot */}
-      {!open && (
-        <div style={{
-          position: 'fixed',
-          bottom: 'calc(clamp(1rem, 3vw, 2rem) + 2.5rem)',
-          right: 'clamp(1rem, 3vw, 2rem)',
-          width: 12,
-          height: 12,
-          borderRadius: '50%',
-          background: '#ef4444',
-          border: '2px solid #fff',
-          zIndex: 201,
-        }} />
-      )}
-
-      {/* Chat panel */}
+      {/* Chat Window Drawer */}
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ opacity: 0, y: 40, scale: 0.95 }}
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 40, scale: 0.95 }}
-            transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+            exit={{ opacity: 0, y: 20, scale: 0.95 }}
             style={{
               position: 'fixed',
-              bottom: 'calc(clamp(1rem, 3vw, 2rem) + 4.2rem)',
-              right: 'clamp(1rem, 3vw, 2rem)',
-              width: 'clamp(280px, calc(100vw - 2rem), 380px)',
-              height: 'clamp(380px, 72vh, 520px)',
+              bottom: '5.5rem',
+              right: '2rem',
+              width: 'clamp(300px, 90vw, 400px)',
+              height: 540,
+              background: '#1A1A1A',
+              border: '1px solid rgba(196, 154, 108, 0.3)',
               borderRadius: '1.5rem',
-              background: 'var(--bg-card)',
-              boxShadow: 'var(--shadow-card)',
+              boxShadow: '0 20px 60px rgba(0,0,0,0.85)',
+              zIndex: 181,
               display: 'flex',
               flexDirection: 'column',
               overflow: 'hidden',
-              zIndex: 199,
-              border: '1px solid var(--border-subtle)',
             }}
           >
             {/* Header */}
             <div style={{
-              padding: '1.25rem 1.5rem',
-              background: 'linear-gradient(135deg,#2C1810,#4A2C2A)',
+              padding: '1.2rem',
+              background: 'linear-gradient(135deg, #2B1E16 0%, #0F0F10 100%)',
+              borderBottom: '1px solid rgba(196, 154, 108, 0.2)',
               display: 'flex',
               alignItems: 'center',
-              gap: '0.75rem',
+              justifyContent: 'space-between',
             }}>
-              <div style={{
-                width: 40,
-                height: 40,
-                borderRadius: '50%',
-                background: 'rgba(212,163,115,0.2)',
-                border: '1px solid rgba(212,163,115,0.4)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}>
-                <Coffee size={18} color="#D4A373" />
-              </div>
-              <div>
-                <div style={{ fontFamily: 'var(--font-serif)', fontSize: '0.95rem', color: '#FFF8F0', fontWeight: 600 }}>Velvet AI</div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                  <div style={{ width: 7, height: 7, borderRadius: '50%', background: '#4ade80', animation: 'pulse-glow 2s infinite' }} />
-                  <span style={{ fontSize: '0.72rem', color: 'rgba(255,248,240,0.6)' }}>Always here to help</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                <div style={{
+                  width: 38,
+                  height: 38,
+                  borderRadius: '50%',
+                  background: 'linear-gradient(135deg, #C49A6C, #E5B879)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#0F0F10',
+                }}>
+                  <Bot size={20} />
+                </div>
+                <div>
+                  <div style={{ fontFamily: 'var(--font-serif)', color: '#FFFFFF', fontSize: '1.05rem', fontWeight: 700 }}>
+                    AI Sommelier Concierge
+                  </div>
+                  <div style={{ color: '#C49A6C', fontSize: '0.72rem', fontWeight: 600 }}>
+                    Always Active • Instant Recommendations
+                  </div>
                 </div>
               </div>
-              <div style={{ marginLeft: 'auto' }}>
-                <Bot size={16} color="rgba(212,163,115,0.6)" />
-              </div>
+
+              <button onClick={() => setOpen(false)} style={{ background: 'none', border: 'none', color: '#A39C93', cursor: 'pointer' }}>
+                <X size={18} />
+              </button>
             </div>
 
-            {/* Messages */}
-            <div style={{
-              flex: 1,
-              overflowY: 'auto',
-              padding: '1rem',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '0.75rem',
-              background: 'var(--bg-main)',
-            }}>
-              {messages.map((msg, i) => (
-                <motion.div
+            {/* Messages Area */}
+            <div style={{ flex: 1, padding: '1rem', overflowY: 'auto', background: '#0F0F10', display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+              {messages.map((m, i) => (
+                <div
                   key={i}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
                   style={{
                     display: 'flex',
-                    justify: msg.from === 'user' ? 'flex-end' : 'flex-start',
+                    justifyContent: m.from === 'user' ? 'flex-end' : 'flex-start',
                   }}
                 >
                   <div style={{
                     maxWidth: '82%',
-                    padding: '0.65rem 1rem',
-                    borderRadius: msg.from === 'user' ? '1rem 1rem 0.25rem 1rem' : '1rem 1rem 1rem 0.25rem',
-                    background: msg.from === 'user'
-                      ? 'linear-gradient(135deg,#D4A373,#c17f40)'
-                      : 'var(--bg-card)',
-                    border: msg.from === 'user' ? 'none' : '1px solid var(--border-subtle)',
-                    color: msg.from === 'user' ? '#2C1810' : 'var(--text-main)',
+                    padding: '0.85rem 1.1rem',
+                    borderRadius: '1.25rem',
+                    background: m.from === 'user' ? 'linear-gradient(135deg, #C49A6C, #E5B879)' : '#1A1A1A',
+                    color: m.from === 'user' ? '#0F0F10' : '#FFFFFF',
+                    fontWeight: m.from === 'user' ? 600 : 400,
                     fontSize: '0.85rem',
-                    lineHeight: 1.6,
-                    boxShadow: 'var(--shadow-soft)',
-                    fontWeight: msg.from === 'user' ? 500 : 400,
-                    whiteSpace: 'pre-line',
+                    lineHeight: 1.5,
+                    border: m.from === 'bot' ? '1px solid rgba(196, 154, 108, 0.2)' : 'none',
+                    boxShadow: '0 4px 15px rgba(0,0,0,0.3)',
                   }}>
-                    {msg.text.replace(/\*\*(.*?)\*\*/g, '$1')}
+                    {m.text}
                   </div>
-                </motion.div>
+                </div>
               ))}
+
               {typing && (
-                <div style={{ display: 'flex', gap: 4, padding: '0.65rem 1rem', background: 'var(--bg-card)', borderRadius: '1rem 1rem 1rem 0.25rem', width: 70, boxShadow: 'var(--shadow-soft)', border: '1px solid var(--border-subtle)' }}>
-                  {[0,1,2].map(i => (
-                    <motion.div
-                      key={i}
-                      animate={{ y: [0, -6, 0] }}
-                      transition={{ duration: 0.6, repeat: Infinity, delay: i * 0.15 }}
-                      style={{ width: 8, height: 8, borderRadius: '50%', background: '#D4A373' }}
-                    />
-                  ))}
+                <div style={{ color: '#C49A6C', fontSize: '0.8rem', fontStyle: 'italic' }}>
+                  AI Sommelier is crafting a response...
                 </div>
               )}
               <div ref={bottomRef} />
             </div>
 
-            {/* Suggestions */}
-            {messages.length < 3 && (
-              <div style={{
-                padding: '0.5rem 1rem',
-                background: 'var(--bg-main)',
-                display: 'flex',
-                gap: '0.4rem',
-                overflowX: 'auto',
-                borderTop: '1px solid var(--border-subtle)',
-              }}>
-                {SUGGESTIONS.map(s => (
-                  <button
-                    key={s}
-                    onClick={() => send(s)}
-                    style={{
-                      padding: '0.35rem 0.75rem',
-                      borderRadius: '20px',
-                      background: 'rgba(212,163,115,0.12)',
-                      border: '1px solid rgba(212,163,115,0.25)',
-                      color: 'var(--color-caramel)',
-                      fontSize: '0.75rem',
-                      cursor: 'pointer',
-                      whiteSpace: 'nowrap',
-                      fontFamily: 'var(--font-sans)',
-                    }}
-                  >
-                    {s}
-                  </button>
-                ))}
-              </div>
-            )}
+            {/* Quick Suggestions */}
+            <div style={{ padding: '0.5rem 0.75rem', background: '#1A1A1A', display: 'flex', gap: '0.4rem', overflowX: 'auto' }}>
+              {SUGGESTIONS.map((s, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => send(s)}
+                  style={{
+                    padding: '0.35rem 0.75rem',
+                    borderRadius: '50px',
+                    background: '#0F0F10',
+                    border: '1px solid rgba(196, 154, 108, 0.2)',
+                    color: '#C49A6C',
+                    fontSize: '0.72rem',
+                    whiteSpace: 'nowrap',
+                    cursor: 'pointer',
+                  }}
+                >
+                  {s}
+                </button>
+              ))}
+            </div>
 
-            {/* Input */}
+            {/* Input Bar */}
             <form
-              onSubmit={e => { e.preventDefault(); send(input); }}
+              onSubmit={(e) => {
+                e.preventDefault();
+                send(input);
+              }}
               style={{
+                padding: '0.75rem',
+                background: '#1A1A1A',
+                borderTop: '1px solid rgba(196, 154, 108, 0.2)',
                 display: 'flex',
                 gap: '0.5rem',
-                padding: '0.75rem 1rem',
-                borderTop: '1px solid var(--border-subtle)',
-                background: 'var(--bg-card)',
               }}
             >
               <input
+                type="text"
+                placeholder="Ask about roast notes, pairings, seating..."
                 value={input}
-                onChange={e => setInput(e.target.value)}
-                placeholder="Ask me anything…"
+                onChange={(e) => setInput(e.target.value)}
                 style={{
                   flex: 1,
                   padding: '0.65rem 1rem',
-                  borderRadius: '0.75rem',
-                  border: '1.5px solid var(--border-subtle)',
-                  background: 'var(--bg-main)',
-                  color: 'var(--text-main)',
-                  fontFamily: 'var(--font-sans)',
-                  fontSize: '0.87rem',
+                  background: '#0F0F10',
+                  border: '1px solid rgba(196, 154, 108, 0.2)',
+                  borderRadius: '50px',
+                  color: '#FFFFFF',
+                  fontSize: '0.85rem',
                   outline: 'none',
-                  transition: 'border-color 0.2s',
                 }}
-                onFocus={e => e.target.style.borderColor = '#D4A373'}
-                onBlur={e => e.target.style.borderColor = 'var(--border-subtle)'}
               />
-              <motion.button
+              <button
                 type="submit"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                disabled={!input.trim()}
                 style={{
-                  width: 40,
-                  height: 40,
-                  borderRadius: '0.75rem',
-                  background: input.trim() ? 'linear-gradient(135deg,#D4A373,#c17f40)' : 'var(--border-subtle)',
+                  width: 38,
+                  height: 38,
+                  borderRadius: '50%',
+                  background: 'linear-gradient(135deg, #C49A6C, #E5B879)',
                   border: 'none',
-                  cursor: input.trim() ? 'pointer' : 'default',
+                  color: '#0F0F10',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  color: input.trim() ? '#2C1810' : 'var(--text-muted)',
-                  transition: 'all 0.2s',
-                  flexShrink: 0,
+                  cursor: 'pointer',
                 }}
               >
                 <Send size={16} />
-              </motion.button>
+              </button>
             </form>
           </motion.div>
         )}
       </AnimatePresence>
-    </>
+    </div>
   );
 }

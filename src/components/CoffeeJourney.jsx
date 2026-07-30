@@ -215,6 +215,7 @@ export default function CoffeeJourney() {
             <button
               className="btn-primary"
               onClick={() => document.querySelector('#reservation')?.scrollIntoView({ behavior: 'smooth' })}
+              style={{ color: '#000000', fontWeight: 800 }}
             >
               Book My Spot
             </button>

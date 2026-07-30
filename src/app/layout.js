@@ -46,13 +46,61 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    "name": "Velvet Bean — Premium Artisan Coffee House",
+    "image": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1200&q=80",
+    "@id": "https://cafemodel-kopl.vercel.app/",
+    "url": "https://cafemodel-kopl.vercel.app/",
+    "telephone": "+1-212-555-0198",
+    "priceRange": "$$$",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "742 Fifth Avenue",
+      "addressLocality": "New York",
+      "addressRegion": "NY",
+      "postalCode": "10019",
+      "addressCountry": "US"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 40.7624,
+      "longitude": -73.9738
+    },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "07:00",
+        "closes": "22:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Saturday", "Sunday"],
+        "opens": "08:00",
+        "closes": "23:00"
+      }
+    ],
+    "servesCuisine": ["Specialty Coffee", "Artisan Bakery", "Fine Dining Desserts", "Gourmet Brunch"],
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "1280"
+    }
+  };
+
   return (
     <html lang="en" data-theme="dark">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="theme-color" content="#2C1810" />
+        <meta name="theme-color" content="#0F0F10" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
       </head>
       <body className={`${playfair.variable} ${cormorant.variable} ${inter.variable}`} suppressHydrationWarning>
         <ThemeProvider>

@@ -1,269 +1,375 @@
 'use client';
-import { useRef, useState, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { staggerContainer, staggerItem, fadeUp, viewportOptions } from './ScrollAnimations';
-import { X, ZoomIn, ChevronLeft, ChevronRight, Maximize2 } from 'lucide-react';
+import { X, ZoomIn, ChevronLeft, ChevronRight, Play, Compass, Sparkles, Eye, Film } from 'lucide-react';
 
-const galleryImages = [
-  { id: 1,  src: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=85', alt: 'Latte art',           tall: true  },
-  { id: 2,  src: 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=600&q=85', alt: 'Café interior',       tall: false },
-  { id: 3,  src: 'https://images.unsplash.com/photo-1442975631134-54a13c908b9e?w=600&q=85', alt: 'Coffee beans',        tall: false },
-  { id: 4,  src: 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=600&q=85', alt: 'Modern café',          tall: true  },
-  { id: 5,  src: 'https://images.unsplash.com/photo-1511920170033-f8396924c348?w=600&q=85', alt: 'Barista at work',     tall: false },
-  { id: 6,  src: 'https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=600&q=85', alt: 'Tiramisu dessert',   tall: false },
-  { id: 7,  src: 'https://images.unsplash.com/photo-1541519227354-08fa5d50c820?w=600&q=85', alt: 'Avocado toast',      tall: true  },
-  { id: 8,  src: 'https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=600&q=85', alt: 'Nitro cold brew',     tall: false },
-  { id: 9,  src: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=600&q=85', alt: 'Fresh croissant',     tall: false },
-  { id: 10, src: 'https://images.unsplash.com/photo-1594631252845-29fc4cc8cde9?w=600&q=85', alt: 'Matcha latte',       tall: true  },
-  { id: 11, src: 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=600&q=85', alt: 'Chocolate fondant',  tall: false },
-  { id: 12, src: 'https://images.unsplash.com/photo-1572490122747-3e9be5fe6a1e?w=600&q=85', alt: 'Cold brew tonic',    tall: false },
+const categories = ['All', 'Ambiance', 'Artisan Coffee', 'Culinary & Pastry', 'Private Dining'];
+
+const galleryItems = [
+  { id: 1, cat: 'Artisan Coffee', src: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1000&q=85', title: 'Velvet Gold Latte Art', desc: 'Precision 24K gold leaf latte art handcrafted by Head Barista.', tall: true },
+  { id: 2, cat: 'Ambiance', src: 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=1000&q=85', title: 'Warm Velvet Interior', desc: 'Custom Italian leather seating and ambient warm lighting.', tall: false },
+  { id: 3, cat: 'Artisan Coffee', src: 'https://images.unsplash.com/photo-1442975631134-54a13c908b9e?w=1000&q=85', title: 'Ethiopian Yirgacheffe Beans', desc: 'Single-origin small batch roast roasted in-house daily.', tall: false },
+  { id: 4, cat: 'Private Dining', src: 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=1000&q=85', title: 'The VIP Grand Reserve Room', desc: 'Private dining suite equipped with acoustic glass & personal sommelier.', tall: true },
+  { id: 5, cat: 'Culinary & Pastry', src: 'https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=1000&q=85', title: 'Traditional Tiramisu Layer', desc: 'Espresso-soaked ladyfingers with imported mascarpone.', tall: false },
+  { id: 6, cat: 'Culinary & Pastry', src: 'https://images.unsplash.com/photo-1541519227354-08fa5d50c820?w=1000&q=85', title: 'Truffle Avocats Sourdough', desc: 'Black truffle oil with poached egg and microgreens.', tall: true },
+  { id: 7, cat: 'Artisan Coffee', src: 'https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=1000&q=85', title: 'Kyoto Drip Nitro Cold Brew', desc: '18-hour cold brew extraction with nitrogen cascade.', tall: false },
+  { id: 8, cat: 'Culinary & Pastry', src: 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=1000&q=85', title: 'Valrhona Chocolate Molten', desc: 'French 70% dark chocolate fondant served with Madagascar ice cream.', tall: false },
 ];
 
 export default function Gallery() {
-  const [lightbox, setLightbox] = useState(null); // index
-  const [zoomed, setZoomed] = useState(false);
+  const [activeCategory, setActiveCategory] = useState('All');
+  const [lightboxIndex, setLightboxIndex] = useState(null);
+  const [viewMode, setViewMode] = useState('photo'); // 'photo' | '360' | 'video'
+  const [rotation360, setRotation360] = useState(0);
 
-  const open = (i) => { setLightbox(i); setZoomed(false); };
-  const close = () => { setLightbox(null); setZoomed(false); };
-  const prev = () => { setLightbox((lightbox - 1 + galleryImages.length) % galleryImages.length); setZoomed(false); };
-  const next = () => { setLightbox((lightbox + 1) % galleryImages.length); setZoomed(false); };
+  const filtered = galleryItems.filter(item => activeCategory === 'All' || item.cat === activeCategory);
 
-  // Keyboard navigation
-  useEffect(() => {
-    if (lightbox === null) return;
-    const handler = (e) => {
-      if (e.key === 'ArrowLeft') prev();
-      else if (e.key === 'ArrowRight') next();
-      else if (e.key === 'Escape') close();
-    };
-    window.addEventListener('keydown', handler);
-    return () => window.removeEventListener('keydown', handler);
-  }, [lightbox]);
-
-  // Touch swipe
-  const touchStartX = useRef(null);
-  const handleTouchStart = (e) => { touchStartX.current = e.touches[0].clientX; };
-  const handleTouchEnd = (e) => {
-    if (touchStartX.current === null) return;
-    const diff = touchStartX.current - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 50) { diff > 0 ? next() : prev(); }
-    touchStartX.current = null;
+  const openLightbox = (idx) => {
+    setLightboxIndex(idx);
+    setViewMode('photo');
   };
 
+  const closeLightbox = () => {
+    setLightboxIndex(null);
+  };
+
+  const nextSlide = () => {
+    if (lightboxIndex !== null) {
+      setLightboxIndex((lightboxIndex + 1) % filtered.length);
+    }
+  };
+
+  const prevSlide = () => {
+    if (lightboxIndex !== null) {
+      setLightboxIndex((lightboxIndex - 1 + filtered.length) % filtered.length);
+    }
+  };
+
+  // Keyboard controls
+  useEffect(() => {
+    const handleKey = (e) => {
+      if (lightboxIndex === null) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowRight') nextSlide();
+      if (e.key === 'ArrowLeft') prevSlide();
+    };
+    window.addEventListener('keydown', handleKey);
+    return () => window.removeEventListener('keydown', handleKey);
+  }, [lightboxIndex, filtered.length]);
+
   return (
-    <section id="gallery" style={{
-      background: 'var(--bg-main)',
-      color: 'var(--text-main)',
-      padding: 'var(--section-py) 0',
-      transition: 'background-color 0.3s, color 0.3s',
-    }}>
-      <div className="container-wide">
-        {/* Header */}
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={viewportOptions}
-          style={{ textAlign: 'center', marginBottom: '3rem' }}
-        >
-          <div className="section-label" style={{ justifyContent: 'center', color: 'var(--color-caramel)' }}>
-            Gallery
+    <section id="gallery" style={{ background: '#0F0F10', padding: 'var(--section-py) 0', color: '#FFFFFF' }}>
+      <div className="container-wide" style={{ maxWidth: 1320, margin: '0 auto', padding: '0 1.5rem' }}>
+        
+        {/* Section Header */}
+        <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
+          <div style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '0.4rem',
+            color: '#C49A6C',
+            fontSize: '0.8rem',
+            fontWeight: 700,
+            letterSpacing: '0.2em',
+            textTransform: 'uppercase',
+            marginBottom: '0.75rem',
+          }}>
+            <Sparkles size={14} />
+            <span>VISUAL ATMOSPHERE</span>
           </div>
           <h2 style={{
             fontFamily: 'var(--font-serif)',
-            fontSize: 'clamp(2.2rem, 4vw, 3.2rem)',
-            fontWeight: 700,
-            color: 'var(--text-main)',
+            fontSize: 'clamp(2.4rem, 4.5vw, 3.8rem)',
+            fontWeight: 800,
+            color: '#FFFFFF',
+            lineHeight: 1.1,
             marginBottom: '1rem',
           }}>
-            Moments That Matter
+            The Velvet Bean Gallery
           </h2>
-          <p style={{ color: 'var(--text-sub)', maxWidth: 500, margin: '0 auto', lineHeight: 1.7 }}>
-            Every corner of Velvet Bean is a frame worth capturing. Click any image to explore in full screen.
+          <p style={{ color: '#A39C93', maxWidth: 600, margin: '0 auto', fontSize: '1rem', lineHeight: 1.7 }}>
+            Immerse yourself in our cinematic environment, master barista techniques, and elegant private dining rooms.
           </p>
-        </motion.div>
+        </div>
+
+        {/* Category Tabs */}
+        <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: '0.6rem', marginBottom: '3rem' }}>
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setActiveCategory(cat)}
+              style={{
+                padding: '0.6rem 1.4rem',
+                borderRadius: '50px',
+                border: '1px solid',
+                borderColor: activeCategory === cat ? '#C49A6C' : 'rgba(196, 154, 108, 0.18)',
+                background: activeCategory === cat ? 'linear-gradient(135deg, #C49A6C, #E5B879)' : '#1A1A1A',
+                color: activeCategory === cat ? '#0F0F10' : '#F4E7D3',
+                fontSize: '0.85rem',
+                fontWeight: 600,
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+              }}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
 
         {/* Masonry Grid */}
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={viewportOptions}
-          className="masonry-grid"
-        >
-          {galleryImages.map((img, i) => (
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+          gap: '1.5rem',
+        }}>
+          {filtered.map((item, idx) => (
             <motion.div
-              key={img.id}
-              variants={staggerItem}
-              className="masonry-item"
-              onClick={() => open(i)}
-              style={{ cursor: 'pointer' }}
+              key={item.id}
+              layout
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              onClick={() => openLightbox(idx)}
+              style={{
+                position: 'relative',
+                borderRadius: '1.25rem',
+                overflow: 'hidden',
+                cursor: 'pointer',
+                height: item.tall ? 360 : 240,
+                border: '1px solid rgba(196, 154, 108, 0.18)',
+                background: '#1A1A1A',
+              }}
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.3 }}
             >
-              <div style={{ position: 'relative', overflow: 'hidden', borderRadius: '0.75rem' }}>
-                <motion.img
-                  src={img.src}
-                  alt={img.alt}
-                  loading="lazy"
-                  style={{
-                    width: '100%',
-                    height: img.tall ? 340 : 220,
-                    objectFit: 'cover',
-                    display: 'block',
-                  }}
-                  whileHover={{ scale: 1.07 }}
-                  transition={{ duration: 0.5 }}
-                />
-                {/* Hover overlay */}
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  whileHover={{ opacity: 1 }}
-                  transition={{ duration: 0.3 }}
-                  style={{
-                    position: 'absolute',
-                    inset: 0,
-                    background: 'rgba(44,24,16,0.6)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    borderRadius: '0.75rem',
-                    flexDirection: 'column',
-                    gap: '0.5rem',
-                  }}
-                >
-                  <div style={{
-                    width: 48, height: 48, borderRadius: '50%',
-                    background: 'rgba(212,163,115,0.9)',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  }}>
-                    <ZoomIn size={20} color="#2C1810" />
-                  </div>
-                  <span style={{ color: 'rgba(255,248,240,0.8)', fontSize: '0.72rem', fontWeight: 600, letterSpacing: '0.08em' }}>
-                    {img.alt}
-                  </span>
-                </motion.div>
+              <img
+                src={item.src}
+                alt={item.title}
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              />
+              
+              {/* Overlay */}
+              <div style={{
+                position: 'absolute',
+                inset: 0,
+                background: 'linear-gradient(to top, rgba(15,15,16,0.9) 0%, transparent 60%)',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'flex-end',
+                padding: '1.25rem',
+                transition: 'opacity 0.3s ease',
+              }}>
+                <div style={{ color: '#C49A6C', fontSize: '0.75rem', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase' }}>
+                  {item.cat}
+                </div>
+                <div style={{ fontFamily: 'var(--font-serif)', fontSize: '1.2rem', fontWeight: 700, color: '#FFFFFF' }}>
+                  {item.title}
+                </div>
               </div>
             </motion.div>
           ))}
-        </motion.div>
-      </div>
+        </div>
 
-      {/* Lightbox */}
-      <AnimatePresence>
-        {lightbox !== null && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="lightbox-overlay"
-            onClick={close}
-            onTouchStart={handleTouchStart}
-            onTouchEnd={handleTouchEnd}
-            style={{ flexDirection: 'column', gap: '1rem' }}
-          >
-            {/* Top bar */}
-            <div style={{
-              position: 'fixed', top: 0, left: 0, right: 0,
-              padding: '1rem 1.5rem',
-              background: 'linear-gradient(to bottom, rgba(0,0,0,0.6), transparent)',
-              display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-              zIndex: 10,
-            }}>
-              <div style={{ color: 'rgba(255,248,240,0.7)', fontSize: '0.8rem', fontFamily: 'var(--font-sans)' }}>
-                <span style={{ color: '#D4A373', fontWeight: 600 }}>{lightbox + 1}</span>
-                <span> / {galleryImages.length}</span>
-                <span style={{ marginLeft: '1rem', color: 'rgba(255,248,240,0.5)' }}>
-                  Use ← → keys or swipe to navigate
-                </span>
-              </div>
-              <div style={{ display: 'flex', gap: '0.5rem' }}>
-                <button onClick={(e) => { e.stopPropagation(); setZoomed(z => !z); }}
-                  style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '0.5rem', width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: '#fff' }}>
-                  <Maximize2 size={15} />
-                </button>
-                <button onClick={close}
-                  style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '0.5rem', width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: '#fff' }}>
-                  <X size={15} />
-                </button>
-              </div>
-            </div>
-
-            {/* Image */}
+        {/* Lightbox Modal */}
+        <AnimatePresence>
+          {lightboxIndex !== null && filtered[lightboxIndex] && (
             <motion.div
-              initial={{ scale: 0.88, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.88, opacity: 0 }}
-              transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-              onClick={e => e.stopPropagation()}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
               style={{
-                position: 'relative',
-                borderRadius: '1rem',
-                overflow: 'hidden',
-                maxWidth: zoomed ? '95vw' : '900px',
-                maxHeight: '80vh',
-                transition: 'max-width 0.3s',
+                position: 'fixed',
+                inset: 0,
+                zIndex: 200,
+                background: 'rgba(0,0,0,0.92)',
+                backdropFilter: 'blur(20px)',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                padding: '2rem',
               }}
             >
-              <AnimatePresence mode="wait">
-                <motion.img
-                  key={lightbox}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
-                  transition={{ duration: 0.25 }}
-                  src={galleryImages[lightbox].src.replace('w=600', 'w=1200')}
-                  alt={galleryImages[lightbox].alt}
-                  style={{ maxWidth: '90vw', maxHeight: '80vh', objectFit: 'contain', display: 'block' }}
-                />
-              </AnimatePresence>
-              {/* Caption */}
+              {/* Top Controls */}
               <div style={{
-                position: 'absolute', bottom: 0, left: 0, right: 0,
-                padding: '1rem 1.5rem',
-                background: 'linear-gradient(to top, rgba(0,0,0,0.8), transparent)',
-                color: '#FFF8F0', fontFamily: 'var(--font-serif)', fontSize: '1rem',
+                position: 'absolute',
+                top: 24,
+                left: 24,
+                right: 24,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                zIndex: 10,
               }}>
-                {galleryImages[lightbox].alt}
+                {/* View Mode Switcher */}
+                <div style={{ display: 'flex', gap: '0.5rem', background: '#1A1A1A', padding: '0.3rem', borderRadius: '50px', border: '1px solid rgba(196,154,108,0.3)' }}>
+                  <button
+                    onClick={() => setViewMode('photo')}
+                    style={{
+                      padding: '0.4rem 1rem',
+                      borderRadius: '50px',
+                      background: viewMode === 'photo' ? '#C49A6C' : 'transparent',
+                      color: viewMode === 'photo' ? '#0F0F10' : '#F4E7D3',
+                      border: 'none',
+                      fontWeight: 600,
+                      fontSize: '0.8rem',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.3rem',
+                    }}
+                  >
+                    <Eye size={14} />
+                    <span>HD Photo</span>
+                  </button>
+
+                  <button
+                    onClick={() => setViewMode('360')}
+                    style={{
+                      padding: '0.4rem 1rem',
+                      borderRadius: '50px',
+                      background: viewMode === '360' ? '#C49A6C' : 'transparent',
+                      color: viewMode === '360' ? '#0F0F10' : '#F4E7D3',
+                      border: 'none',
+                      fontWeight: 600,
+                      fontSize: '0.8rem',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.3rem',
+                    }}
+                  >
+                    <Compass size={14} />
+                    <span>360° View</span>
+                  </button>
+                </div>
+
+                <button
+                  onClick={closeLightbox}
+                  style={{
+                    width: 44,
+                    height: 44,
+                    borderRadius: '50%',
+                    background: '#1A1A1A',
+                    border: '1px solid rgba(196, 154, 108, 0.3)',
+                    color: '#FFFFFF',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    cursor: 'pointer',
+                  }}
+                >
+                  <X size={20} />
+                </button>
+              </div>
+
+              {/* Prev / Next Buttons */}
+              <button
+                onClick={prevSlide}
+                style={{
+                  position: 'absolute',
+                  left: 24,
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  width: 48,
+                  height: 48,
+                  borderRadius: '50%',
+                  background: '#1A1A1A',
+                  border: '1px solid rgba(196, 154, 108, 0.3)',
+                  color: '#C49A6C',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  cursor: 'pointer',
+                  zIndex: 10,
+                }}
+              >
+                <ChevronLeft size={24} />
+              </button>
+
+              <button
+                onClick={nextSlide}
+                style={{
+                  position: 'absolute',
+                  right: 24,
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  width: 48,
+                  height: 48,
+                  borderRadius: '50%',
+                  background: '#1A1A1A',
+                  border: '1px solid rgba(196, 154, 108, 0.3)',
+                  color: '#C49A6C',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  cursor: 'pointer',
+                  zIndex: 10,
+                }}
+              >
+                <ChevronRight size={24} />
+              </button>
+
+              {/* Main Media Display */}
+              <div style={{ maxWidth: 900, width: '100%', maxHeight: '75vh', position: 'relative', textAlign: 'center' }}>
+                {viewMode === 'photo' && (
+                  <motion.img
+                    key={filtered[lightboxIndex].src}
+                    initial={{ scale: 0.95, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    src={filtered[lightboxIndex].src}
+                    alt={filtered[lightboxIndex].title}
+                    style={{
+                      maxHeight: '65vh',
+                      maxWidth: '100%',
+                      objectFit: 'contain',
+                      borderRadius: '1rem',
+                      boxShadow: '0 20px 60px rgba(0,0,0,0.8)',
+                    }}
+                  />
+                )}
+
+                {viewMode === '360' && (
+                  <div style={{ position: 'relative', width: '100%', height: 450, borderRadius: '1rem', overflow: 'hidden', border: '1px solid #C49A6C' }}>
+                    <img
+                      src={filtered[lightboxIndex].src}
+                      alt="360 view"
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        transform: `scale(1.25) rotate(${rotation360}deg)`,
+                        transition: 'transform 0.1s linear',
+                      }}
+                    />
+                    <div style={{ position: 'absolute', bottom: 20, left: '50%', transform: 'translateX(-50%)', background: 'rgba(15,15,16,0.85)', padding: '0.6rem 1.2rem', borderRadius: '50px', color: '#E5B879', fontSize: '0.85rem' }}>
+                      Drag or Use Slider to Rotate 360°
+                    </div>
+                    <input
+                      type="range"
+                      min="-180"
+                      max="180"
+                      value={rotation360}
+                      onChange={e => setRotation360(e.target.value)}
+                      style={{ position: 'absolute', bottom: 65, left: '50%', transform: 'translateX(-50%)', width: 240 }}
+                    />
+                  </div>
+                )}
+
+                <div style={{ marginTop: '1.25rem' }}>
+                  <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.5rem', fontWeight: 700, color: '#FFFFFF' }}>
+                    {filtered[lightboxIndex].title}
+                  </h3>
+                  <p style={{ color: '#A39C93', fontSize: '0.9rem', marginTop: '0.2rem' }}>
+                    {filtered[lightboxIndex].desc}
+                  </p>
+                </div>
               </div>
             </motion.div>
+          )}
+        </AnimatePresence>
 
-            {/* Thumbnail strip */}
-            <div style={{ display: 'flex', gap: '0.5rem', overflowX: 'auto', maxWidth: '90vw', padding: '0.25rem' }}
-              onClick={e => e.stopPropagation()}>
-              {galleryImages.map((img, i) => (
-                <button key={img.id} onClick={() => open(i)}
-                  style={{
-                    width: 56, height: 42, borderRadius: '0.4rem', overflow: 'hidden', flexShrink: 0,
-                    border: i === lightbox ? '2px solid #D4A373' : '2px solid transparent',
-                    cursor: 'pointer', padding: 0, transition: 'border-color 0.2s',
-                    opacity: i === lightbox ? 1 : 0.6,
-                  }}>
-                  <img src={img.src.replace('w=600', 'w=100')} alt={img.alt} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                </button>
-              ))}
-            </div>
-
-            {/* Nav arrows */}
-            <button onClick={(e) => { e.stopPropagation(); prev(); }} style={{
-              position: 'fixed', left: '1rem', top: '50%', transform: 'translateY(-50%)',
-              background: 'rgba(212,163,115,0.85)', border: 'none', borderRadius: '50%',
-              width: 52, height: 52, display: 'flex', alignItems: 'center', justifyContent: 'center',
-              cursor: 'pointer', color: '#2C1810', backdropFilter: 'blur(8px)',
-              boxShadow: '0 4px 20px rgba(0,0,0,0.3)',
-            }}>
-              <ChevronLeft size={24} />
-            </button>
-            <button onClick={(e) => { e.stopPropagation(); next(); }} style={{
-              position: 'fixed', right: '1rem', top: '50%', transform: 'translateY(-50%)',
-              background: 'rgba(212,163,115,0.85)', border: 'none', borderRadius: '50%',
-              width: 52, height: 52, display: 'flex', alignItems: 'center', justifyContent: 'center',
-              cursor: 'pointer', color: '#2C1810', backdropFilter: 'blur(8px)',
-              boxShadow: '0 4px 20px rgba(0,0,0,0.3)',
-            }}>
-              <ChevronRight size={24} />
-            </button>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      </div>
     </section>
   );
 }

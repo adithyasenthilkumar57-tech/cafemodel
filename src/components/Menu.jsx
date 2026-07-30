@@ -1,345 +1,619 @@
 'use client';
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { staggerContainer, staggerItem, fadeUp, viewportOptions } from './ScrollAnimations';
-import { Star, Heart, ShoppingCart, Search, Check } from 'lucide-react';
+import { Star, Heart, ShoppingCart, Search, Eye, Filter, Sparkles, Check, X, Shield, Info, ArrowUpDown } from 'lucide-react';
 import { useCart } from './CartContext';
 
-const categories = ['All', 'Coffee', 'Espresso', 'Cold Brew', 'Tea', 'Desserts', 'Breakfast', 'Seasonal'];
+const categories = ['All', 'Coffee', 'Espresso', 'Cold Brew', 'Tea', 'Desserts', 'Savory Brunch', 'Seasonal'];
 
 const menuItems = [
-  // Coffee
-  { id: 1, cat: 'Coffee', name: 'Signature Latte', price: 6.50, cal: 220, rating: 4.9, badge: 'bestseller', desc: 'Velvety steamed milk, double espresso, house caramel drizzle', img: 'https://images.unsplash.com/photo-1561882468-9110d70d3069?w=400&q=80' },
-  { id: 2, cat: 'Espresso', name: 'Cortado', price: 4.75, cal: 80, rating: 4.8, badge: 'chef', desc: 'Equal parts espresso and warm milk, silky balance', img: 'https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?w=400&q=80' },
-  { id: 3, cat: 'Coffee', name: 'Flat White', price: 5.50, cal: 150, rating: 4.7, badge: 'new', desc: 'Micro-foam milk poured over a ristretto base', img: 'https://images.unsplash.com/photo-1534687941688-651ccaafbff8?w=400&q=80' },
-  { id: 4, cat: 'Cold Brew', name: 'Nitro Cold Brew', price: 7.00, cal: 15, rating: 5.0, badge: 'limited', desc: 'Nitrogen-infused cold brew, cascading velvety foam', img: 'https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=400&q=80' },
-  { id: 5, cat: 'Cold Brew', name: 'Cold Brew Tonic', price: 6.25, cal: 90, rating: 4.6, badge: 'new', desc: 'Cold brew over tonic water, bright & refreshing', img: 'https://images.unsplash.com/photo-1572490122747-3e9be5fe6a1e?w=400&q=80' },
-  { id: 6, cat: 'Tea', name: 'Matcha Ceremonial', price: 6.00, cal: 130, rating: 4.8, badge: 'bestseller', desc: 'Grade A Japanese matcha, oat milk, touch of honey', img: 'https://images.unsplash.com/photo-1594631252845-29fc4cc8cde9?w=400&q=80' },
-  { id: 7, cat: 'Tea', name: 'Chai Latte', price: 5.75, cal: 200, rating: 4.7, badge: null, desc: 'House-spiced masala chai, steamed milk, cinnamon', img: 'https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=400&q=80' },
-  { id: 8, cat: 'Desserts', name: 'Tiramisu Cake', price: 8.50, cal: 380, rating: 4.9, badge: 'chef', desc: 'Classic Italian layers, espresso-soaked ladyfingers', img: 'https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=400&q=80' },
-  { id: 9, cat: 'Desserts', name: 'Burnt Basque Cheesecake', price: 7.50, cal: 340, rating: 5.0, badge: 'bestseller', desc: 'Creamy, caramelised top, served warm', img: 'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=400&q=80' },
-  { id: 10, cat: 'Breakfast', name: 'Avocado Toast', price: 12.00, cal: 420, rating: 4.6, badge: null, desc: 'Sourdough, whipped ricotta, poached egg, microgreens', img: 'https://images.unsplash.com/photo-1541519227354-08fa5d50c820?w=400&q=80' },
-  { id: 11, cat: 'Breakfast', name: 'Croissant Almond', price: 5.50, cal: 310, rating: 4.8, badge: 'new', desc: 'Flaky all-butter croissant filled with frangipane', img: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=400&q=80' },
-  { id: 12, cat: 'Seasonal', name: 'Pumpkin Spice Latte', price: 7.25, cal: 260, rating: 4.9, badge: 'limited', desc: 'Seasonal spice blend, oat milk, gold dust topping', img: 'https://images.unsplash.com/photo-1477456137234-940ef8dda580?w=400&q=80' },
-  { id: 13, cat: 'Espresso', name: 'Affogato', price: 6.00, cal: 180, rating: 4.9, badge: 'chef', desc: 'Vanilla gelato drowned in a double ristretto shot', img: 'https://images.unsplash.com/photo-1551024506-0bccd828d307?w=400&q=80' },
-  { id: 14, cat: 'Coffee', name: 'Caramel Macchiato', price: 6.00, cal: 240, rating: 4.7, badge: null, desc: 'Vanilla-marked espresso with caramel drizzle', img: 'https://images.unsplash.com/photo-1485808191679-5f86510bd9d4?w=400&q=80' },
-  { id: 15, cat: 'Desserts', name: 'Chocolate Fondant', price: 9.00, cal: 440, rating: 5.0, badge: 'chef', desc: 'Warm molten centre, served with vanilla ice cream', img: 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=400&q=80' },
-  { id: 16, cat: 'Seasonal', name: 'Rose Cardamom Latte', price: 7.50, cal: 210, rating: 4.8, badge: 'new', desc: 'Fragrant rose syrup, cardamom, steamed oat milk', img: 'https://images.unsplash.com/photo-1542992015-4a0b729b1385?w=400&q=80' },
+  { 
+    id: 1, 
+    cat: 'Coffee', 
+    name: 'Velvet Gold Latte', 
+    price: 7.50, 
+    cal: 220, 
+    rating: 4.9, 
+    badge: 'bestseller', 
+    desc: 'Double shot espresso infused with Madagascar vanilla bean, oat milk, and 24K gold dust leaf.', 
+    img: 'https://images.unsplash.com/photo-1561882468-9110d70d3069?w=600&q=80',
+    origin: 'Yirgacheffe, Ethiopia',
+    ingredients: 'Double Espresso, Oat Milk, Vanilla Bean, Organic Honey, 24K Edible Gold',
+    nutrition: { protein: '4g', carbs: '22g', fat: '5g' },
+    diet: ['Organic', 'Vegan Available'],
+    pairing: 'Complements our Burnt Basque Cheesecake perfectly.'
+  },
+  { 
+    id: 2, 
+    cat: 'Espresso', 
+    name: 'Cortado Reserva', 
+    price: 5.50, 
+    cal: 80, 
+    rating: 4.9, 
+    badge: 'chef', 
+    desc: 'Equal parts single-origin espresso and silky warm texturized milk served in custom ceramic.', 
+    img: 'https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?w=600&q=80',
+    origin: 'Antioquia, Colombia',
+    ingredients: 'Ristretto Espresso, Whole Organic Milk',
+    nutrition: { protein: '5g', carbs: '6g', fat: '4g' },
+    diet: ['GF', 'Organic'],
+    pairing: 'Pairs seamlessly with warm Almond Croissant.'
+  },
+  { 
+    id: 3, 
+    cat: 'Cold Brew', 
+    name: 'Kyoto Drip Nitro Cold Brew', 
+    price: 8.00, 
+    cal: 15, 
+    rating: 5.0, 
+    badge: 'limited', 
+    desc: 'Slow 18-hour cold water extraction infused with pure nitrogen for a cascading cream top.', 
+    img: 'https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=600&q=80',
+    origin: 'Huehuetenango, Guatemala',
+    ingredients: '100% Arabica Cold Brew Coffee, Pure Nitrogen',
+    nutrition: { protein: '1g', carbs: '2g', fat: '0g' },
+    diet: ['Zero Sugar', 'Vegan', 'GF'],
+    pairing: 'Ideal refreshing companion for Avocado Toast.'
+  },
+  { 
+    id: 4, 
+    cat: 'Desserts', 
+    name: 'Burnt Basque Caramel Cheesecake', 
+    price: 9.50, 
+    cal: 380, 
+    rating: 5.0, 
+    badge: 'bestseller', 
+    desc: 'Caramelized Basque-style crust with a molten creamy cheese center and sea salt drizzle.', 
+    img: 'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=600&q=80',
+    origin: 'House Pastry Kitchen',
+    ingredients: 'Spanish Cream Cheese, Farm Eggs, Pure Vanilla, Salted Caramel',
+    nutrition: { protein: '8g', carbs: '32g', fat: '24g' },
+    diet: ['Vegetarian'],
+    pairing: 'Unmatched pairing with our Velvet Gold Latte.'
+  },
+  { 
+    id: 5, 
+    cat: 'Savory Brunch', 
+    name: 'Truffle Avocats Sourdough', 
+    price: 15.00, 
+    cal: 420, 
+    rating: 4.8, 
+    badge: 'chef', 
+    desc: 'Artisan sourdough topped with whipped ricotta, crushed Hass avocado, black truffle oil, and poached egg.', 
+    img: 'https://images.unsplash.com/photo-1541519227354-08fa5d50c820?w=600&q=80',
+    origin: 'Organic Farm Partners',
+    ingredients: 'Hass Avocado, Sourdough, Black Truffle Oil, Poached Organic Egg, Microgreens',
+    nutrition: { protein: '14g', carbs: '38g', fat: '22g' },
+    diet: ['Organic', 'Vegetarian'],
+    pairing: 'Best enjoyed with Nitro Cold Brew.'
+  },
+  { 
+    id: 6, 
+    cat: 'Tea', 
+    name: 'Uji Matcha Ceremonial Latte', 
+    price: 7.00, 
+    cal: 130, 
+    rating: 4.9, 
+    badge: 'bestseller', 
+    desc: 'First-harvest ceremonial Grade A Japanese matcha hand-whisked with steamed oat milk.', 
+    img: 'https://images.unsplash.com/photo-1594631252845-29fc4cc8cde9?w=600&q=80',
+    origin: 'Kyoto, Japan',
+    ingredients: 'Grade A Matcha Powder, Oat Milk, Blossom Honey',
+    nutrition: { protein: '3g', carbs: '18g', fat: '3g' },
+    diet: ['Vegan', 'Organic', 'GF'],
+    pairing: 'Complements Rose Cardamom Macarons.'
+  },
+  { 
+    id: 7, 
+    cat: 'Seasonal', 
+    name: 'Smoked Vanilla Bourbon Latte', 
+    price: 8.50, 
+    cal: 250, 
+    rating: 4.9, 
+    badge: 'limited', 
+    desc: 'Oak-barrel aged bourbon vanilla, espresso, steamed whole milk, topped with smoked cinnamon.', 
+    img: 'https://images.unsplash.com/photo-1477456137234-940ef8dda580?w=600&q=80',
+    origin: 'Kentucky Bourbon Vanilla Beans',
+    ingredients: 'Espresso, Aged Bourbon Vanilla, Whole Milk, Smoked Cinnamon',
+    nutrition: { protein: '6g', carbs: '26g', fat: '7g' },
+    diet: ['Seasonal Special'],
+    pairing: 'Pairs delightfully with Chocolate Fondant.'
+  },
+  { 
+    id: 8, 
+    cat: 'Desserts', 
+    name: 'Valrhona Molten Fondant', 
+    price: 11.00, 
+    cal: 440, 
+    rating: 5.0, 
+    badge: 'chef', 
+    desc: 'Decadent French dark chocolate cake with a warm flowing cocoa lava center & Madagascar ice cream.', 
+    img: 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=600&q=80',
+    origin: 'Valrhona France 70%',
+    ingredients: '70% Dark Chocolate, Farm Butter, Cocoa, Gelato',
+    nutrition: { protein: '7g', carbs: '45g', fat: '28g' },
+    diet: ['Vegetarian'],
+    pairing: 'Pairs superbly with Cortado Reserva.'
+  }
 ];
 
 const badgeMap = {
-  bestseller: { label: 'Best Seller', cls: 'badge-bestseller' },
-  new:        { label: 'New', cls: 'badge-new' },
-  chef:       { label: 'Chef Special', cls: 'badge-chef' },
-  limited:    { label: 'Limited', cls: 'badge-limited' },
+  bestseller: { label: 'Best Seller', bg: '#C49A6C', color: '#0F0F10' },
+  chef:       { label: 'Chef Signature', bg: '#2B1E16', color: '#F4E7D3' },
+  limited:    { label: 'Seasonal Limited', bg: '#E5B879', color: '#0F0F10' },
 };
-
-function StarRating({ value }) {
-  return (
-    <div className="star-rating" style={{ fontSize: '0.75rem' }}>
-      {[1,2,3,4,5].map(i => (
-        <span key={i} style={{ opacity: i <= Math.floor(value) ? 1 : 0.3 }}>★</span>
-      ))}
-      <span style={{ color: '#6b7280', marginLeft: 4 }}>{value}</span>
-    </div>
-  );
-}
-
-function MenuCard({ item }) {
-  const [liked, setLiked] = useState(false);
-  const [added, setAdded] = useState(false);
-  const cardRef = useRef(null);
-  const { addItem, setIsOpen } = useCart();
-
-  const handleMouseMove = (e) => {
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = (e.clientX - rect.left - rect.width / 2) / (rect.width / 2);
-    const y = (e.clientY - rect.top - rect.height / 2) / (rect.height / 2);
-    cardRef.current.style.transform = `perspective(1000px) rotateY(${x * 6}deg) rotateX(${-y * 6}deg) translateZ(10px)`;
-  };
-  const handleMouseLeave = () => {
-    cardRef.current.style.transform = 'perspective(1000px) rotateY(0) rotateX(0) translateZ(0)';
-  };
-
-  const handleAdd = () => {
-    addItem(item);
-    setAdded(true);
-    setTimeout(() => setAdded(false), 1800);
-    // Brief flash then open cart
-    setTimeout(() => setIsOpen(true), 400);
-  };
-
-  return (
-    <motion.div
-      ref={cardRef}
-      variants={staggerItem}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{
-        background: 'var(--bg-card)',
-        borderRadius: '1.25rem',
-        overflow: 'hidden',
-        border: '1px solid var(--border-subtle)',
-        boxShadow: 'var(--shadow-soft)',
-        transition: 'transform 0.15s ease, box-shadow 0.3s ease, background-color 0.3s',
-        cursor: 'default',
-      }}
-      whileHover={{ boxShadow: 'var(--shadow-card)' }}
-    >
-      {/* Image */}
-      <div style={{ position: 'relative', height: 200, overflow: 'hidden' }}>
-        <motion.img
-          src={item.img}
-          alt={item.name}
-          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-          whileHover={{ scale: 1.08 }}
-          transition={{ duration: 0.6 }}
-        />
-        {/* Gradient overlay */}
-        <div style={{
-          position: 'absolute',
-          bottom: 0, left: 0, right: 0,
-          height: '50%',
-          background: 'linear-gradient(to top, rgba(0,0,0,0.5), transparent)',
-        }} />
-        {/* Badge */}
-        {item.badge && (
-          <div style={{ position: 'absolute', top: 12, left: 12 }}>
-            <span className={`badge ${badgeMap[item.badge].cls}`}>
-              {badgeMap[item.badge].label}
-            </span>
-          </div>
-        )}
-        {/* Like button */}
-        <button
-          onClick={() => setLiked(!liked)}
-          style={{
-            position: 'absolute',
-            top: 12,
-            right: 12,
-            width: 34,
-            height: 34,
-            borderRadius: '50%',
-            background: 'var(--bg-glass)',
-            backdropFilter: 'blur(8px)',
-            border: 'none',
-            cursor: 'pointer',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            transition: 'all 0.2s',
-          }}
-        >
-          <Heart
-            size={16}
-            fill={liked ? '#ef4444' : 'none'}
-            color={liked ? '#ef4444' : 'var(--text-muted)'}
-          />
-        </button>
-        {/* Calories */}
-        <div style={{
-          position: 'absolute',
-          bottom: 10,
-          right: 12,
-          fontSize: '0.7rem',
-          color: 'rgba(255,255,255,0.85)',
-          fontWeight: 500,
-        }}>
-          {item.cal} kcal
-        </div>
-      </div>
-
-      {/* Body */}
-      <div style={{ padding: '1.2rem' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.4rem' }}>
-          <h3 style={{
-            fontFamily: 'var(--font-serif)',
-            fontSize: '1.05rem',
-            fontWeight: 600,
-            color: 'var(--text-main)',
-            lineHeight: 1.3,
-          }}>{item.name}</h3>
-          <span style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: '1.15rem',
-            fontWeight: 700,
-            color: 'var(--color-caramel)',
-            whiteSpace: 'nowrap',
-            marginLeft: '0.5rem',
-          }}>${item.price.toFixed(2)}</span>
-        </div>
-        <StarRating value={item.rating} />
-        <p style={{
-          fontSize: '0.82rem',
-          color: 'var(--text-sub)',
-          marginTop: '0.5rem',
-          marginBottom: '1rem',
-          lineHeight: 1.5,
-        }}>{item.desc}</p>
-
-        <motion.button
-          onClick={handleAdd}
-          className="ripple"
-          whileTap={{ scale: 0.95 }}
-          style={{
-            width: '100%',
-            padding: '0.65rem',
-            borderRadius: '0.75rem',
-            border: 'none',
-            cursor: 'pointer',
-            background: added
-              ? 'linear-gradient(135deg,#16a34a,#15803d)'
-              : 'linear-gradient(135deg,#D4A373,#c17f40)',
-            color: added ? '#fff' : '#2C1810',
-            fontFamily: 'var(--font-sans)',
-            fontSize: '0.82rem',
-            fontWeight: 600,
-            letterSpacing: '0.04em',
-            transition: 'all 0.3s',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '0.4rem',
-          }}
-        >
-          <ShoppingCart size={14} />
-          {added ? 'Added to Cart ✓' : 'Add to Cart'}
-        </motion.button>
-      </div>
-    </motion.div>
-  );
-}
 
 export default function Menu() {
   const [activeCategory, setActiveCategory] = useState('All');
   const [search, setSearch] = useState('');
+  const [sortBy, setSortBy] = useState('featured');
+  const [quickViewItem, setQuickViewItem] = useState(null);
+  const [favorites, setFavorites] = useState({});
+  const { addItem, setIsOpen: openCart } = useCart();
 
-  const filtered = menuItems.filter(item => {
+  const toggleFavorite = (id) => {
+    setFavorites(prev => ({ ...prev, [id]: !prev[id] }));
+  };
+
+  // Filtering & Sorting
+  let filtered = menuItems.filter(item => {
     const matchCat = activeCategory === 'All' || item.cat === activeCategory;
     const matchSearch = item.name.toLowerCase().includes(search.toLowerCase()) ||
       item.desc.toLowerCase().includes(search.toLowerCase());
     return matchCat && matchSearch;
   });
 
+  if (sortBy === 'price-low') {
+    filtered.sort((a, b) => a.price - b.price);
+  } else if (sortBy === 'price-high') {
+    filtered.sort((a, b) => b.price - a.price);
+  } else if (sortBy === 'rating') {
+    filtered.sort((a, b) => b.rating - a.rating);
+  }
+
   return (
-    <section id="menu" style={{
-      background: 'var(--bg-alt)',
-      padding: 'var(--section-py) 0',
-      transition: 'background-color 0.3s',
-    }}>
-      <div className="container-wide">
-        {/* Header */}
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={viewportOptions}
-          style={{ textAlign: 'center', marginBottom: '3rem' }}
-        >
-          <div className="section-label" style={{ justifyContent: 'center' }}>
-            Our Menu
+    <section id="menu" style={{ background: '#0F0F10', padding: 'var(--section-py) 0', color: '#FFFFFF' }}>
+      <div className="container-wide" style={{ maxWidth: 1320, margin: '0 auto', padding: '0 1.5rem' }}>
+        
+        {/* Section Header */}
+        <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
+          <div style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '0.4rem',
+            color: '#C49A6C',
+            fontSize: '0.8rem',
+            fontWeight: 700,
+            letterSpacing: '0.2em',
+            textTransform: 'uppercase',
+            marginBottom: '0.75rem',
+          }}>
+            <Sparkles size={14} />
+            <span>ARTISAN SELECTION</span>
           </div>
           <h2 style={{
             fontFamily: 'var(--font-serif)',
-            fontSize: 'clamp(2.2rem, 4vw, 3.2rem)',
-            fontWeight: 700,
-            color: 'var(--text-main)',
+            fontSize: 'clamp(2.4rem, 4.5vw, 3.8rem)',
+            fontWeight: 800,
+            color: '#FFFFFF',
+            lineHeight: 1.1,
             marginBottom: '1rem',
           }}>
-            Crafted for Every Craving
+            The Culinary & Roast Collection
           </h2>
-          <p style={{ color: 'var(--text-sub)', maxWidth: 520, margin: '0 auto', lineHeight: 1.7 }}>
-            From single-origin espresso to artisan desserts — every item is made fresh daily with the finest ingredients.
+          <p style={{ color: '#A39C93', maxWidth: 620, margin: '0 auto', fontSize: '1rem', lineHeight: 1.7 }}>
+            Every roast is precision brewed; every pastry baked fresh at sunrise by our master pastry chefs using single-origin organic ingredients.
           </p>
-        </motion.div>
+        </div>
 
-        {/* Search & Filter */}
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={viewportOptions}
-          style={{
+        {/* Search, Category Filters & Sort Controls */}
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '1.5rem',
+          marginBottom: '3.5rem',
+        }}>
+          
+          <div style={{
             display: 'flex',
-            flexDirection: 'column',
+            flexWrap: 'wrap',
             alignItems: 'center',
-            gap: '1.5rem',
-            marginBottom: '3rem',
-          }}
-        >
-          {/* Search */}
-          <div style={{ position: 'relative', maxWidth: 400, width: '100%' }}>
-            <Search size={16} style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
-            <input
-              className="input-premium"
-              placeholder="Search menu…"
-              value={search}
-              onChange={e => setSearch(e.target.value)}
-              style={{ paddingLeft: '2.5rem' }}
-            />
+            justifyContent: 'center',
+            gap: '1rem',
+            width: '100%',
+            maxWidth: 700,
+          }}>
+            {/* Search Input */}
+            <div style={{ position: 'relative', flex: 1, minWidth: 260 }}>
+              <Search size={18} style={{ position: 'absolute', left: 16, top: '50%', transform: 'translateY(-50%)', color: '#C49A6C' }} />
+              <input
+                type="text"
+                placeholder="Search coffee, desserts, brunch..."
+                value={search}
+                onChange={e => setSearch(e.target.value)}
+                style={{
+                  width: '100%',
+                  padding: '0.85rem 1rem 0.85rem 3rem',
+                  background: '#1A1A1A',
+                  border: '1px solid rgba(196, 154, 108, 0.25)',
+                  borderRadius: '50px',
+                  color: '#FFFFFF',
+                  fontSize: '0.9rem',
+                  outline: 'none',
+                }}
+              />
+            </div>
+
+            {/* Sorting Select */}
+            <div style={{ position: 'relative', width: 180 }}>
+              <select
+                value={sortBy}
+                onChange={e => setSortBy(e.target.value)}
+                style={{
+                  width: '100%',
+                  padding: '0.85rem 1.25rem',
+                  background: '#1A1A1A',
+                  border: '1px solid rgba(196, 154, 108, 0.25)',
+                  borderRadius: '50px',
+                  color: '#F4E7D3',
+                  fontSize: '0.85rem',
+                  fontWeight: 500,
+                  outline: 'none',
+                  cursor: 'pointer',
+                }}
+              >
+                <option value="featured">Sort: Featured</option>
+                <option value="rating">Sort: Top Rated</option>
+                <option value="price-low">Price: Low to High</option>
+                <option value="price-high">Price: High to Low</option>
+              </select>
+            </div>
           </div>
 
-          {/* Category tabs */}
-          <div className="mobile-scroll-x hide-scrollbar" style={{
+          {/* Category Tabs */}
+          <div style={{
             display: 'flex',
-            gap: '0.5rem',
-            maxWidth: '100%',
-            padding: '0.25rem 0.5rem',
+            flexWrap: 'wrap',
             justifyContent: 'center',
-            alignItems: 'center',
+            gap: '0.6rem',
+            width: '100%',
           }}>
             {categories.map((cat) => (
-              <motion.button
+              <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                whileTap={{ scale: 0.95 }}
                 style={{
-                  padding: '0.55rem 1.25rem',
+                  padding: '0.6rem 1.4rem',
                   borderRadius: '50px',
-                  border: '1.5px solid',
-                  borderColor: activeCategory === cat ? '#D4A373' : 'var(--border-subtle)',
+                  border: '1px solid',
+                  borderColor: activeCategory === cat ? '#C49A6C' : 'rgba(196, 154, 108, 0.18)',
                   background: activeCategory === cat
-                    ? 'linear-gradient(135deg,#D4A373,#c17f40)'
-                    : 'var(--bg-card)',
-                  color: activeCategory === cat ? '#2C1810' : 'var(--text-sub)',
-                  fontFamily: 'var(--font-sans)',
-                  fontSize: '0.82rem',
+                    ? 'linear-gradient(135deg, #C49A6C, #E5B879)'
+                    : '#1A1A1A',
+                  color: activeCategory === cat ? '#0F0F10' : '#F4E7D3',
+                  fontSize: '0.85rem',
                   fontWeight: 600,
                   cursor: 'pointer',
-                  transition: 'all 0.3s',
-                  letterSpacing: '0.04em',
-                  whiteSpace: 'nowrap',
-                  flexShrink: 0,
+                  transition: 'all 0.3s ease',
                 }}
               >
                 {cat}
-              </motion.button>
+              </button>
             ))}
           </div>
-        </motion.div>
+        </div>
 
-        {/* Grid */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeCategory + search}
-            variants={staggerContainer}
-            initial="hidden"
-            animate="visible"
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
-              gap: '1.5rem',
-            }}
-          >
-            {filtered.length > 0 ? filtered.map(item => (
-              <MenuCard key={item.id} item={item} />
-            )) : (
-              <div style={{ gridColumn: '1/-1', textAlign: 'center', padding: '3rem', color: '#9ca3af' }}>
-                No items found. Try a different search.
-              </div>
-            )}
-          </motion.div>
+        {/* Menu Cards Grid */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+          gap: '2rem',
+        }}>
+          {filtered.map((item) => {
+            const isFav = !!favorites[item.id];
+            const badge = item.badge ? badgeMap[item.badge] : null;
+
+            return (
+              <motion.div
+                key={item.id}
+                layout
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 20 }}
+                transition={{ duration: 0.4 }}
+                style={{
+                  background: '#1A1A1A',
+                  borderRadius: '1.25rem',
+                  overflow: 'hidden',
+                  border: '1px solid rgba(196, 154, 108, 0.18)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  boxShadow: '0 10px 30px rgba(0,0,0,0.5)',
+                  transition: 'transform 0.3s ease, border-color 0.3s ease',
+                }}
+                className="hover:border-[#C49A6C]"
+              >
+                {/* Image & Badges */}
+                <div style={{ position: 'relative', height: 220, overflow: 'hidden' }}>
+                  <img
+                    src={item.img}
+                    alt={item.name}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  />
+                  <div style={{
+                    position: 'absolute',
+                    inset: 0,
+                    background: 'linear-gradient(to top, rgba(26,26,26,0.95) 0%, transparent 60%)',
+                  }} />
+
+                  {/* Badge */}
+                  {badge && (
+                    <div style={{
+                      position: 'absolute',
+                      top: 12,
+                      left: 12,
+                      padding: '0.3rem 0.8rem',
+                      borderRadius: '50px',
+                      background: badge.bg,
+                      color: badge.color,
+                      fontSize: '0.7rem',
+                      fontWeight: 700,
+                      letterSpacing: '0.05em',
+                      textTransform: 'uppercase',
+                    }}>
+                      {badge.label}
+                    </div>
+                  )}
+
+                  {/* Favorite Button */}
+                  <button
+                    onClick={() => toggleFavorite(item.id)}
+                    style={{
+                      position: 'absolute',
+                      top: 12,
+                      right: 12,
+                      width: 36,
+                      height: 36,
+                      borderRadius: '50%',
+                      background: 'rgba(15, 15, 16, 0.75)',
+                      backdropFilter: 'blur(8px)',
+                      border: 'none',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <Heart size={16} fill={isFav ? '#ef4444' : 'none'} color={isFav ? '#ef4444' : '#F4E7D3'} />
+                  </button>
+
+                  {/* Quick View Button */}
+                  <button
+                    onClick={() => setQuickViewItem(item)}
+                    style={{
+                      position: 'absolute',
+                      bottom: 12,
+                      right: 12,
+                      padding: '0.4rem 0.8rem',
+                      borderRadius: '50px',
+                      background: 'rgba(15, 15, 16, 0.85)',
+                      backdropFilter: 'blur(8px)',
+                      border: '1px solid rgba(196, 154, 108, 0.3)',
+                      color: '#C49A6C',
+                      fontSize: '0.75rem',
+                      fontWeight: 600,
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.4rem',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    <Eye size={13} />
+                    <span>Quick View</span>
+                  </button>
+                </div>
+
+                {/* Content */}
+                <div style={{ padding: '1.25rem', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                  <div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.5rem' }}>
+                      <h3 style={{
+                        fontFamily: 'var(--font-serif)',
+                        fontSize: '1.2rem',
+                        fontWeight: 700,
+                        color: '#FFFFFF',
+                      }}>
+                        {item.name}
+                      </h3>
+                      <span style={{
+                        fontFamily: 'var(--font-display)',
+                        fontSize: '1.3rem',
+                        fontWeight: 700,
+                        color: '#C49A6C',
+                      }}>
+                        ${item.price.toFixed(2)}
+                      </span>
+                    </div>
+
+                    {/* Rating & Diet */}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.2rem', color: '#E5B879', fontSize: '0.8rem', fontWeight: 600 }}>
+                        <Star size={13} fill="#E5B879" />
+                        <span>{item.rating}</span>
+                      </div>
+                      <span style={{ color: '#A39C93', fontSize: '0.75rem' }}>• {item.cal} kcal</span>
+                    </div>
+
+                    <p style={{ color: '#A39C93', fontSize: '0.85rem', lineHeight: 1.5, marginBottom: '1.25rem' }}>
+                      {item.desc}
+                    </p>
+                  </div>
+
+                  {/* Add to Cart CTA */}
+                  <button
+                    onClick={() => {
+                      addItem(item);
+                      openCart();
+                    }}
+                    style={{
+                      width: '100%',
+                      padding: '0.75rem',
+                      borderRadius: '0.75rem',
+                      background: 'linear-gradient(135deg, #C49A6C 0%, #E5B879 100%)',
+                      color: '#0F0F10',
+                      fontWeight: 700,
+                      fontSize: '0.85rem',
+                      letterSpacing: '0.04em',
+                      border: 'none',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '0.5rem',
+                      boxShadow: '0 4px 15px rgba(196, 154, 108, 0.25)',
+                    }}
+                  >
+                    <ShoppingCart size={15} />
+                    <span>Add to Order</span>
+                  </button>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+
+        {/* Quick View Modal */}
+        <AnimatePresence>
+          {quickViewItem && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              style={{
+                position: 'fixed',
+                inset: 0,
+                zIndex: 120,
+                background: 'rgba(0,0,0,0.85)',
+                backdropFilter: 'blur(16px)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                padding: '1.5rem',
+              }}
+            >
+              <motion.div
+                initial={{ scale: 0.9, y: 20 }}
+                animate={{ scale: 1, y: 0 }}
+                exit={{ scale: 0.9, y: 20 }}
+                style={{
+                  background: '#1A1A1A',
+                  border: '1px solid rgba(196, 154, 108, 0.3)',
+                  borderRadius: '1.5rem',
+                  maxWidth: 720,
+                  width: '100%',
+                  overflow: 'hidden',
+                  position: 'relative',
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+                }}
+              >
+                <button
+                  onClick={() => setQuickViewItem(null)}
+                  style={{
+                    position: 'absolute',
+                    top: 16,
+                    right: 16,
+                    zIndex: 10,
+                    width: 36,
+                    height: 36,
+                    borderRadius: '50%',
+                    background: 'rgba(15, 15, 16, 0.8)',
+                    border: '1px solid rgba(196, 154, 108, 0.3)',
+                    color: '#FFFFFF',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <X size={18} />
+                </button>
+
+                {/* Modal Left Image */}
+                <div style={{ height: '100%', minHeight: 280 }}>
+                  <img
+                    src={quickViewItem.img}
+                    alt={quickViewItem.name}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  />
+                </div>
+
+                {/* Modal Right Info */}
+                <div style={{ padding: '2rem', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                  <div>
+                    <span style={{ color: '#C49A6C', fontSize: '0.75rem', letterSpacing: '0.15em', textTransform: 'uppercase', fontWeight: 600 }}>
+                      {quickViewItem.cat} • {quickViewItem.origin}
+                    </span>
+                    <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.6rem', fontWeight: 700, color: '#FFFFFF', margin: '0.4rem 0' }}>
+                      {quickViewItem.name}
+                    </h3>
+                    <div style={{ fontSize: '1.4rem', fontWeight: 700, color: '#C49A6C', marginBottom: '1rem' }}>
+                      ${quickViewItem.price.toFixed(2)}
+                    </div>
+
+                    <p style={{ color: '#A39C93', fontSize: '0.9rem', lineHeight: 1.6, marginBottom: '1.25rem' }}>
+                      {quickViewItem.desc}
+                    </p>
+
+                    <div style={{ background: '#0F0F10', padding: '1rem', borderRadius: '0.75rem', marginBottom: '1.25rem', border: '1px solid rgba(196, 154, 108, 0.15)' }}>
+                      <div style={{ color: '#F4E7D3', fontSize: '0.8rem', fontWeight: 600, marginBottom: '0.4rem' }}>
+                        Craft Pairing Note:
+                      </div>
+                      <div style={{ color: '#A39C93', fontSize: '0.8rem', fontStyle: 'italic' }}>
+                        "{quickViewItem.pairing}"
+                      </div>
+                    </div>
+
+                    <div style={{ display: 'flex', gap: '1.5rem', color: '#A39C93', fontSize: '0.8rem', marginBottom: '1.5rem' }}>
+                      <div><strong style={{ color: '#FFFFFF' }}>Protein:</strong> {quickViewItem.nutrition.protein}</div>
+                      <div><strong style={{ color: '#FFFFFF' }}>Carbs:</strong> {quickViewItem.nutrition.carbs}</div>
+                      <div><strong style={{ color: '#FFFFFF' }}>Fat:</strong> {quickViewItem.nutrition.fat}</div>
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={() => {
+                      addItem(quickViewItem);
+                      setQuickViewItem(null);
+                      openCart();
+                    }}
+                    style={{
+                      width: '100%',
+                      padding: '0.9rem',
+                      borderRadius: '50px',
+                      background: 'linear-gradient(135deg, #C49A6C 0%, #E5B879 100%)',
+                      color: '#0F0F10',
+                      fontWeight: 700,
+                      fontSize: '0.9rem',
+                      border: 'none',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '0.5rem',
+                    }}
+                  >
+                    <ShoppingCart size={16} />
+                    <span>Add to Cart — ${quickViewItem.price.toFixed(2)}</span>
+                  </button>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
         </AnimatePresence>
+
       </div>
     </section>
   );

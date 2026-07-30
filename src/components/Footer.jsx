@@ -184,7 +184,7 @@ export default function Footer() {
                 type="submit"
                 className="btn-primary"
                 whileTap={{ scale: 0.97 }}
-                style={{ fontSize: '0.8rem', padding: '0.65rem 1rem' }}
+                style={{ fontSize: '0.8rem', padding: '0.65rem 1rem', color: '#000000', fontWeight: 800 }}
               >
                 Subscribe
               </motion.button>

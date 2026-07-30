@@ -144,7 +144,9 @@ function FeaturedCard({ item }) {
           className="btn-primary ripple"
           onClick={() => document.querySelector('#menu')?.scrollIntoView({ behavior: 'smooth' })}
           style={{
-            background: `linear-gradient(135deg,${item.accent},${item.accent}cc)`,
+            background: `linear-gradient(135deg, ${item.accent}, ${item.accent}cc)`,
+            color: '#000000',
+            fontWeight: 800,
             boxShadow: `0 4px 20px ${item.accent}40`,
             fontSize: '0.82rem',
             display: 'inline-flex', alignItems: 'center', gap: '0.4rem',

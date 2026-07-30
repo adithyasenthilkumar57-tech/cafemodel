@@ -1,5 +1,6 @@
 'use client';
 import { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import AddToCartAnimation from './AddToCartAnimation';
 
 const CartContext = createContext(null);
 
@@ -9,6 +10,7 @@ const TAX_RATE = 0.0875; // 8.75% NYC tax
 export function CartProvider({ children }) {
   const [items, setItems] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [animConfig, setAnimConfig] = useState({ isOpen: false, item: null, type: 'cart', callback: null });
 
   // Load from localStorage on mount
   useEffect(() => {
@@ -25,7 +27,18 @@ export function CartProvider({ children }) {
     } catch (_) {}
   }, [items]);
 
-  const addItem = useCallback((product) => {
+  const triggerAnimation = useCallback((item, type = 'cart', callback = null) => {
+    setAnimConfig({ isOpen: true, item, type, callback });
+  }, []);
+
+  const handleAnimationComplete = useCallback(() => {
+    setAnimConfig(prev => {
+      if (prev.callback) prev.callback();
+      return { isOpen: false, item: null, type: 'cart', callback: null };
+    });
+  }, []);
+
+  const addItem = useCallback((product, openDrawer = true) => {
     setItems(prev => {
       const existing = prev.find(i => i.id === product.id);
       if (existing) {
@@ -33,7 +46,12 @@ export function CartProvider({ children }) {
       }
       return [...prev, { ...product, qty: 1 }];
     });
-  }, []);
+
+    // Trigger Coffee Cup Drop & Rolling Cart Animation
+    triggerAnimation(product, 'cart', () => {
+      if (openDrawer) setIsOpen(true);
+    });
+  }, [triggerAnimation]);
 
   const removeItem = useCallback((id) => {
     setItems(prev => prev.filter(i => i.id !== id));
@@ -58,6 +76,7 @@ export function CartProvider({ children }) {
       removeItem,
       updateQty,
       clearCart,
+      triggerAnimation,
       subtotal,
       tax,
       deliveryFee: DELIVERY_FEE,
@@ -67,6 +86,12 @@ export function CartProvider({ children }) {
       setIsOpen,
     }}>
       {children}
+      <AddToCartAnimation
+        isOpen={animConfig.isOpen}
+        item={animConfig.item}
+        type={animConfig.type}
+        onComplete={handleAnimationComplete}
+      />
     </CartContext.Provider>
   );
 }

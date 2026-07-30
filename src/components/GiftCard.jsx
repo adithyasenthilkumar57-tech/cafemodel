@@ -272,7 +272,7 @@ export default function GiftCard() {
                       Preview Card
                     </button>
                     <button type="submit" className="btn-primary ripple"
-                      style={{ flex: 2, justifyContent: 'center', fontSize: '0.95rem', padding: '0.9rem' }}>
+                      style={{ flex: 2, justifyContent: 'center', fontSize: '0.95rem', padding: '0.9rem', color: '#000000', fontWeight: 800 }}>
                       <Gift size={16} /> Send Gift · ${finalAmount || '—'}
                     </button>
                   </div>
