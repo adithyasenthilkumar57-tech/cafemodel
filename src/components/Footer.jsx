@@ -1,274 +1,193 @@
 'use client';
 import { motion } from 'framer-motion';
-import { Coffee, MapPin, Phone, Mail, ArrowUp, Heart } from 'lucide-react';
+import { Mail, Globe, MapPin, ArrowUp, Cpu, User, Layers, CheckCircle2 } from 'lucide-react';
 
-// Social icon SVGs (lucide-react v0.x doesn't include all social icons)
-const InstagramIcon = ({ size = 17 }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
-  </svg>
-);
-const FacebookIcon = ({ size = 17 }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
-    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
-  </svg>
-);
-const TwitterIcon = ({ size = 17 }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
-    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-  </svg>
-);
-const YoutubeIcon = ({ size = 17 }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
-    <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58zM9.75 15.02V8.98L15.5 12z"/>
-  </svg>
-);
-
-const footerLinks = {
-  'Explore': ['Home', 'About Us', 'Our Menu', 'Gallery', 'Events', 'Blog'],
-  'Visit Us': ['Reservations', 'Locations', 'Private Dining', 'Takeaway', 'Delivery', 'Gift Cards'],
-  'Company': ['Our Story', 'Careers', 'Press', 'Sustainability', 'Partners', 'Contact'],
-};
+const services = [
+  'Custom Business Websites',
+  'AI Automation Solutions',
+  'UI/UX Design',
+  'Responsive Web Development',
+  'Landing Pages',
+  'Website Maintenance & Support',
+];
 
 export default function Footer() {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
-  const scrollTo = (href) => {
-    const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-  };
 
   return (
     <footer style={{
-      background: 'var(--bg-card)',
-      color: 'var(--text-main)',
-      borderTop: '1px solid var(--border-subtle)',
-      padding: '4rem 0 0',
-      transition: 'background-color 0.3s',
+      background: '#0B0B0C',
+      color: '#FFFFFF',
+      borderTop: '1px solid rgba(196, 154, 108, 0.25)',
+      padding: '4rem 0 2rem',
+      position: 'relative',
     }}>
-      <div className="container-wide">
-        {/* Main footer grid */}
+      <div className="container-wide" style={{ maxWidth: 1140, margin: '0 auto', padding: '0 1.5rem' }}>
+        
+        {/* Main Footer Content Grid */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-          gap: '3rem',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+          gap: '2.5rem',
           paddingBottom: '3rem',
-          borderBottom: '1px solid var(--border-subtle)',
+          borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
         }}>
-          {/* Brand column */}
-          <div style={{ gridColumn: 'span 1' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '1.25rem' }}>
+          
+          {/* Column 1: Nexeon Brand & Mission */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
               <div style={{
-                width: 42,
-                height: 42,
-                borderRadius: '50%',
-                background: 'linear-gradient(135deg,#D4A373,#c17f40)',
+                width: 40,
+                height: 40,
+                borderRadius: '10px',
+                background: 'linear-gradient(135deg, #C49A6C, #E5B879)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
+                boxShadow: '0 4px 15px rgba(196, 154, 108, 0.3)',
               }}>
-                <Coffee size={20} color="#2C1810" strokeWidth={2.5} />
+                <Cpu size={20} color="#0F0F10" />
               </div>
-              <span style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: '1.6rem',
-                fontWeight: 600,
-                color: 'var(--text-main)',
-              }}>Velvet Bean</span>
+              <h3 style={{
+                fontFamily: 'var(--font-serif)',
+                fontSize: '1.75rem',
+                fontWeight: 800,
+                color: '#FFFFFF',
+                margin: 0,
+                letterSpacing: '0.02em',
+              }}>
+                Nexeon
+              </h3>
             </div>
-            <p style={{
-              color: 'var(--text-sub)',
-              fontSize: '0.88rem',
-              lineHeight: 1.8,
-              marginBottom: '1.5rem',
-              maxWidth: 260,
-            }}>
-              Handcrafted coffee, artisan desserts, and unforgettable moments — since 2018.
-            </p>
 
-            {/* Socials */}
-            <div style={{ display: 'flex', gap: '0.75rem' }}>
-              {[
-                { icon: InstagramIcon, color: '#e1306c', href: '#' },
-                { icon: FacebookIcon, color: '#1877f2', href: '#' },
-                { icon: TwitterIcon, color: '#1da1f2', href: '#' },
-                { icon: YoutubeIcon, color: '#ff0000', href: '#' },
-              ].map(({ icon: Icon, color, href }) => (
-                <motion.a
-                  key={color}
-                  href={href}
-                  whileHover={{ scale: 1.15, y: -2 }}
-                  whileTap={{ scale: 0.9 }}
-                  style={{
-                    width: 38,
-                    height: 38,
-                    borderRadius: '10px',
-                    background: 'var(--bg-main)',
-                    border: '1px solid var(--border-subtle)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: 'var(--text-sub)',
-                    transition: 'all 0.3s',
-                  }}
-                >
-                  <Icon size={17} />
-                </motion.a>
-              ))}
+            <p style={{ color: '#A39C93', fontSize: '0.88rem', lineHeight: 1.7, margin: 0 }}>
+              Building modern websites, AI automation, and digital solutions that help businesses grow. We create fast, responsive, and scalable digital experiences tailored to your business needs.
+            </p>
+          </div>
+
+          {/* Column 2: Founder Details */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#C49A6C', fontSize: '0.8rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+              <User size={15} />
+              <span>Founder</span>
+            </div>
+
+            <div>
+              <h4 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#FFFFFF', margin: '0 0 0.3rem' }}>
+                Adithya Senthilkumar
+              </h4>
+              <p style={{ color: '#E5B879', fontSize: '0.82rem', fontWeight: 600, margin: 0, lineHeight: 1.5 }}>
+                Full-Stack Developer • AI Automation Developer • Entrepreneur
+              </p>
             </div>
           </div>
 
-          {/* Link columns */}
-          {Object.entries(footerLinks).map(([title, links]) => (
-            <div key={title}>
-              <h4 style={{
-                fontFamily: 'var(--font-sans)',
-                fontSize: '0.75rem',
-                fontWeight: 700,
-                letterSpacing: '0.15em',
-                textTransform: 'uppercase',
-                color: 'var(--color-caramel)',
-                marginBottom: '1.25rem',
-              }}>{title}</h4>
-              <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
-                {links.map(link => (
-                  <li key={link}>
-                    <button
-                      onClick={() => scrollTo('#' + link.toLowerCase().replace(/\s+/g, '-'))}
-                      style={{
-                        background: 'none',
-                        border: 'none',
-                        cursor: 'pointer',
-                        fontFamily: 'var(--font-sans)',
-                        fontSize: '0.88rem',
-                        color: 'var(--text-muted)',
-                        transition: 'color 0.2s',
-                        padding: 0,
-                        textAlign: 'left',
-                      }}
-                      onMouseEnter={e => e.target.style.color = '#D4A373'}
-                      onMouseLeave={e => e.target.style.color = 'var(--text-muted)'}
-                    >
-                      {link}
-                    </button>
-                  </li>
-                ))}
-              </ul>
+          {/* Column 3: Contact Info */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+            <div style={{ color: '#C49A6C', fontSize: '0.8rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+              Contact
             </div>
-          ))}
 
-          {/* Contact & Newsletter */}
-          <div>
-            <h4 style={{
-              fontFamily: 'var(--font-sans)',
-              fontSize: '0.75rem',
-              fontWeight: 700,
-              letterSpacing: '0.15em',
-              textTransform: 'uppercase',
-              color: 'var(--color-caramel)',
-              marginBottom: '1.25rem',
-            }}>Newsletter</h4>
-            <p style={{ color: 'var(--text-sub)', fontSize: '0.85rem', lineHeight: 1.6, marginBottom: '1rem' }}>
-              Weekly drops: new menu items, exclusive events, and first-access offers.
-            </p>
-            <form
-              onSubmit={e => e.preventDefault()}
-              style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}
-            >
-              <input
-                type="email"
-                placeholder="Your email address"
-                className="input-premium"
-                style={{ fontSize: '0.85rem' }}
-              />
-              <motion.button
-                type="submit"
-                className="btn-primary"
-                whileTap={{ scale: 0.97 }}
-                style={{ fontSize: '0.8rem', padding: '0.65rem 1rem', color: '#000000', fontWeight: 800 }}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', fontSize: '0.85rem' }}>
+              <a
+                href="mailto:Adithyasenthilkumar57@gmail.com"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.6rem',
+                  color: '#A39C93',
+                  textDecoration: 'none',
+                  transition: 'color 0.2s',
+                }}
+                onMouseEnter={(e) => (e.target.style.color = '#E5B879')}
+                onMouseLeave={(e) => (e.target.style.color = '#A39C93')}
               >
-                Subscribe
-              </motion.button>
-            </form>
+                <Mail size={16} color="#C49A6C" />
+                <span>Adithyasenthilkumar57@gmail.com</span>
+              </a>
 
-            {/* Contact info */}
-            <div style={{ marginTop: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
-              {[
-                { icon: Phone, text: '+1 (212) 555-0101' },
-                { icon: Mail, text: 'hello@velvetbean.com' },
-                { icon: MapPin, text: '128 Roast St, New York' },
-              ].map(({ icon: Icon, text }) => (
-                <div key={text} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <Icon size={14} color="#D4A373" />
-                  <span style={{ color: 'var(--text-sub)', fontSize: '0.82rem' }}>{text}</span>
-                </div>
-              ))}
+              <a
+                href="https://adithyasenthilkumar57-tech.github.io/portfolio2/"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.6rem',
+                  color: '#A39C93',
+                  textDecoration: 'none',
+                  transition: 'color 0.2s',
+                  wordBreak: 'break-all',
+                }}
+                onMouseEnter={(e) => (e.target.style.color = '#E5B879')}
+                onMouseLeave={(e) => (e.target.style.color = '#A39C93')}
+              >
+                <Globe size={16} color="#C49A6C" />
+                <span>Portfolio Website</span>
+              </a>
+
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', color: '#A39C93' }}>
+                <MapPin size={16} color="#C49A6C" />
+                <span>Tamil Nadu, India</span>
+              </div>
             </div>
           </div>
+
+          {/* Column 4: Services */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#C49A6C', fontSize: '0.8rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+              <Layers size={15} />
+              <span>Services</span>
+            </div>
+
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+              {services.map((item) => (
+                <li key={item} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#A39C93', fontSize: '0.83rem' }}>
+                  <CheckCircle2 size={13} color="#C49A6C" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
         </div>
 
-        {/* Bottom bar */}
+        {/* Bottom Bar & Copyright */}
         <div style={{
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          padding: '1.5rem 0',
+          paddingTop: '2rem',
           flexWrap: 'wrap',
           gap: '1rem',
         }}>
-          <p style={{
-            color: 'var(--text-muted)',
-            fontSize: '0.8rem',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.35rem',
-          }}>
-            © 2026 Velvet Bean Coffee Co. · Made with
-            <Heart size={12} color="#D4A373" fill="#D4A373" />
-            in New York
+          <p style={{ color: '#736E67', fontSize: '0.82rem', margin: 0 }}>
+            © 2026 <strong style={{ color: '#FFFFFF' }}>Nexeon</strong>. All rights reserved.
           </p>
-          <div style={{ display: 'flex', gap: '1.5rem' }}>
-            {['Privacy Policy', 'Terms of Service', 'Cookie Policy'].map(item => (
-              <button
-                key={item}
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  cursor: 'pointer',
-                  color: 'var(--text-muted)',
-                  fontSize: '0.78rem',
-                  fontFamily: 'var(--font-sans)',
-                  transition: 'color 0.2s',
-                }}
-                onMouseEnter={e => e.target.style.color = '#D4A373'}
-                onMouseLeave={e => e.target.style.color = 'var(--text-muted)'}
-              >
-                {item}
-              </button>
-            ))}
-          </div>
 
-          {/* Scroll to top */}
           <motion.button
             onClick={scrollToTop}
-            whileHover={{ scale: 1.1, y: -2 }}
-            whileTap={{ scale: 0.9 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             style={{
-              width: 40,
-              height: 40,
-              borderRadius: '50%',
-              background: 'linear-gradient(135deg,#D4A373,#c17f40)',
-              border: 'none',
-              cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'center',
-              color: '#2C1810',
-              boxShadow: '0 4px 16px rgba(212,163,115,0.3)',
+              gap: '0.4rem',
+              padding: '0.5rem 1rem',
+              borderRadius: '50px',
+              background: 'rgba(196, 154, 108, 0.15)',
+              border: '1px solid rgba(196, 154, 108, 0.3)',
+              color: '#E5B879',
+              fontSize: '0.8rem',
+              fontWeight: 600,
+              cursor: 'pointer',
             }}
           >
-            <ArrowUp size={18} />
+            <span>Back to top</span>
+            <ArrowUp size={14} />
           </motion.button>
         </div>
+
       </div>
     </footer>
   );

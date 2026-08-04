@@ -340,6 +340,7 @@ export default function Menu() {
                   <img
                     src={item.img}
                     alt={item.name}
+                    onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?w=600&q=80'; }}
                     style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                   />
                   <div style={{
@@ -546,6 +547,7 @@ export default function Menu() {
                   <img
                     src={quickViewItem.img}
                     alt={quickViewItem.name}
+                    onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?w=600&q=80'; }}
                     style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                   />
                 </div>

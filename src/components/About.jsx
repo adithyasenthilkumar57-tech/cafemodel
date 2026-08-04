@@ -78,6 +78,7 @@ export default function About() {
               <img
                 src="https://images.unsplash.com/photo-1511920170033-f8396924c348?w=600&q=85"
                 alt="Barista crafting coffee"
+                onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=85'; }}
                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               />
             </div>
@@ -93,6 +94,7 @@ export default function About() {
               <img
                 src="https://images.unsplash.com/photo-1442975631134-54a13c908b9e?w=500&q=85"
                 alt="Coffee beans"
+                onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=500&q=85'; }}
                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               />
             </div>

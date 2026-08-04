@@ -1,5 +1,5 @@
 'use client';
-import { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react';
 import AddToCartAnimation from './AddToCartAnimation';
 
 const CartContext = createContext(null);
@@ -10,7 +10,8 @@ const TAX_RATE = 0.0875; // 8.75% NYC tax
 export function CartProvider({ children }) {
   const [items, setItems] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
-  const [animConfig, setAnimConfig] = useState({ isOpen: false, item: null, type: 'cart', callback: null });
+  const [animConfig, setAnimConfig] = useState({ isOpen: false, item: null, type: 'cart' });
+  const animCallbackRef = useRef(null);
 
   // Load from localStorage on mount
   useEffect(() => {
@@ -28,14 +29,17 @@ export function CartProvider({ children }) {
   }, [items]);
 
   const triggerAnimation = useCallback((item, type = 'cart', callback = null) => {
-    setAnimConfig({ isOpen: true, item, type, callback });
+    animCallbackRef.current = callback;
+    setAnimConfig({ isOpen: true, item, type });
   }, []);
 
   const handleAnimationComplete = useCallback(() => {
-    setAnimConfig(prev => {
-      if (prev.callback) prev.callback();
-      return { isOpen: false, item: null, type: 'cart', callback: null };
-    });
+    setAnimConfig({ isOpen: false, item: null, type: 'cart' });
+    if (animCallbackRef.current) {
+      const cb = animCallbackRef.current;
+      animCallbackRef.current = null;
+      cb();
+    }
   }, []);
 
   const addItem = useCallback((product, openDrawer = true) => {

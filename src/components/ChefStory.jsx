@@ -63,6 +63,7 @@ export default function ChefStory() {
               <img
                 src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=800&q=85"
                 alt="Chef Antoine Vance"
+                onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1581299894007-aaa50297cf16?w=800&q=85'; }}
                 style={{ width: '100%', height: 480, objectFit: 'cover' }}
               />
             </div>

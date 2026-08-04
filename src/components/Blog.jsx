@@ -227,6 +227,7 @@ export default function Blog() {
                 }}>
                 <div style={{ height: 220, overflow: 'hidden', position: 'relative' }}>
                   <motion.img src={post.img} alt={post.title}
+                    onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&q=80'; }}
                     style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                     whileHover={{ scale: 1.06 }} transition={{ duration: 0.5 }} />
                   <div style={{
@@ -279,7 +280,7 @@ export default function Blog() {
               }}>
               {/* Hero image */}
               <div style={{ height: 280, position: 'relative', overflow: 'hidden' }}>
-                <img src={selectedPost.img} alt={selectedPost.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <img src={selectedPost.img} alt={selectedPost.title} onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&q=80'; }} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 50%)' }} />
                 <button onClick={() => setSelectedPost(null)}
                   style={{ position: 'absolute', top: 16, right: 16, width: 36, height: 36, borderRadius: '50%', background: 'rgba(0,0,0,0.4)', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff' }}>
